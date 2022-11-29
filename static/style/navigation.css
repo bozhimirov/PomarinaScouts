@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Monoton&display=swap');
+body{
+    background: rgb(223, 196, 248);;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.auth {
+    width: 100px;
+    margin: 3em auto;
+}
+
+header,
+footer {
+    background-color: #40155c;
+    width: 100%;
+    /*overflow: hidden;*/
+    color: white;
+
+}
+
+.index-navigation {
+    font-size: x-large;
+    font-family: 'Cinzel', serif;
+
+    /*text-shadow: 2px 2px 4px black;*/
+
+}
+
+header {
+    position: relative;
+    padding: 0px;
+    border-radius: 5px;
+}
+
+header h1 {
+    display: inline-block;
+    color: #E2E8EA;
+    margin-bottom: 2.5rem;
+
+}
+
+header h1:hover {
+    border-top: 5px solid #a061e3;
+}
+
+h1 span{
+    color: white;
+    font-size: 50px;
+}
+
+header nav {
+    font-size: large;
+    font-family: 'Cinzel', serif;
+    position: absolute;
+    right: 0;
+    bottom: 21px;
+}
+
+header nav>* {
+    float: left;
+}
+
+footer {
+    padding: 0.5em;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+
+}
+
+nav a {
+    margin: 0 0.5em;
+    color: #E2E8EA;
+    text-transform: uppercase;
+    font-size: 20px;
+
+
+}
+
+nav a:hover{
+    /*border-bottom: 5px solid #a061e3;*/
+    border-top: 5px solid #a061e3;
+}
+
+
+#user,
+#guest {
+    margin: 0;
+    padding: 0;
+}
+
+/*!* Dropdown Button *!*/
+/*.dropbtn {*/
+/*  background-color: #04AA6D;*/
+/*  color: white;*/
+/*  padding: 16px;*/
+/*  font-size: 16px;*/
+/*  border: none;*/
+/*}*/
+
+/*!* The container <div> - needed to position the dropdown content *!*/
+/*.dropdown {*/
+/*  position: relative;*/
+/*  display: inline-block;*/
+/*}*/
+
+/*!* Dropdown Content (Hidden by Default) *!*/
+/*.dropdown-content {*/
+/*  display: none;*/
+/*  position: absolute;*/
+/*  background-color: #f1f1f1;*/
+/*  min-width: 160px;*/
+/*  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+/*  z-index: 1;*/
+/*}*/
+
+/*!* Links inside the dropdown *!*/
+/*.dropdown-content a {*/
+/*  color: black;*/
+/*  padding: 12px 16px;*/
+/*  text-decoration: none;*/
+/*  display: block;*/
+/*}*/
+
+/*!* Change color of dropdown links on hover *!*/
+/*.dropdown-content a:hover {background-color: #ddd;}*/
+
+/*!* Show the dropdown menu on hover *!*/
+/*.dropdown:hover .dropdown-content {display: block;}*/
+
+/*!* Change the background color of the dropdown button when the dropdown content is shown *!*/
+/*.dropdown:hover .dropbtn {background-color: #3e8e41;}*/

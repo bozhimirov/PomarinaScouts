@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load placeholders %}
+{% block content %}
+
+  <section id="create-page" class="auth">
+
+      <div class="container">
+          {% if is_owner %}
+        <h1>Are you sure you want to delete your profile?</h1>
+          <!-- Delete Profile Form -->
+        <form id='delete' method="post" action="{% url 'delete user' pk=object.pk %}" enctype="multipart/form-data">
+            {% csrf_token %}
+        <!-- Confirm Button -->
+            <input class="btn submit" type="submit" value="Yes">
+            <!-- Make it look like button -->
+            <a class="btn submit" href="javascript:history.back()" type="submit">Go Back</a>
+
+        </form>
+          {% endif %}
+      </div>
+    <!-- End Delete Profile Form -->
+  </section>
+{% endblock %}

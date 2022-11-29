@@ -1,0 +1,32 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="col-9">
+            <section id="catalogue">
+                <h1>Scout Shop New Items</h1>
+
+            {% for item in all_items %}
+                <div class="car-card">
+                    <div class="image-wrap">
+                        <!-- item image -->
+                        <img src="{{ item.photo.url }}"
+                             alt="{{ item.slug }}">
+                    </div>
+                <!-- item category -->
+                    <h3>{{ item.category }}</h3>
+
+                    <div class="details-buttons">
+                        <!-- item details button if staff-->
+                        <a href="{% url 'details item' item.pk %}" class="details-btn">Details</a>
+
+                    </div>
+                </div>
+            {% endfor %}
+            </section>
+
+        </div>
+    </div>
+    <!-- footer -->
+{% endblock %}
+

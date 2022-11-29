@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+    <!-- profile details section -->
+    <section id="car-details">
+        <h1>Seller Details</h1>
+        <div class="info-section">
+            <div class="car-header">
+                <!-- default profile image (if the user does NOT have any)-->
+               {% if not user.profile_image %}
+
+                   <img class="car-img" src="{% static '/images/default-profile.png' %} " alt='{{ user.first_name }}'/>
+
+                <!-- if the user has a profile image -->
+               {% else %}
+
+                   <img class="car-img" src="{{ user.profile_image.url }}" alt='{{ user.first_name }}'/>
+
+               {% endif %}
+                <!-- user full name (if any) -->
+               <h1>{% if user.first_name %}{{ user.first_name }}{% endif %}
+                    {% if user.last_name %}{{ user.last_name }}{% endif %}</h1>
+
+                <!-- user phone -->
+                {% if user.phone_number %}
+                <p class="description">Phone Number: {{ user.phone_number }}</p>
+                {% endif %}
+
+
+                <!-- buttons if needed-->
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+    <!-- profile details section -->
+    <section id="car-details">
+        <h1>Kid Details</h1>
+        <div class="info-section">
+            <div class="car-header">
+                <!-- default profile image (if the user does NOT have any)-->
+               {% if not kid.profile_picture %}
+
+                            <img class="car-img" src="{% static '/images/default-profile.png' %} " alt='{{ kid.first_name }}'/>
+
+                <!-- if the user has a profile image -->
+                        {% else %}
+
+                            <img class="car-img" src="{{ kid.profile_picture.url }}" alt='{{ kid.first_name }}'/>
+
+                        {% endif %}
+                <!-- user full name (if any) -->
+               <h1>{% if kid.first_name %}{{ kid.first_name }}{% endif %}
+                    {% if kid.last_name %}{{ kid.last_name }}{% endif %}</h1>
+                <!-- user age -->
+                <p class="description">Age: {% if kid.age %}{{ kid.age }}{% endif %}</p>
+                <!-- user phone -->
+                {% if kid.phone_number %}
+                <p class="description">Phone Number: {{ kid.phone_number }}</p>
+                {% else %}
+                <p class="description">Parent Phone Number: {{ user.phone_number }}</p>
+                {% endif %}
+                {% if kid.gender %}
+                    <p class="description">Gender: {{ kid.gender }}</p>
+                {% endif %}
+
+                <!-- Edit/Delete buttons -->
+                <div class="buttons">
+                    <a href="{% url 'edit kid' uid kid_slug %}" class="edit-button">Edit</a>
+                    <a href="{% url 'delete kid' uid kid_slug %}" class="delete-button">Delete</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

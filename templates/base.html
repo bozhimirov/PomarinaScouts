@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/style/style.css' %}"/>
+    <link rel="icon" type="image/x-icon" href="{% static '/images/favicon.ico' %}">
+    <title>Pomarina Scouts</title>
+</head>
+
+<body>
+<div id="box">
+    <header>
+        <!-- Navigation Bar -->
+        <h1><img src="{% static '/images/scouts-stack-white.svg' %}" alt="scout" width="60px">
+            <a class="index-navigation" href="{% url 'index' %}"><span>P</span>omarina <span>S</span>couts<span>2</span></a></h1>
+        <a class="index-navigation">
+            <nav>
+                <a href="{% url 'contacts' %}">About Us</a>
+                <a href="{% url 'for parents' %}">For parents</a>
+                <a href="{% url 'scout store' %}">Scout Store</a>
+
+            {% if not request.user.is_authenticated %}
+                <a href="{% url 'register user' %}">Join Scouts</a>
+                <a href="{% url 'login user' %}">Sign In</a>
+            {% else %}
+
+            {% if request.user.is_superuser %}
+                <a href="{% url 'admin:index' %}">Admin</a>
+            {% endif %}
+
+            {% if request.user.is_staff %}
+                <a href="{% url 'add item' %}">Add Item</a>
+                <a href="{% url 'add payment' %}">Make Payment</a>
+            {% endif %}
+
+                <a href="{% url 'add used item' %}">Trade Item</a>
+                <a href="{% url 'details user' pk=request.user.pk %}">Profile</a>
+                <a href="{% url 'logout user' %}">Sign Out</a>
+            {% endif %}
+            </nav>
+        </a>
+    </header>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- footer -->
+    <footer>
+        &copy;Pomarina Scouts 2022. All rights reserved.
+    </footer>
+
+</div>
+</body>
+</html>

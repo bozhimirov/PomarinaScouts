@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+    <!-- profile details section -->
+{% if request.user.is_authenticated %}
+    <h1>
+        Welcome
+    </h1>
+     <h4>You have successfully registered
+         <strong>
+             {% if profile.first_name %}
+                 {{ profile.first_name }}
+             {% endif %}
+             {% if request.profile.last_name %}
+                 {{ request.profile.last_name }}
+             {% endif %}
+         </strong>!
+         <div>
+             You are part of the Scout Adventure now. Enjoy!
+         </div>
+     </h4>
+
+{% endif %}
+
+{#    redirect to index after 5 secs#}
+    <br>
+    <img src="{% static '/images/logo.png' %}"
+            alt="scout" width="500px">
+    <script>
+       setTimeout(function(){
+            window.location.href = "{% url 'index' %}";
+         }, 5000);
+    </script>
+    <!-- footer -->
+{% endblock %}

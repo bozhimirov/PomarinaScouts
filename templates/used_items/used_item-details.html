@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- profile details section -->
+<div class="container">
+        <div class="col-9">
+            <div class="card">
+                <div class="top">
+                    <div class="userDetails">
+{#                        <a href="{% url 'details user' pk=object.pk %}">#}
+{#                            <div class="profilepic">#}
+{#                                <div class="profile_img">#}
+{#                                    <div class="image">#}
+{#                                        <img src="{{ user.profile_image.url }}" alt="img8">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </a>#}
+                        <h3>
+
+                            <!-- Link to User Profile Details Page -->
+{#                            <a href="#">#}
+                                <!-- IF user has first name and last name -->
+{#                            User:    {% if user.first_name %}{{ user.first_name }}{% endif %}#}
+{#                                    {% if user.last_name %}{{ user.last_name }}{% endif %}#}
+                                <!-- else -->
+                                <!-- show user username -->
+
+                            <br>
+
+                            <!-- IF the photo has location -->
+                            {% if item.location %}
+                                <span>Located in: {{ item.location }}</span>
+                            {% endif %}
+                        <br>
+
+                            <!-- IF the photo has category -->
+                            {% if item.category %}
+                                <span>Category: {{ item.category }}</span>
+                            {% endif %}
+                        <br>
+
+                            <!-- IF the photo has ages -->
+                            {% if item.ages %}
+                                <span>Age Group: {{ item.ages }}</span>
+                            {% endif %}
+                        <br>
+
+                            <!-- IF the photo has sizes -->
+                            {% if item.size %}
+                                <span>Size: {{ item.size }}</span>
+                            {% endif %}
+                        <br>
+
+                            <!-- IF the photo has gender -->
+                            {% if item.gender %}
+                                <span>Gender: {{ item.gender }}</span>
+                            {% endif %}
+                        <br>
+                <div class="imgBx" id="place the id of the photo here" >
+                    <img src="{{ item.photo.url }}" alt="photo of the item "
+                         class="cover" width="350px">
+                </div>
+                            <!-- IF the photo has description -->
+                            {% if item.description %}
+                                <span>Description: {{ item.description }}</span>
+                            {% endif %}
+
+                            <div class="edit-delete-shop-btns">
+                                <!-- if user is owner -->
+                                {% if is_owner %}
+                                <a href="{% url 'edit used item' item.pk %}">
+                                    <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}"
+                                         alt="edit button">
+                                </a>
+                                <!-- if user is staff -->
+                                <a href="{% url 'delete used item' item.pk %}">
+                                    <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
+                                         alt="bin button">
+                                </a>
+                                {% else %}
+                                <a href="{% url 'contact seller' item.pk %}" >Contact Seller
+                                    <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
+                                         alt="shop button">
+                                </a>
+                                {% endif %}
+                            </div>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+{##}
+{#                <div class="bottom">#}
+{##}
+{##}
+{#                    <!-- Date of Publication or edit of the Photo -->#}
+{#                    <h5 class="postTime">Publication date: {{ item.publication_date }}</h5>#}
+{##}
+{#                    <!-- Start Comments Section -->#}
+{#                    {% for comment in item.photocomment_set.all %}#}
+{#                      <div class="comments">#}
+{#                        <div class="top">#}
+{#                            <div class="userDetails">#}
+{#                                <div class="comment-data">#}
+{#                                    <div class="profilepic">#}
+{#                                        <div class="profile_img">#}
+{#                                            <div class="image">#}
+{#                                                <!-- User Profile Image -->#}
+{#                                                <img src="{% static 'images/person.png' %}" alt="img8">#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <p>#}
+{#                                        <!-- Link to User Profile Details Page-->#}
+{#                                        <!-- User First and/or Last Name or username-->#}
+{#                                        <a href="">Steven Ivanov</a>#}
+{#                                        <!-- User Comment -->#}
+{#                                        {{ comment.text }}#}
+{#                                    </p>#}
+{#                                </div>#}
+{#                                <span>{{comment.publication_date}}</span>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <!-- End Comments Section -->#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{##}
+{#                <!-- Start Add Comments Section -->#}
+{#                <div class="addComments">#}
+{#                    <div class="reaction">#}
+{#                        <h3>#}
+{#                            <i class="far fa-smile"></i>#}
+{#                        </h3>#}
+{#                    </div>#}
+{##}
+{#                    <!-- Start Add Comments Form -->#}
+{#                    <form method="post" action="{% url 'comment photo' item_id=item.pk %}">#}
+{##}
+{#                        {{ comment_form  }}#}
+{#                        <!-- Post Comments Button -->#}
+{#                        <button type="submit">Post</button>#}
+{#                        {% csrf_token %}#}
+{#                    </form>#}
+{#                    <!-- End Add Comments Form -->#}
+{##}
+{#                </div>#}
+{#                <!-- End Add Comments Section -->#}
+{##}
+{#            </div>#}
+{#            <!-- End Pet Photo Post Section -->#}
+{##}
+{#        </div>#}
+{#    </div>#}
+
+    <!-- footer -->
+{% endblock %}

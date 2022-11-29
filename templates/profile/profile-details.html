@@ -1,0 +1,164 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+    <!-- if staff user -->
+    <section id="car-details">
+{#    {% if unpaid %}#}
+
+
+{#    {% if any in object.payment_parent.paid %}#}
+
+{##}
+{#    {% if object.payment_parent.all %}#}
+{#    <h1>You have pending payment</h1>#}
+
+<div class="info-section">
+        {%  for payment in object.user.payment_parent.all %}
+            {% if not payment.paid %}
+                <h1>You have pending payment</h1>
+                <a href="{% url 'details payment' pk=payment.pk %}" >
+                 Kid: {{ payment.kid.first_name }} Type: {{ payment.model_name }} Period: {{ payment.period_billed }} Tax: {{ payment.tax_per_kid }} Generated: {{ payment.generated_date }} Status: {% if payment.paid %} Paid {% elif payment.confirmed_by_user %} Pending {% else %} To be paid{% endif %}
+                </a>
+                <button><a href="{% url 'confirm payment' payment.pk %}" >Pay Now</a></button>
+            <br>
+            {% endif %}
+        {% endfor %}
+</div>
+{#    {% endif %}#}
+
+    <!-- if only user -->
+    <section id="car-details">
+    {% if object.user.payment_set.all %}
+                <h1>You have pending payment</h1>
+
+<div class="info-section">
+        {%  for payment in object.user.payment_set.all %}
+            {% if not payment.paid %}
+                <a href="{% url 'details payment' pk=payment.pk %}" >
+                Kid: {{ payment.kid.first_name }} Type: {{ payment.model_name }} Period: {{ payment.period_billed }} Tax: {{ payment.tax_per_kid }} Generated: {{ payment.generated_date }} Status: {% if payment.paid %} Paid {% elif payment.confirmed_by_user %} Pending {% else %} To be paid{% endif %}
+                </a>
+                <button><a href="{% url 'confirm payment' payment.pk %}" >Pay Now</a></button>
+            <br>
+            {% endif %}
+        {% endfor %}
+</div>
+    {% endif %}
+        <h1>Profile Details</h1>
+        <div class="info-section">
+            <div class="car-header">
+            {% if is_owner %}
+                <!-- default profile image (if the user does NOT have any)-->
+                {% if not object.profile_image %}
+                    <img class="car-img" src="{% static '/images/default-profile.png' %}" alt='profile-image'/>
+                <!-- if the user has a profile image -->
+                {% else %}
+                    <img class="car-img" src="{{ object.profile_image.url }}" alt='profile-image'/>
+            {% endif %}
+
+                <h1>{% if object.first_name %}{{ object.first_name }}{% endif %}
+                    {% if object.last_name %}{{ object.last_name }}{% endif %}</h1>
+
+
+                <!-- user email -->
+                <p class="description">Email: {{ object.user.email }}</p>
+                <!-- user gender -->
+                {% if object.gender %}<p class="description">Gender: {{ object.gender }}</p>{% endif %}
+                <!-- user phone number -->
+                <p class="description">Phone number: {{ object.phone_number }}</p>
+
+
+                <!-- Edit/Delete buttons -->
+                <div class="buttons">
+                    <a href="{% url 'edit user' pk=object.pk %}" class="edit-button">Edit</a>
+                    <a href="{% url 'delete user' pk=object.pk  %}" class="delete-button">Delete</a>
+                    <a href="{% url 'add kid' %}" class="edit-button">Add Kid</a>
+                </div>
+            </div>
+        </div>
+    <h1>Kids Details</h1>
+        <div class="info-section">
+            <div class="car-header">
+                    {% for kid in object.user.kid_set.all %}
+
+                        {% if not kid.profile_picture %}
+                            <div><a href="{%  url 'details kid' kid_slug=kid.slug uid=object.user.id %}"><strong>{{ kid.first_name }}</strong></a>
+
+                            </div>
+                <!-- if the user has a profile image -->
+                        {% else %}
+                            <div>
+                                <a href="{%  url 'details kid' kid_slug=kid.slug uid=object.user.id %}">
+                                <img class="car-img" src="{{ kid.profile_picture.url }}" alt='{{ kid.first_name }}'/>
+                                </a>
+                            <br>
+
+                            </div>
+                        {% endif %}
+
+
+                    {% endfor %}
+            </div>
+        </div>
+    <h1>Items for Sale</h1>
+        <div class="info-section">
+                <div>
+                    {% for item in object.user.useditem_set.all %}
+                        {% if item.photo %}
+
+                            <a href="{%  url 'details item' pk=item.pk %}">
+                            <img class="car-img" src="{{ item.photo.url }}" alt='{{ item.slug }}'/>
+                            </a><br>
+                        {% endif %}
+
+
+                    {% endfor %}
+                </div>
+        </div>
+    <h1>Orders Made</h1>
+        <div class="info-section">
+                <div>
+                    {% for order in object.user.order_set.all %}
+
+                        {% if order.pk %}
+
+                            <a href="{%  url 'details order' pk=order.pk %}">
+                            Item: {{ order.category }}; Quantity: {{ order.quantity }}; Price: {{ order.price }}
+                            <br>
+                            </a>
+                        {% endif %}
+
+
+                    {% endfor %}
+                </div>
+
+            {% endif %}
+            </div>
+
+    <h1>Archive Payments</h1>
+
+        <div class="info-section">
+                <div>
+                    <div class="info-section">
+                        {%  for payment in object.user.payment_parent.all %}
+                            {% if payment.paid %}
+                                <a href="{% url 'details payment' pk=payment.pk %}" >
+                                    Kid: {{ payment.kid.first_name }}
+                                    Type: {{ payment.model_name }}
+                                    Period: {{ payment.period_billed }}
+                                    Tax: {{ payment.tax_per_kid }}
+                                    Generated: {{ payment.generated_date }}
+                                    Status: {% if payment.paid %} Paid on {{ payment.confirmed_by_user }}{% else %} Pending {% endif %}
+                                    Confirmed at: {% if payment.paid %} {{ payment.confirmed_by_staff }} {% else %} Not confirmed {% endif %}
+                                </a>
+                                <br>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- footer -->
+{% endblock %}
