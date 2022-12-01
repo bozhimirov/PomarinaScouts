@@ -16,7 +16,7 @@ def calculate_age(born):
 
 def calculate_month(today):
     today = date.today()
-    return f'{today.month - 1} {today.year}'
+    return f'{today.month} {today.year}'
 
 
 def calculate_year(today):

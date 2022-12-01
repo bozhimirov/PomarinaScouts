@@ -14,7 +14,7 @@ UserModel = get_user_model()
 
 
 class Payment(models.Model):
-    ANNUAL_TAX = 35
+    ANNUAL_TAX = 40
     MONTHLY_TAX = 30
 
     MAX_NAME_LENGTH = 100
