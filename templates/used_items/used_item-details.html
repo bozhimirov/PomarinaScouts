@@ -78,11 +78,15 @@
                                     <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
                                          alt="bin button">
                                 </a>
+
+                    <a class="btn submit" href="javascript:history.back()" type="submit">Go Back</a>
                                 {% else %}
                                 <a href="{% url 'contact seller' item.pk %}" >Contact Seller
                                     <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
                                          alt="shop button">
                                 </a>
+
+                    <a class="btn submit" href="javascript:history.back()" type="submit">Go Back</a>
                                 {% endif %}
                             </div>
                         </h3>

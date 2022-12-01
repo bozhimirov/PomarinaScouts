@@ -15,7 +15,7 @@ def details_item(request, pk):
     item = Item.objects.filter(pk=pk).get()
     category = item.category
     name = item.name
-    # comments = item.photocomment_set.all()
+
 
     context = {
         'item': item,

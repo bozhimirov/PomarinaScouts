@@ -9,6 +9,11 @@ def validate_only_letters(value):
             raise exceptions.ValidationError('Only letters are allowed!')
 
 
+def validate_gt_zero(value):
+    if not value >= 1:
+        raise exceptions.ValidationError('Quantity must not be zero!')
+
+
 def validate_only_numbers(value):
     for ch in value:
         if not ch.isdigit():

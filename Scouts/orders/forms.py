@@ -8,7 +8,7 @@ from Scouts.orders.models import Order
 class OrderBaseForm(forms.ModelForm):
     class Meta:
         model = Order
-        exclude = ('category', 'item_name', 'publication_date', 'user', 'item', 'slug',)
+        exclude = ('category', 'item_name', 'publication_date', 'user', 'item', 'slug')
 
 
 class OrderCreateForm(OrderBaseForm):
@@ -18,7 +18,7 @@ class OrderCreateForm(OrderBaseForm):
 class OrderEditForm(OrderBaseForm):
     class Meta:
         model = Order
-        exclude = ('category', 'item_name', 'publication_date', 'user', 'slug',)
+        exclude = ('category', 'item_name', 'publication_date', 'user', 'slug')
 
 
 class OrderDeleteForm(DisabledFormMixin, OrderBaseForm):

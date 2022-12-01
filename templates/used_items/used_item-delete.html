@@ -4,16 +4,20 @@
 
     <!-- edit game form -->
     <section id="delete-page" class="auth">
-        <form id="delete" method="post" >
-            <div class="container">
+     <div class="container">
+          {% if is_owner %}
+        <h1>Are you sure you want to delete your item?</h1>
+          <!-- Delete Profile Form -->
+        <form id='delete' method="post" action="{% url 'delete used item' pk=object.pk %}" enctype="multipart/form-data">
+            {% csrf_token %}
+        <!-- Confirm Button -->
+            <input class="btn submit" type="submit" value="Yes">
+            <!-- Make it look like button -->
+            <a class="btn submit" href="javascript:history.back()" type="submit">Go Back</a>
 
-                <h1>Delete Item</h1>
-                {{ form.field.as_hidden }}
-                {% csrf_token %}
-                <input class="btn submit" type="submit" value="Delete Item">
-
-            </div>
         </form>
+          {% endif %}
+      </div>
     </section>
 
     <!-- footer -->

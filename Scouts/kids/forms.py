@@ -48,7 +48,7 @@ class KidCreateForm(KidBaseForm):
 
 
 class KidEditForm(DisabledFormMixin, KidBaseForm):
-    # disabled_fields = ('first_name',)
+    disabled_fields = ('first_name',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

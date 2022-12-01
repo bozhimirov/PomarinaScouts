@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import render, redirect
 
-from Scouts.items.models import Item
+from Scouts.items.models import Item, UsedItem
 from Scouts.orders.forms import OrderCreateForm, OrderEditForm
 from Scouts.orders.models import Order
 

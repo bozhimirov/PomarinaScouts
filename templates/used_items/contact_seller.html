@@ -10,12 +10,12 @@
                 <!-- default profile image (if the user does NOT have any)-->
                {% if not user.profile_image %}
 
-                   <img class="car-img" src="{% static '/images/default-profile.png' %} " alt='{{ user.first_name }}'/>
+                   <img class="car-img2" src="{% static '/images/default-profile.png' %} " alt='{{ user.first_name }}'/>
 
                 <!-- if the user has a profile image -->
                {% else %}
 
-                   <img class="car-img" src="{{ user.profile_image.url }}" alt='{{ user.first_name }}'/>
+                   <img class="car-img2" src="{{ user.profile_image.url }}" alt='{{ user.first_name }}'/>
 
                {% endif %}
                 <!-- user full name (if any) -->

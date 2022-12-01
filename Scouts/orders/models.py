@@ -5,6 +5,7 @@ from django.utils.text import slugify
 
 from Scouts.accounts.models import AppUser
 from Scouts.core.model_mixins import AgeGroup, Size, Gender, ItemCategory, Delivery
+from Scouts.core.validators import validate_gt_zero
 from Scouts.items.models import Item
 
 UserModel = get_user_model()
@@ -55,6 +56,9 @@ class Order(models.Model):
     quantity = models.PositiveIntegerField(
         null=False,
         blank=False,
+        validators=(
+            validate_gt_zero,
+        )
     )
 
     place_to_deliver = models.CharField(

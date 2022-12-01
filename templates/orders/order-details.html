@@ -12,15 +12,32 @@
                 <h1>Your Order</h1>
 
 {#                <div>Number of order: {{ order.id }}</div>#}
+            {% if order.item_name %}
+                <div>Name: {{ order.item_name }}</div>
+            {% endif %}
+            {% if order.category %}
+                <div>Category: {{ order.category }}</div>
+            {% endif %}
                 <div>Age group: {{ order.ages }}</div>
+            {% if order.size %}
                 <div>Size: {{ order.size }}</div>
+            {% endif %}
+            {% if order.gender %}
                 <div>Gender: {{ order.gender }}</div>
+            {% endif %}
                 <div>Quantity: {{ order.quantity }}</div>
+            {% if order.place_to_deliver == 'Office' %}
                 <div>Delivery to: {{ order.place_to_deliver }}</div>
-                <div>Additional comments: {{ order.comments }}</div>
+            {% else %}
+                <div>Delivery comments: {{ order.comments }}</div>
+            {% endif %}
+            {% if order.publication_date %}
                 <div>Date of order: {{ order.publication_date }}</div>
-
-                <div>User: {{ user.first_name }} {{ user.last_name }}</div>
+            {% endif %}
+{#            {% if user.first_name %}#}
+{##}
+{#                <div>User: {{ user.first_name }} {{ user.last_name }}</div>#}
+{#            {% endif %}#}
 
 
 

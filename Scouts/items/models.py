@@ -135,11 +135,11 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         max_length=ItemCategory.max_len(),
     )
 
-    # consider Float-field if necessary for price
-    price = models.PositiveIntegerField(
-        null=True,
-        blank=True,
-    )
+    # # consider Float-field if necessary for price
+    # price = models.PositiveIntegerField(
+    #     null=True,
+    #     blank=True,
+    # )
 
     ages = models.CharField(
         null=True,
@@ -186,7 +186,7 @@ class UsedItem(StrFromFieldsMixin, models.Model):
 
     user = models.ForeignKey(
         UserModel,
-        on_delete=models.RESTRICT,
+        on_delete=models.CASCADE,
     )
 
     slug = models.SlugField(
