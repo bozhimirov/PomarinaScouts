@@ -74,18 +74,18 @@
                                 <!-- if user is staff -->
                                 {% if is_owner %}
                                 <a href="{% url 'edit item' item.pk %}">
-                                    <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}"
-                                         alt="edit button">
+                                    <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg'  %}"
+                                         alt="edit button" width="40px">
                                 </a>
                                 <!-- if user is staff -->
                                 <a href="{% url 'delete item' item.pk %}">
                                     <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
-                                         alt="bin button">
+                                         alt="bin button" width="40px">
                                 </a>
                                 {% endif %}
                                 <a href="{% url 'add order' item.pk %}" >Order
-                                    <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
-                                         alt="shop button">
+                                    <img class="bin-img" src="{% static 'images/shopping-basket-xxl.png' %}"
+                                         alt="shop button" width="40px">
                                 </a>
 
                             </div>

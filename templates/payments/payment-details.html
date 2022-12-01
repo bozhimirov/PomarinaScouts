@@ -46,25 +46,25 @@
                     {% if request.user.is_staff %}
                         <a href="{% url 'edit payment' payment.pk %}">
                             <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}"
-                                 alt="edit button">Edit Payment
+                                 alt="edit button" width="40px">Edit Payment
                         </a>
 
                         <!-- if user is staff -->
                         <a href="{% url 'delete payment' payment.pk %}">
                             <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
-                                 alt="bin button">Delete Payment
+                                 alt="bin button" width="40px">Delete Payment
                         </a>
                     {% else %}
                         <a href="{% url 'confirm payment' payment.pk %}">
-                            <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
-                                 alt="bin button">
+                            <img class="bin-img" src="{% static 'images/banknotes-xxl.png' %}"
+                                 alt="bin button" width="40px">
                             Confirm Payment
                         </a>
                     {% endif %}
                 {% else %}
                     <a href="{% url 'details user' pk=user.pk %}">
-                            <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}"
-                                 alt="edit button">Return to profile
+                            <img class="edit-img" src="{% static 'images/user-xxl.png' %}"
+                                 alt="edit button" width="40px">Return to profile
                         </a>
                 {% endif %}
                 </div>
