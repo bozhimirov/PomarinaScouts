@@ -9,19 +9,19 @@
             <div class="container">
                 <h1>Edit Profile</h1>
                 {% if is_owner %}
-                    {{ form.as_p }}
+{#                    {{ form.as_p }}#}
 
-{#                    <h5>First name:</h5>#}
-{#                    {{ form.first_name|placeholder:'First Name: ' }}#}
-{#                    <h5>Last name:</h5>#}
-{#                    {{ form.last_name|placeholder:'Last Name: ' }}#}
-{##}
-{#                    <h5>Phone Number:</h5>#}
-{#                    {{ form.phone_number|placeholder:'Phone Number: '  }}#}
-{#                    <h5>Gender:</h5>#}
-{#                    {{ form.gender|placeholder:'Gender: '  }}#}
-{#                    <h5>Profile Picture:</h5>#}
-{#                    {{ form.profile_image|placeholder:'Upload your picture here: ' }}#}
+                    <h5>First name:</h5>
+                    {{ form.first_name|placeholder:'First Name: ' }}
+                    <h5>Last name:</h5>
+                    {{ form.last_name|placeholder:'Last Name: ' }}
+
+                    <h5>Phone Number:</h5>
+                    {{ form.phone_number|placeholder:'Phone Number: '  }}
+                    <h5>Gender:</h5>
+                    {{ form.gender|placeholder:'Gender: '  }}
+                    <h5>Profile Picture:</h5>
+                    {{ form.profile_image|placeholder:'Upload your picture here: ' }}
                 {% csrf_token %}
                 <input class="btn" type="submit" value="Edit Profile">
                 {% endif %}

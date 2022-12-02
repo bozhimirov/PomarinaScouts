@@ -42,6 +42,7 @@ class Profile(models.Model):
         null=True,
         blank=True,
         choices=Gender.choices(),
+        help_text="Please choose",
         max_length=Gender.max_len(),
     )
 
@@ -51,6 +52,10 @@ class Profile(models.Model):
             validators.MinLengthValidator(MIN_LEN_PHONE),
             validate_only_numbers,
         ),
+        error_messages={
+            'required': 'Place phone number in format: 0987654321'
+        },
+        help_text="Type phone number in format: 0987654321",
         null=False,
         blank=False,
     )
@@ -59,6 +64,7 @@ class Profile(models.Model):
         upload_to='users_photos',
         null=True,
         blank=True,
+        help_text="Upload your photo here",
         validators=(validate_file_less_than_5mb,),
     )
 

@@ -22,11 +22,17 @@ class PaymentCreateForm(PaymentBaseForm):
 class PaymentEditForm(PaymentBaseForm):
     class Meta:
         model = Payment
-        exclude = ('staff_member', 'parent', 'generated_date', 'confirmed_by_user', 'slug', 'paid', 'confirmed_by_staff')
+        exclude = (
+        'staff_member', 'parent', 'generated_date', 'confirmed_by_user', 'slug', 'paid', 'confirmed_by_staff')
 
 
 class PaymentConfirmForm(PaymentEditForm):
+    class Meta:
+        model = Payment
+        fields = ()
 
+
+class PaymentConfirmUserForm(PaymentEditForm):
     class Meta:
         model = Payment
         fields = ()
@@ -34,3 +40,4 @@ class PaymentConfirmForm(PaymentEditForm):
 
 class PaymentDeleteForm(DisabledFormMixin, PaymentBaseForm):
     disabled_fields = '__all__'
+

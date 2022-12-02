@@ -22,7 +22,7 @@
                <h1>{% if kid.first_name %}{{ kid.first_name }}{% endif %}
                     {% if kid.last_name %}{{ kid.last_name }}{% endif %}</h1>
             <div class="buttons">
-                    <a class="btn submit" href="javascript:history.back()" type="submit">Go Back</a>
+                    <a class="btn submit" href="{% url 'details user' pk=kid.users.pk %}" type="submit">Go to Profile</a>
                     </div>
                 <!-- users kid phone -->
                 {% if kid.phone_number %}

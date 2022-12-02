@@ -12,11 +12,22 @@
 
 
 
-                {% if not payment.paid %}
-                    <h1>You Have Pending Payment:</h1>
-{#                {% else %}#}
-{#                    <h1>You Have Payment Paid:</h1>#}
-                {% endif %}
+                    {% if not payment.paid %}
+                        {% if is_owner %}
+                            <h1>You Have Pending Payment:</h1>
+                        {% endif %}
+                        {% if request.user.is_superuser %}
+                            <h1>You Have Made A Payment:</h1>
+                        {% endif %}
+                    {% else %}
+                        {% if is_owner %}
+                            <h1>You Have Paid Payment:</h1>
+                        {% endif %}
+                        {% if request.user.is_superuser %}
+                            <h1>You Have Confirmed Payment:</h1>
+                        {% endif %}
+                    {% endif %}
+
 
 
 
@@ -26,7 +37,7 @@
 
                 <h2>Tax: {{ payment.tax_per_kid }}</h2>
 
-                <h2>Total sum: {{ payment.tax_per_kid }}</h2>
+{#                <h2>Total sum: {{ payment.tax_per_kid }}</h2>#}
 
             {% if payment.paid %}
             <h2>Generated: {{ payment.generated_date }}</h2>
@@ -53,6 +64,11 @@
                         <a href="{% url 'delete payment' payment.pk %}">
                             <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
                                  alt="bin button" width="40px">Delete Payment
+                        </a>
+                         <a href="{% url 'confirm paid' payment.pk %}">
+                            <img class="bin-img" src="{% static 'images/banknotes-xxl.png' %}"
+                                 alt="bin button" width="40px">
+                            Confirm Payment
                         </a>
                     {% else %}
                         <a href="{% url 'confirm payment' payment.pk %}">

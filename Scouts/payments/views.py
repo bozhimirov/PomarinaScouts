@@ -159,6 +159,39 @@ def confirm_payment(request, pk):
 
 
 @login_required
+def confirm_payment_by_staff(request, pk):
+    payment = Payment.objects.filter(pk=pk).get()
+    staff_user = UserModel.objects.get(pk=request.user.pk)
+
+    if request.method == 'GET':
+        form = PaymentConfirmForm(instance=payment)
+    else:
+        form = PaymentConfirmForm(request.POST, request.FILES, instance=payment)
+        if form.is_valid():
+            payment = form.save(commit=False)
+            payment.confirmed_by_staff = datetime.datetime.now()
+            payment.paid = True
+            payment.save()
+            form.save()
+
+            return redirect('add payment')
+
+    context = {
+        'form': form,
+        'pk': pk,
+        'staff_user': staff_user,
+        'payment': payment,
+        'is_owner': payment.staff_member == request.user,
+    }
+
+    return render(
+        request,
+        'payments/payment-confirm-staff.html',
+        context,
+    )
+
+
+@login_required
 def delete_payment(request, pk):
     payment = Payment.objects.filter(pk=pk).get()
     payment.delete()

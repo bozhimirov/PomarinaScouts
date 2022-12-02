@@ -9,12 +9,6 @@
                 <div class="brand-logo"></div>
                 <h1>Pomarina Scouts</h1>
                 {{ form.as_p }}
-{#                {{ form.email|placeholder:'E-mail: ' }}#}
-{#                {{ form.phone_number|placeholder:'Phone number: ' }}#}
-{#                {{ form.first_name|placeholder:'First name: ' }}#}
-{#                {{ form.last_name|placeholder:'Last name: ' }}#}
-{#                {{ form.password1|placeholder:'Password: ' }}#}
-{#                {{ form.password2|placeholder:'Repeat Password: ' }}#}
                 {% csrf_token %}
                 <input class="btn submit" type="submit" value="Register">
             </div>

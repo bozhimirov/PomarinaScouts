@@ -88,11 +88,32 @@ class Order(models.Model):
         UserModel,
         on_delete=models.CASCADE,
     )
-    #
-    # item = models.ForeignKey(
-    #     Item,
-    #     on_delete=models.CASCADE,
-    # )
+
+    staff_member = models.CharField(
+        max_length=MAX_NAME_LENGTH,
+    )
+
+    staff_member_finished = models.CharField(
+        max_length=MAX_NAME_LENGTH,
+    )
+
+    sent = models.BooleanField(
+        default=False,
+    )
+
+    confirmed_by_staff = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+
+    received = models.BooleanField(
+        default=False,
+    )
+
+    received_by_user = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
 
     slug = models.SlugField(
         null=False,
@@ -109,3 +130,5 @@ class Order(models.Model):
 
         return super().save(*args, **kwargs)
 
+    class Meta:
+        ordering = ['slug']

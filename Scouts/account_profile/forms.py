@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UsernameField
 from django.core import validators
 
 from Scouts.account_profile.models import Profile
@@ -18,10 +19,12 @@ class UserEditForm(DisabledFormMixin, AppUserEditForm):
         super().__init__(*args, **kwargs)
         self._disable_fields()
 
+
+
     class Meta:
         model = Profile
         fields = '__all__'
-        # field_classes = {'username': UsernameField}
+        field_classes = {'username': UsernameField}
         labels = {
             'username': 'Username',
             'phone_number': 'Phone Number',
@@ -75,7 +78,8 @@ class UserCreateForm(AppUserCreationForm):
 
     first_name = forms.CharField(
         max_length=MAX_LEN_FIRST_NAME,
-        help_text="Please use only letters.",
+        widget=forms.TextInput(
+            attrs={'placeholder': "First name"}),
         validators=(
             validators.MinLengthValidator(MIN_LEN_FIRST_NAME),
             validate_only_letters,
@@ -84,7 +88,8 @@ class UserCreateForm(AppUserCreationForm):
 
     last_name = forms.CharField(
         max_length=MAX_LEN_LAST_NAME,
-        help_text="Please use only letters.",
+        widget=forms.TextInput(
+            attrs={'placeholder': "Last name"}),
         validators=(
             validators.MinLengthValidator(MIN_LEN_LAST_NAME),
             validate_only_letters,
@@ -93,64 +98,13 @@ class UserCreateForm(AppUserCreationForm):
 
     phone_number = forms.CharField(
         max_length=MAX_LEN_PHONE,
+        widget=forms.TextInput(
+            attrs={'placeholder': "Phone number"}),
         validators=(
             validators.MinLengthValidator(MIN_LEN_PHONE),
             validate_only_numbers,
         ),
     )
-
-    # gender = forms.CharField(
-    #     max_length=Gender.max_len(),
-    #     null=True,
-    #     blank=True,
-    #
-    # )
-    #
-    # profile_image = forms.ImageField(
-    #     validators=(validate_file_less_than_5mb,),
-    #     null=True,
-    #     blank=True,
-    # )
-    labels = {
-        'email': 'Email',
-        'phone_number': 'Phone Number',
-        'first_name': 'First Name',
-        'last_name': 'Last Name',
-    }
-
-    # widgets = {
-    #     'username': forms.TextInput(
-    #         attrs={
-    #             'placeholder': 'Username'
-    #         }
-    #     ),
-    #     'first_name': forms.TextInput(
-    #         attrs={
-    #             'placeholder': 'First Name'
-    #         }
-    #     ),
-    #     'last_name': forms.TextInput(
-    #         attrs={
-    #             'placeholder': 'Last Name'
-    #         }
-    #     ),
-    #     'phone_number': forms.TextInput(
-    #         attrs={
-    #             'placeholder': 'Phone Number'
-    #         }
-    #     ),
-    #     'email': forms.EmailInput(
-    #         attrs={
-    #             'placeholder': 'Email',
-    #         }
-    #     ),
-    #     'profile_image': forms.FileInput(
-    #         attrs={
-    #             'placeholder': 'Optional / Upload Your Picture',
-    #         }
-    #     ),
-    #
-    # }
 
     class Meta:
         model = UserModel

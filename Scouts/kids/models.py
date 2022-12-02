@@ -118,3 +118,6 @@ class Kid(StrFromFieldsMixin, models.Model):
             self.age = age
 
         return super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['-age']

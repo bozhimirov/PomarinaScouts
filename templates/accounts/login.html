@@ -9,10 +9,7 @@
             <div class="container">
                 <div class="brand-logo"></div>
                 <h1>Pomarina Scouts</h1>
-
                 {{ form.as_p }}
-{#                {{ form.username|placeholder:'Username: ' }}#}
-{#                {{ form.password|placeholder:'Password: ' }}#}
                 <input type="hidden" name="next" value="{{ next }}">
                 {% csrf_token %}
                 <input class="btn submit" type="submit" value="Log in">

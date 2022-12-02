@@ -99,3 +99,6 @@ class Payment(models.Model):
             self.slug = slugify(f'{self.pk}-{self.kid}')
 
         return super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['-paid', 'confirmed_by_user', 'generated_date']

@@ -1,4 +1,3 @@
-
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -92,6 +91,3 @@ class SignUpView(views.CreateView):
 
         login(self.request, self.object)
         return result
-
-    pass
-

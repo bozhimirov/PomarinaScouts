@@ -3,26 +3,32 @@
 {% block content %}
 
     <!-- profile details section -->
-    <section id="car-details">
+{% if request.user.is_authenticated %}
+    <h1>
+        Welcome
+    </h1>
+     <h4>You have successfully registered
+         <strong>
+             {% if request.user.full_name %}
+                 {{ request.user.full_name }}
+             {% endif %}
 
-        {% if is_owner %}
-            <h1>Welcome,</h1>
-            <!-- user full name (if any) -->
-            <h1>{% if object.first_name %}{{ object.first_name }}{% endif %}
-                {% if object.last_name %}{{ object.last_name }}{% endif %}</h1>
-        {% endif %}
-        {% if not messages %}
-            <h2>You have no new messages.</h2>
-        {% else %}
-            <br>
-            {% for message in messages %}
-                <div>
+         </strong>!
+         <div>
+             You are part of the Scout Adventure now. Enjoy!
+         </div>
+     </h4>
 
-                </div><br>
-            {% endfor %}
-        {% endif %}
+{% endif %}
 
-    </section>
-
+{#    redirect to index after 5 secs#}
+    <br>
+    <img src="{% static '/images/logo.png' %}"
+            alt="scout" width="500px">
+    <script>
+       setTimeout(function(){
+            window.location.href = "{% url 'index' %}";
+         }, 5000);
+    </script>
     <!-- footer -->
 {% endblock %}

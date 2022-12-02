@@ -35,7 +35,7 @@ class Item(StrFromFieldsMixin, models.Model):
         choices=ItemCategory.choices(),
         max_length=ItemCategory.max_len(),
     )
-# consider Float-field if necessary for price
+    # consider Float-field if necessary for price
     price = models.PositiveIntegerField(
         null=False,
         blank=False,
@@ -112,6 +112,9 @@ class Item(StrFromFieldsMixin, models.Model):
             self.name = slugify(f'{self.pk}-{self.category}-{self.price}')
 
         return super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['slug']
 
 
 class UsedItem(StrFromFieldsMixin, models.Model):
@@ -204,3 +207,6 @@ class UsedItem(StrFromFieldsMixin, models.Model):
             self.slug = slugify(f'{self.pk}-{self.category}')
 
         return super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['slug']

@@ -1,11 +1,14 @@
+import datetime
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import render, redirect
 
+from Scouts.account_profile.models import Profile
 from Scouts.items.models import Item, UsedItem
-from Scouts.orders.forms import OrderCreateForm, OrderEditForm
+from Scouts.orders.forms import OrderCreateForm, OrderEditForm, OrderSendForm, OrderReceiveForm
 from Scouts.orders.models import Order
 
 UserModel = get_user_model()
@@ -15,11 +18,13 @@ UserModel = get_user_model()
 def details_order(request, pk):
     order = Order.objects.filter(pk=pk).get()
     user = UserModel.objects.get(pk=order.user_id)
+    all_users = Profile.objects.all()
 
     context = {
         'order': order,
         'is_owner': request.user == order.user,
         'user': user,
+        'all_users': all_users,
     }
 
     return render(
@@ -116,3 +121,71 @@ def delete_order(request, pk):
     order.delete()
 
     return redirect('scout store')
+
+
+@login_required
+def send_order(request, pk):
+    order = Order.objects.filter(pk=pk).get()
+    staff_user = UserModel.objects.get(pk=request.user.pk)
+
+    if request.method == 'GET':
+        form = OrderSendForm(instance=order)
+    else:
+        form = OrderSendForm(request.POST, request.FILES, instance=order)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.confirmed_by_staff = datetime.datetime.now()
+            order.sent = True
+            order.staff_member = staff_user
+            order.save()
+            form.save()
+
+            return redirect('scout store')
+
+    context = {
+        'form': form,
+        'pk': pk,
+        'staff_user': staff_user,
+        'order': order,
+        'is_owner': order.staff_member == request.user,
+    }
+
+    return render(
+        request,
+        'orders/order-sent.html',
+        context,
+    )
+
+
+@login_required
+def receive_order(request, pk):
+    order = Order.objects.filter(pk=pk).get()
+    staff_user = UserModel.objects.get(pk=request.user.pk)
+
+    if request.method == 'GET':
+        form = OrderReceiveForm(instance=order)
+    else:
+        form = OrderReceiveForm(request.POST, request.FILES, instance=order)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.received_by_user = datetime.datetime.now()
+            order.received = True
+            order.staff_member_finished = staff_user
+            order.save()
+            form.save()
+
+            return redirect('scout store')
+
+    context = {
+        'form': form,
+        'pk': pk,
+        'staff_user': staff_user,
+        'order': order,
+        'is_owner': order.staff_member == request.user,
+    }
+
+    return render(
+        request,
+        'orders/order-received.html',
+        context,
+    )

@@ -5,11 +5,10 @@
     <!-- if staff user -->
     <section id="car-details">
 {% if request.user.is_superuser %}
-    superuser
-    payment_set_list = Payment.object.all()
-    {{ payment_set_list }}
+    <h1>Orders for confirmation</h1>
+set = {{ Payments.payment_set.all }}
 <div class="info-section">
-        {%  for payment in Payment.object.all %}
+        {%  for payment in Payments.objects.all %}
             {% if payment.staff_member == request.user.full_name %}
                 <h1>You made payments, not paid yet</h1>
                 <a href="{% url 'details payment' pk=payment.pk %}" >
@@ -20,6 +19,7 @@
             {% endif %}
         {% endfor %}
 </div>
+    <h1>Payments for confirmation</h1>
     {% endif %}
 
     {% if is_owner %}

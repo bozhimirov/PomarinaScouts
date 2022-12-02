@@ -9,14 +9,31 @@
         <form id="register" method="post" enctype="multipart/form-data">
             <div class="container">
                 <div class="brand-logo"></div>
-                <h1>Your Order</h1>
+            {% if not order.sent %}
+                        {% if is_owner %}
+                            <h1>Your Order</h1>
+                        {% endif %}
+                        {% if request.user.is_superuser %}
+                            <h1>Order for sending</h1>
+                        {% endif %}
+                    {% else %}
+                        {% if is_owner %}
+                            <h1>Your Order Is On Its Way</h1>
+                        {% endif %}
+                        {% if request.user.is_superuser %}
+                            <h1>Order to be received</h1>
+                        {% endif %}
+                    {% endif %}
 
-{#                <div>Number of order: {{ order.id }}</div>#}
-            {% if order.item_name %}
-                <div>Name: {{ order.item_name }}</div>
+            {% if request.user.is_superuser %}
+                <div>Number of order: {{ order.id }}</div>
             {% endif %}
+            <div>Quantity: {{ order.quantity }}</div>
             {% if order.category %}
                 <div>Category: {{ order.category }}</div>
+            {% endif %}
+            {% if order.item_name %}
+                <div>Name: {{ order.item_name }}</div>
             {% endif %}
                 <div>Age group: {{ order.ages }}</div>
             {% if order.size %}
@@ -25,7 +42,6 @@
             {% if order.gender %}
                 <div>Gender: {{ order.gender }}</div>
             {% endif %}
-                <div>Quantity: {{ order.quantity }}</div>
             {% if order.place_to_deliver == 'Office' %}
                 <div>Delivery to: {{ order.place_to_deliver }}</div>
             {% else %}
@@ -34,24 +50,49 @@
             {% if order.publication_date %}
                 <div>Date of order: {{ order.publication_date }}</div>
             {% endif %}
-{#            {% if user.first_name %}#}
-{##}
-{#                <div>User: {{ user.first_name }} {{ user.last_name }}</div>#}
-{#            {% endif %}#}
+            {% for user in all_users %}
+                {% if user.pk == order.user.pk %}
+
+                    <div>User:{{ user.get_full_name }}</div>
+                {% endif %}
+            {% endfor %}
 
 
 
                 <div class="edit-delete-shop-btns">
-                        <!-- if user is staff -->
+                        <!-- if user is owner -->
+
+                        {% if not order.sent %}
+                            {% if is_owner %}
                         <a href="{% url 'edit order' order.pk %}">
                             <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}"
                                  alt="edit button" width="40px">
                         </a>
-                        <!-- if user is staff -->
                         <a href="{% url 'delete order' order.pk %}">
                             <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
                                  alt="bin button" width="40px">
                         </a>
+                            {% endif %}
+                            {% if request.user.is_superuser %}
+                                <a href="{% url 'send order' order.pk %}">
+                            <img class="bin-img" src="{% static 'images/pack.png' %}"
+                                 alt="send button" width="40px">
+                                </a>
+                            {% endif %}
+                            {% else %}
+                            {% if request.user.is_superuser %}
+                                <a href="{% url 'receive order' order.pk %}">
+                            <img class="bin-img" src="{% static 'images/done.png' %}"
+                                 alt="send button" width="40px">
+                                </a>
+                            {% endif %}
+
+                        {% endif %}
+                    <!-- return to profile -->
+                                <a href="{% url 'details user' pk=request.user.pk %}">
+                                    <img class="bin-img" src="{% static 'images/user-xxl.png' %}"
+                                         alt="bin button" width="40px">
+                                </a>
 
                 </div>
             </div>
