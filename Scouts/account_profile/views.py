@@ -1,3 +1,4 @@
+
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -15,6 +16,9 @@ class UserDetailsView(LoginRequiredMixin, views.DetailView):
     template_name = 'profile/profile-details.html'
     model = Profile
     payments = Payment.objects.all()
+    # current_user_pk = get_user_model().pk
+    # user = Profile.objects.get(pk=current_user_pk)
+    # payment_set = Payment.objects.filter(staff_member=user.get_full_name())
     # '''Made for migrations'''
     # payments = []
     unpaid = False
