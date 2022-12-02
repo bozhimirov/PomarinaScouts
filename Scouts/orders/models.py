@@ -120,6 +120,14 @@ class Order(models.Model):
         blank=True,
     )
 
+    additional_comment = models.CharField(
+        null=True,
+        blank=True,
+        max_length=MAX_DESCRIPTION_LENGTH,
+
+
+    )
+
     def save(self, *args, **kwargs):
         # Create/Update
 

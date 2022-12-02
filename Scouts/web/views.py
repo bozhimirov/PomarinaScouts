@@ -40,8 +40,18 @@ def scout_store(request):
     count_of_used_items = all_used_items.count()
     all_orders = Order.objects.all()
     all_users = Profile.objects.all()
+    for_sending = False
+    for sent in all_orders:
+        if not sent.sent:
+            for_sending = True
+    received = False
+    for rec in all_orders:
+        if not rec.received and rec.sent:
+            received = True
 
     context = {
+        'for_sending': for_sending,
+        'received': received,
         'all_orders': all_orders,
         'all_items': all_items,
         'all_users': all_users,

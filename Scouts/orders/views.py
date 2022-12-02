@@ -126,7 +126,6 @@ def delete_order(request, pk):
 @login_required
 def send_order(request, pk):
     order = Order.objects.filter(pk=pk).get()
-    staff_user = UserModel.objects.get(pk=request.user.pk)
 
     if request.method == 'GET':
         form = OrderSendForm(instance=order)
@@ -136,7 +135,7 @@ def send_order(request, pk):
             order = form.save(commit=False)
             order.confirmed_by_staff = datetime.datetime.now()
             order.sent = True
-            order.staff_member = staff_user
+            order.staff_member = request.user.pk
             order.save()
             form.save()
 
@@ -145,7 +144,6 @@ def send_order(request, pk):
     context = {
         'form': form,
         'pk': pk,
-        'staff_user': staff_user,
         'order': order,
         'is_owner': order.staff_member == request.user,
     }
@@ -160,7 +158,6 @@ def send_order(request, pk):
 @login_required
 def receive_order(request, pk):
     order = Order.objects.filter(pk=pk).get()
-    staff_user = UserModel.objects.get(pk=request.user.pk)
 
     if request.method == 'GET':
         form = OrderReceiveForm(instance=order)
@@ -170,7 +167,7 @@ def receive_order(request, pk):
             order = form.save(commit=False)
             order.received_by_user = datetime.datetime.now()
             order.received = True
-            order.staff_member_finished = staff_user
+            order.staff_member_finished = request.user.pk
             order.save()
             form.save()
 
@@ -179,7 +176,6 @@ def receive_order(request, pk):
     context = {
         'form': form,
         'pk': pk,
-        'staff_user': staff_user,
         'order': order,
         'is_owner': order.staff_member == request.user,
     }

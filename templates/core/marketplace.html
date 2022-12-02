@@ -5,7 +5,8 @@
         <div class="col-9">
             <section id="catalogue">
             <section id="car-details">
-        <h1>For confirmation</h1>
+            {% if for_sending %}
+        <h1>For confirmation</h1>{% endif %}
 
 {% for order in all_orders  %}
     {% if not order.sent  %}
@@ -68,6 +69,37 @@
                     </div>
                 </div>
                 {% endif %}
+<section id="car-details">
+{% if received %}
+        <h1>For finishing</h1>
+{% endif %}
+
+{% for order in all_orders  %}
+    {% if order.sent  %}
+        {% if not order.received %}
+        <h4><a href=" {% url 'details order' pk=order.pk %}">
+
+            Quantity: {{ order.quantity }}
+            Category: {{ order.category }}
+            Item Name:  {{ order.item_name }} {{ payment.kid.last_name }}
+            Age: {{ order.ages }}
+            {% if order.size %}Size: {{ order.size }}{% endif %}
+            {% if order.gender %}Gender: {{ order.gender }}{% endif %}
+            Place to deliver: {{ order.place_to_deliver }}
+            {% if order.comment %}Comment: {{ order.comment }}{% endif %}
+            User ID:{{ order.user.pk }}
+    {% for user in all_users %}
+        {% if user.pk == order.user.pk %}
+
+            User:{{ user.get_full_name }}
+            {% endif %}
+        {% endfor %}
+
+            <br><br></a></h4>
+    {% endif %}
+    {% endif %}
+{% endfor %}
+</section>
             </section>
 
         </div>

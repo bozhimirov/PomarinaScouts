@@ -72,7 +72,7 @@
 
                             <div class="edit-delete-shop-btns">
                                 <!-- if user is staff -->
-                                {% if is_owner %}
+                            {% if request.user.is_staff %}
                                 <a href="{% url 'edit item' item.pk %}">
                                     <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg'  %}"
                                          alt="edit button" width="40px">
@@ -81,22 +81,20 @@
                                 <a href="{% url 'delete item' item.pk %}">
                                     <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
                                          alt="bin button" width="40px">
+                                </a>{% endif %}
+                                {% if is_owner %}
+                                <a href="{% url 'add order' item.pk %}" >Order
+                                    <img class="bin-img" src="{% static 'images/shopping-basket-xxl.png' %}"
+                                         alt="shop button" width="40px">
                                 </a>
+                                {% endif %}
                                     <!-- return to profile -->
                                 <a href="{% url 'details user' pk=request.user.pk %}">
                                     <img class="bin-img" src="{% static 'images/user-xxl.png' %}"
                                          alt="bin button" width="40px">
                                 </a>
-                                {% endif %}
-                                <a href="{% url 'add order' item.pk %}" >Order
-                                    <img class="bin-img" src="{% static 'images/shopping-basket-xxl.png' %}"
-                                         alt="shop button" width="40px">
-                                </a>
-                            <!-- return to profile -->
-                                <a href="{% url 'details user' pk=request.user.pk %}">
-                                    <img class="bin-img" src="{% static 'images/user-xxl.png' %}"
-                                         alt="bin button" width="40px">
-                                </a>
+
+
 
                             </div>
                         </h3>
