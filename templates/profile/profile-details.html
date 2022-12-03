@@ -6,7 +6,6 @@
     <section id="car-details">
 {% if request.user.is_superuser %}
     <h1>Orders for confirmation</h1>
-set = {{ Payments.payment_set.all }}
 <div class="info-section">
         {%  for payment in Payments.objects.all %}
             {% if payment.staff_member == request.user.full_name %}

@@ -11,19 +11,21 @@ UserModel = get_user_model()
 class AppUserAdmin(auth_admin.UserAdmin):
     form = UserEditForm
     add_form = AppUserCreationForm
-    ordering = ('email',)
-    list_display = ['email', 'date_joined', 'last_login']
-    list_filter = ()
-    add_fieldsets = (
-        (
-            None,
-            {
-                'classes': ('wide',),
-                'fields': ('email', 'password1', 'password2'),
-            },
-        ),
+    ordering = ('-is_staff', '-is_active', 'id')
 
-    )
+    list_display = ('id', 'email', 'date_joined', 'last_login')
+    # list_filter = ('is_staff', 'is_active')
+
+    # add_fieldsets = (
+    #     (
+    #         None,
+    #         {
+    #             'classes': ('wide',),
+    #             'fields': ('email', 'password1', 'password2'),
+    #         },
+    #     ),
+    #
+    # )
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (

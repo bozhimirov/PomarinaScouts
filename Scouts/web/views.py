@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.views import generic as views
 
@@ -65,9 +66,15 @@ def scout_store(request):
 
 def scout_store_new(request):
     all_items = Item.objects.all()
+    len_items = len(all_items)
+    paginator = Paginator(all_items, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
-        'all_items': all_items
+        'all_items': all_items,
+        'len_items': len_items,
+        'page_obj': page_obj
     }
 
     return render(request, template_name='core/marketplace-new.html', context=context)
@@ -76,9 +83,14 @@ def scout_store_new(request):
 @login_required()
 def scout_store_used(request):
     all_used_items = UsedItem.objects.all()
+    paginator = Paginator(all_used_items, 4)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
-        'all_used_items': all_used_items
+        'all_used_items': all_used_items,
+        'page_obj': page_obj
     }
 
     return render(request, template_name='core/marketplace-used.html', context=context)
+

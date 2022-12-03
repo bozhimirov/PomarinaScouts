@@ -12,21 +12,23 @@ class ProfileAdmin(auth_admin.UserAdmin):
     form = UserEditForm
     add_form = UserCreateForm
 
-    ordering = ('first_name',)
-    list_display = ['first_name', 'last_name', 'phone_number', 'gender', 'user']
-    list_filter = ()
-    add_fieldsets = (
-        (
-            None,
-            {
-                'classes': ('wide',),
-                'fields': ('first_name', 'last_name', 'phone_number', 'gender', 'profile_image'),
-            },
-        ),
-    )
+    ordering = ('user',)
+
+    list_display = ('user', 'first_name', 'last_name', 'phone_number', 'gender')
+    list_filter = ('last_name', 'gender')
+
+    # add_fieldsets = (
+    #     (
+    #         None,
+    #         {
+    #             'classes': ('wide',),
+    #             'fields': ('first_name', 'last_name', 'phone_number', 'gender', 'profile_image'),
+    #         },
+    #     ),
+    # )
     fieldsets = (
         (None, {'fields': ()}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'phone_number', 'gender', 'profile_image', 'user')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'phone_number', 'gender', 'profile_image')}),
 
     )
     filter_horizontal = (

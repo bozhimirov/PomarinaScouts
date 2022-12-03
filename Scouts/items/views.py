@@ -2,7 +2,6 @@ from django.contrib.auth import views, get_user_model
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
-from django.urls import reverse, reverse_lazy
 
 from Scouts.account_profile.models import Profile
 from Scouts.items.forms import ItemCreateForm, ItemEditForm, ItemDeleteForm, UsedItemCreateForm, UsedItemEditForm
@@ -15,7 +14,6 @@ def details_item(request, pk):
     item = Item.objects.filter(pk=pk).get()
     category = item.category
     name = item.name
-
 
     context = {
         'item': item,
@@ -35,7 +33,6 @@ def details_item(request, pk):
 def details_used_item(request, pk):
     item = UsedItem.objects.filter(pk=pk).get()
     category = item.category
-    # comments = item.photocomment_set.all()
 
     context = {
         'item': item,
