@@ -1,5 +1,5 @@
 from django.contrib.auth import views, get_user_model
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
 from django.shortcuts import render, redirect
 
@@ -30,6 +30,7 @@ def details_item(request, pk):
     )
 
 
+@login_required
 def details_used_item(request, pk):
     item = UsedItem.objects.filter(pk=pk).get()
     category = item.category
@@ -62,6 +63,7 @@ def get_post_item_form(request, form, success_url, template_path, pk=None):
     return render(request, template_path, context)
 
 
+@permission_required('items.add_item')
 @login_required
 def add_item(request):
     if request.method == 'GET':
@@ -112,6 +114,7 @@ def add_used_item(request):
     )
 
 
+@permission_required('items.edit_item')
 @login_required
 def edit_item(request, pk):
     item = Item.objects.filter(pk=pk).get()
@@ -182,6 +185,7 @@ def edit_used_item(request, pk):
     )
 
 
+@permission_required('items.delete_item')
 @login_required
 def delete_item(request, pk):
     item = Item.objects.filter(pk=pk).get()

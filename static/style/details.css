@@ -112,16 +112,16 @@
     padding: 14px;
     margin-top: auto;
     font-size: 21px;
-    color: rgb(217, 105, 105);
+    color: rgb(255, 255, 255);
     box-shadow: 0 0 25px white;
     border-radius: 20px;
 }
 .edit-button{
-    background: #3387C7;
+    background: #5fb6fd;
 }
 
 .delete-button{
-    background: red;
+    background: #d53b3b;
 }
 
 .edit-button:hover, .delete-button:hover {

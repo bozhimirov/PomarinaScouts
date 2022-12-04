@@ -15,6 +15,7 @@ class UserDetailsView(LoginRequiredMixin, views.DetailView):
     template_name = 'profile/profile-details.html'
     model = Profile
     payments = Payment.objects.all()
+
     # current_user_pk = get_user_model().pk
     # user = Profile.objects.get(pk=current_user_pk)
     # payment_set = Payment.objects.filter(staff_member=user.get_full_name())
@@ -72,6 +73,11 @@ class DeleteUserView(LoginRequiredMixin, views.DeleteView):
 #     profile = Profile.objects.filter(user=user_id)
 #     return profile
 
+#
+# def get_full_name_by_email(user):
+#     profile = Profile.objects.get(user=user)
+#     return profile.get_full_name()
+
 
 class SignUpView(views.CreateView):
     model = Profile
@@ -81,7 +87,6 @@ class SignUpView(views.CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['pk'] = self.request.user.pk
-        # context['profile'] = get_profile_by_user_id(self.request.user.pk)
 
         return context
 

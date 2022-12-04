@@ -1,7 +1,7 @@
 import datetime
 
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import render, redirect
@@ -123,6 +123,7 @@ def delete_order(request, pk):
     return redirect('scout store')
 
 
+@permission_required('orders.send_order')
 @login_required
 def send_order(request, pk):
     order = Order.objects.filter(pk=pk).get()
@@ -155,6 +156,7 @@ def send_order(request, pk):
     )
 
 
+@permission_required('orders.receive_order')
 @login_required
 def receive_order(request, pk):
     order = Order.objects.filter(pk=pk).get()

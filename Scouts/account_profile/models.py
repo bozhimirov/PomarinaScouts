@@ -3,7 +3,8 @@ from django.db import models
 
 from Scouts.accounts.models import AppUser
 from Scouts.core.model_mixins import Gender
-from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_file_less_than_5mb
+from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_file_less_than_5mb, \
+    validate_mobile_number
 
 
 class Profile(models.Model):
@@ -11,7 +12,6 @@ class Profile(models.Model):
     MAX_LEN_FIRST_NAME = 30
     MIN_LEN_LAST_NAME = 2
     MAX_LEN_LAST_NAME = 30
-    MIN_LEN_PHONE = 10
     MAX_LEN_PHONE = 10
 
     first_name = models.CharField(
@@ -49,7 +49,7 @@ class Profile(models.Model):
     phone_number = models.CharField(
         max_length=MAX_LEN_PHONE,
         validators=(
-            validators.MinLengthValidator(MIN_LEN_PHONE),
+            validate_mobile_number,
             validate_only_numbers,
         ),
         error_messages={
@@ -68,7 +68,7 @@ class Profile(models.Model):
         validators=(validate_file_less_than_5mb,),
     )
 
-    # USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'user'
 
     def get_full_name(self):
         """

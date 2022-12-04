@@ -94,6 +94,8 @@ class Order(models.Model):
     )
 
     staff_member_finished = models.CharField(
+        null=True,
+        blank=True,
         max_length=MAX_NAME_LENGTH,
     )
 
@@ -121,11 +123,9 @@ class Order(models.Model):
     )
 
     additional_comment = models.CharField(
-        null=True,
+        default='ok',
         blank=True,
         max_length=MAX_DESCRIPTION_LENGTH,
-
-
     )
 
     def save(self, *args, **kwargs):

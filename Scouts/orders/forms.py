@@ -41,5 +41,11 @@ class OrderReceiveForm(OrderBaseForm):
         fields = ('additional_comment',)
 
 
+
+    class Meta:
+        model = Order
+        fields = ('additional_comment',)
+
+
 class OrderDeleteForm(DisabledFormMixin, OrderBaseForm):
     disabled_fields = '__all__'

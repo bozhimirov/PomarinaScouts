@@ -27,11 +27,12 @@
                 <a href="{% url 'login user' %}">Sign In</a>
             {% else %}
 
-            {% if request.user.is_superuser %}
-                <a href="{% url 'admin:index' %}">Admin</a>
-            {% endif %}
+{#            {% if request.user.is_superuser %}#}
+{#                <a href="{% url 'admin:index' %}">Admin</a>#}
+{#            {% endif %}#}
 
             {% if request.user.is_staff %}
+                <a href="{% url 'admin:index' %}">Admin</a>
                 <a href="{% url 'add item' %}">Add Item</a>
                 <a href="{% url 'add payment' %}">Make Payment</a>
             {% endif %}

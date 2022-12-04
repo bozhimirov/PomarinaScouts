@@ -4,10 +4,10 @@ from django.db.models.functions import datetime
 from django.shortcuts import render, redirect
 
 from Scouts.account_profile.models import Profile
-from Scouts.core.model_mixins import PaymentType, TaxType
 from Scouts.core.utils import kids_info, calculate_month, calculate_year
 from Scouts.payments.forms import PaymentCreateForm, PaymentEditForm, PaymentConfirmForm
 from Scouts.payments.models import Payment
+from django.contrib.auth.decorators import permission_required
 
 UserModel = get_user_model()
 
@@ -44,10 +44,12 @@ def get_post_order_form(request, form, success_url, template_path, pk=None):
     return render(request, template_path, context)
 
 
+@permission_required('payments.add_payment')
 @login_required
 def add_payment(request):
     current_user_pk = request.user.pk
     user = Profile.objects.get(pk=current_user_pk)
+
 
     payment_set = Payment.objects.filter(staff_member=user.get_full_name())
     if request.method == 'GET':
@@ -93,7 +95,7 @@ def add_payment(request):
         context,
     )
 
-
+@permission_required('payments.edit_payment')
 @login_required
 def edit_payment(request, pk):
     payment = Payment.objects.filter(pk=pk).get()
@@ -148,7 +150,7 @@ def confirm_payment(request, pk):
         'pk': pk,
         'user': user,
         'payment': payment,
-        'is_owner': payment.staff_member == request.user,
+        'is_owner': payment.parent == request.user,
     }
 
     return render(
@@ -158,6 +160,7 @@ def confirm_payment(request, pk):
     )
 
 
+@permission_required('payments.confirm_payment_by_staff')
 @login_required
 def confirm_payment_by_staff(request, pk):
     payment = Payment.objects.filter(pk=pk).get()
@@ -191,6 +194,7 @@ def confirm_payment_by_staff(request, pk):
     )
 
 
+@permission_required('payments.delete_payment')
 @login_required
 def delete_payment(request, pk):
     payment = Payment.objects.filter(pk=pk).get()

@@ -66,7 +66,7 @@ def scout_store(request):
 def scout_store_new(request):
     all_items = Item.objects.all()
     len_items = len(all_items)
-    paginator = Paginator(all_items, 6)
+    paginator = Paginator(all_items, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -92,4 +92,3 @@ def scout_store_used(request):
     }
 
     return render(request, template_name='core/marketplace-used.html', context=context)
-
