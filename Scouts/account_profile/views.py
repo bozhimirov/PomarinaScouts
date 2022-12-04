@@ -67,27 +67,30 @@ class DeleteUserView(LoginRequiredMixin, views.DeleteView):
 
         return context
 
+#
+# def get_profile_by_user_id(user_id):
+#     profile = Profile.objects.filter(user=user_id)
+#     return profile
+
 
 class SignUpView(views.CreateView):
     model = Profile
     template_name = 'accounts/register.html'
     form_class = UserCreateForm
 
-    # success_url = reverse_lazy('index')
-    # pass
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['is_owner'] = self.request.user.pk == self.object.user
         context['pk'] = self.request.user.pk
+        # context['profile'] = get_profile_by_user_id(self.request.user.pk)
 
         return context
 
     def get_success_url(self):
         return reverse_lazy('success')
 
-    def form_valid(self, form):
-        result = super().form_valid(form)
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
 
-        login(self.request, self.object)
-        return result
+        login(request, self.object)
+
+        return response

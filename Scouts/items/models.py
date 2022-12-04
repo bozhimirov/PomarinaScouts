@@ -88,11 +88,6 @@ class Item(StrFromFieldsMixin, models.Model):
         UserModel,
         on_delete=models.RESTRICT,
     )
-    #
-    # tagged_items = models.ManyToManyField(
-    #     Item,
-    #     blank=True,
-    # )
 
     slug = models.SlugField(
         unique=True,
@@ -137,12 +132,6 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         choices=ItemCategory.choices(),
         max_length=ItemCategory.max_len(),
     )
-
-    # # consider Float-field if necessary for price
-    # price = models.PositiveIntegerField(
-    #     null=True,
-    #     blank=True,
-    # )
 
     ages = models.CharField(
         null=True,

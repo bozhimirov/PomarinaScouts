@@ -20,6 +20,11 @@ def validate_only_numbers(value):
             raise exceptions.ValidationError('Only numbers are allowed!')
 
 
+def validate_mobile_number(value):
+    if len(value) != 10:
+        raise exceptions.ValidationError('Place phone number in format: 0987654321')
+
+
 def validate_file_less_than_5mb(fileobj):
     filesize = fileobj.file.size
     megabyte_limit = 5.0

@@ -9,8 +9,12 @@
     </h1>
      <h4>You have successfully registered
          <strong>
-             {% if request.user.full_name %}
-                 {{ request.user.full_name }}
+             {% if profile.get_full_name %}
+                 {{profile.get_full_name}}
+             {% endif %}
+
+             {% if self.user %}
+                 {{user}}
              {% endif %}
 
          </strong>!

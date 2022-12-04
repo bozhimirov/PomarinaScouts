@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect
 from django.views import generic as views
 
 from Scouts.account_profile.models import Profile
-from Scouts.core.utils import get_photo_url
 from Scouts.items.models import Item, UsedItem
 from Scouts.orders.models import Order
 

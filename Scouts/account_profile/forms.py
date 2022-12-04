@@ -7,7 +7,8 @@ from Scouts.account_profile.models import Profile
 from Scouts.accounts.forms import AppUserEditForm, AppUserCreationForm
 from Scouts.core.form_mixins import DisabledFormMixin
 from Scouts.core.model_mixins import Gender
-from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_file_less_than_5mb
+from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_file_less_than_5mb, \
+    validate_mobile_number
 
 UserModel = get_user_model()
 
@@ -19,53 +20,17 @@ class UserEditForm(DisabledFormMixin, AppUserEditForm):
         super().__init__(*args, **kwargs)
         self._disable_fields()
 
-
-
     class Meta:
         model = Profile
         fields = '__all__'
-        field_classes = {'username': UsernameField}
         labels = {
-            'username': 'Username',
+            'email': 'Email',
             'phone_number': 'Phone Number',
             'gender': 'Gender',
             'first_name': 'First Name',
             'last_name': 'Last Name',
             'profile_image': 'Upload Your Picture',
         }
-        # widgets = {
-        #     'username': forms.TextInput(
-        #         attrs={
-        #             'placeholder': 'Username'
-        #         }
-        #     ),
-        #     'first_name': forms.TextInput(
-        #         attrs={
-        #             'placeholder': 'First Name'
-        #         }
-        #     ),
-        #     'last_name': forms.TextInput(
-        #         attrs={
-        #             'placeholder': 'Last Name'
-        #         }
-        #     ),
-        #     'phone_number': forms.TextInput(
-        #         attrs={
-        #             'placeholder': 'Phone Number'
-        #         }
-        #     ),
-        #     'email': forms.EmailInput(
-        #         attrs={
-        #             'placeholder': 'Email',
-        #         }
-        #     ),
-        #     'profile_image': forms.FileInput(
-        #         attrs={
-        #             'placeholder': 'Optional / Upload Your Picture',
-        #         }
-        #     ),
-        #
-        # }
 
 
 class UserCreateForm(AppUserCreationForm):
@@ -73,7 +38,6 @@ class UserCreateForm(AppUserCreationForm):
     MAX_LEN_FIRST_NAME = 30
     MIN_LEN_LAST_NAME = 2
     MAX_LEN_LAST_NAME = 30
-    MIN_LEN_PHONE = 10
     MAX_LEN_PHONE = 10
 
     first_name = forms.CharField(
@@ -101,7 +65,7 @@ class UserCreateForm(AppUserCreationForm):
         widget=forms.TextInput(
             attrs={'placeholder': "Phone number"}),
         validators=(
-            validators.MinLengthValidator(MIN_LEN_PHONE),
+            validate_mobile_number,
             validate_only_numbers,
         ),
     )

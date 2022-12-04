@@ -5,10 +5,6 @@ def megabytes_to_bytes(mb):
     return mb * 1024 * 1024
 
 
-def get_photo_url(request, photo_id):
-    return request.META['HTTP_REFERER'] + f'#photo-{photo_id}'
-
-
 def calculate_age(born):
     today = date.today()
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))

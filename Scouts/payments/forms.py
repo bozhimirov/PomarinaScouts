@@ -22,8 +22,7 @@ class PaymentCreateForm(PaymentBaseForm):
 class PaymentEditForm(PaymentBaseForm):
     class Meta:
         model = Payment
-        exclude = (
-        'staff_member', 'parent', 'generated_date', 'confirmed_by_user', 'slug', 'paid', 'confirmed_by_staff')
+        exclude = ('staff_member', 'parent', 'generated_date', 'confirmed_by_user', 'slug', 'paid', 'confirmed_by_staff')
 
 
 class PaymentConfirmForm(PaymentEditForm):
