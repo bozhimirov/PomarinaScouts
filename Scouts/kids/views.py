@@ -1,7 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
-from django.views import generic as views
 from Scouts.kids.forms import KidCreateForm, KidEditForm, KidDeleteForm
 from django.contrib.auth import get_user_model
 
@@ -85,7 +83,6 @@ def delete_kid(request, uid, kid_slug):
         if form.is_valid():
             form.save()
             return redirect('details user', pk=request.user.pk)
-        pass
 
     context = {
         'form': form,
@@ -99,15 +96,4 @@ def delete_kid(request, uid, kid_slug):
         context,
     )
 
-#
-# class DeleteKidView(views.DeleteView):
-#     template_name = 'kids/kids-delete.html'
-#     model = UserModel
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#
-#         context['pk'] = self.request.user.pk
-#         context['username'] = self.request.user.username
-#
-#         return context
+

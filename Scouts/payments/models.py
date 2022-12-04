@@ -2,12 +2,10 @@ import datetime
 
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.http import request
 from django.utils.text import slugify
 
 from Scouts.accounts.models import AppUser
-from Scouts.core.model_mixins import PaymentType, Months
-from Scouts.core.utils import kids_info
+from Scouts.core.model_mixins import PaymentType
 from Scouts.kids.models import Kid
 
 UserModel = get_user_model()
@@ -50,7 +48,6 @@ class Payment(models.Model):
     tax_per_kid = models.PositiveIntegerField(
         null=True,
         blank=True,
-        # choices=TaxType.choices(),
     )
 
     period_billed = models.CharField(
@@ -101,4 +98,8 @@ class Payment(models.Model):
         return super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ['-paid', 'confirmed_by_user', 'generated_date']
+        ordering = [
+            '-paid',
+            'confirmed_by_user',
+            'generated_date',
+        ]

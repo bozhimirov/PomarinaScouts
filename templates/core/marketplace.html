@@ -4,104 +4,124 @@
     <div class="container">
         <div class="col-9">
             <section id="catalogue">
-            <section id="car-details">
-            {% if for_sending %}
-        <h1>For confirmation</h1>{% endif %}
+                <section id="car-details">
+                    {% if for_sending %}
+                        <h1>
+                            For confirmation
+                        </h1>
+                    {% endif %}
 
 {% for order in all_orders  %}
     {% if not order.sent  %}
-        <h4><a href=" {% url 'details order' pk=order.pk %}">
-
+        <h4>
+            <a href=" {% url 'details order' pk=order.pk %}">
             Quantity: {{ order.quantity }}
             Category: {{ order.category }}
             Item Name:  {{ order.item_name }} {{ payment.kid.last_name }}
             Age: {{ order.ages }}
-            {% if order.size %}Size: {{ order.size }}{% endif %}
-            {% if order.gender %}Gender: {{ order.gender }}{% endif %}
+            {% if order.size %}
+                Size: {{ order.size }}
+            {% endif %}
+            {% if order.gender %}
+                Gender: {{ order.gender }}
+            {% endif %}
             Place to deliver: {{ order.place_to_deliver }}
-            {% if order.comment %}Comment: {{ order.comment }}{% endif %}
+            {% if order.comment %}
+                Comment: {{ order.comment }}
+            {% endif %}
             User ID:{{ order.user.pk }}
 {% for user in all_users %}
         {% if user.pk == order.user.pk %}
-
             User:{{ user.get_full_name }}
-            {% endif %}
-        {% endfor %}
-
-            <br><br></a></h4>
+        {% endif %}
+{% endfor %}
+                <br><br>
+            </a>
+        </h4>
     {% endif %}
 {% endfor %}
 </section>
-
-            <section id="car-details">
-                <h1>Scout Shop</h1>
-            </section>
-
+                <section id="car-details">
+                <h1>
+                    Scout Shop
+                </h1>
+                </section>
                 <div class="car-card">
                     <div class="image-wrap">
                         <!-- item image -->
-                        <img src="{%  static 'images/new.jpg' %}"
-                             alt=" new products ">
+                        <img src="{%  static 'images/new.jpg' %}" alt=" new products ">
                     </div>
                 <!-- item count -->
-                    <h3>Total items: {{ count_of_items }}</h3>
+                    <h3>
+                        Total items: {{ count_of_items }}
+                    </h3>
 
                     <div class="details-buttons">
                         <!-- item details button if staff-->
-                        <a href="{% url 'scout store new' %}" class="details-btn">Shop New Items</a>
-
+                        <a href="{% url 'scout store new' %}" class="details-btn">
+                            Shop New Items
+                        </a>
                     </div>
                 </div>
                 {% if request.user.is_authenticated %}
                 <div class="car-card">
                     <div class="image-wrap">
                         <!-- item image -->
-                        <img src="{% static 'images/used.jpg' %}"
-                             alt="used products">
+                        <img src="{% static 'images/used.jpg' %}" alt="used products">
                     </div>
                 <!-- item count -->
-                    <h3>Total items: {{ count_of_used_items }}</h3>
+                    <h3>
+                        Total items: {{ count_of_used_items }}
+                    </h3>
 
                     <div class="details-buttons">
                         <!-- item details button if staff-->
-                        <a href="{% url 'scout store used' %}" class="details-btn">Trade Used Items</a>
-
+                        <a href="{% url 'scout store used' %}" class="details-btn">
+                            Trade Used Items
+                        </a>
                     </div>
                 </div>
                 {% endif %}
 <section id="car-details">
 {% if received %}
-        <h1>For finishing</h1>
+        <h1>
+            For finishing
+        </h1>
 {% endif %}
 
 {% for order in all_orders  %}
     {% if order.sent  %}
         {% if not order.received %}
-        <h4><a href=" {% url 'details order' pk=order.pk %}">
-
+        <h4>
+            <a href=" {% url 'details order' pk=order.pk %}">
             Quantity: {{ order.quantity }}
             Category: {{ order.category }}
             Item Name:  {{ order.item_name }} {{ payment.kid.last_name }}
             Age: {{ order.ages }}
-            {% if order.size %}Size: {{ order.size }}{% endif %}
-            {% if order.gender %}Gender: {{ order.gender }}{% endif %}
+            {% if order.size %}
+                Size: {{ order.size }}
+            {% endif %}
+            {% if order.gender %}
+                Gender: {{ order.gender }}
+            {% endif %}
             Place to deliver: {{ order.place_to_deliver }}
-            {% if order.comment %}Comment: {{ order.comment }}{% endif %}
+            {% if order.comment %}
+                Comment: {{ order.comment }}
+            {% endif %}
             User ID:{{ order.user.pk }}
     {% for user in all_users %}
         {% if user.pk == order.user.pk %}
-
             User:{{ user.get_full_name }}
-            {% endif %}
-        {% endfor %}
-
-            <br><br></a></h4>
-    {% endif %}
+        {% endif %}
+    {% endfor %}
+            <br><br>
+            </a>
+        </h4>
+        {% endif %}
     {% endif %}
 {% endfor %}
 </section>
             </section>
-
         </div>
     </div>
     <!-- footer -->

@@ -1,8 +1,5 @@
-from enum import Enum
 
-import unicodedata
 from django.contrib.auth import models as auth_models
-from django.core import validators
 from django.db import models
 from django.utils import timezone
 
@@ -39,10 +36,4 @@ class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
-    # @classmethod
-    # def normalize_username(cls, USERNAME_FIELD):
-    #     return (
-    #         unicodedata.normalize("NFKC", USERNAME_FIELD)
-    #         if isinstance(USERNAME_FIELD, str)
-    #         else USERNAME_FIELD
-    #     )
+

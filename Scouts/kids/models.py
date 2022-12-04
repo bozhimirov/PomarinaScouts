@@ -1,4 +1,3 @@
-# pets/models.py
 from django.contrib.auth import get_user_model
 from django.core import validators
 from django.db import models
@@ -56,7 +55,9 @@ class Kid(StrFromFieldsMixin, models.Model):
         upload_to='kids_photos/',
         null=True,
         blank=True,
-        validators=(validate_file_less_than_5mb,),
+        validators=(
+            validate_file_less_than_5mb,
+        ),
     )
 
     phone_number = models.CharField(
@@ -73,9 +74,7 @@ class Kid(StrFromFieldsMixin, models.Model):
         UserModel,
         null=True,
         blank=False,
-        # on_delete=models.SET_DEFAULT,
         on_delete=models.SET_NULL,
-        default=0,
     )
 
     parent_phone = models.CharField(

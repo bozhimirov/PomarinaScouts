@@ -1,10 +1,10 @@
-from django.contrib.auth import views, get_user_model
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 
 from django.shortcuts import render, redirect
 
 from Scouts.account_profile.models import Profile
-from Scouts.items.forms import ItemCreateForm, ItemEditForm, ItemDeleteForm, UsedItemCreateForm, UsedItemEditForm
+from Scouts.items.forms import ItemCreateForm, ItemEditForm, UsedItemCreateForm, UsedItemEditForm
 from Scouts.items.models import Item, UsedItem
 
 UserModel = get_user_model()
@@ -20,7 +20,6 @@ def details_item(request, pk):
         'is_owner': request.user == item.user,
         'category': category,
         'name': name,
-        # 'comments': comments,
     }
 
     return render(
@@ -39,7 +38,6 @@ def details_used_item(request, pk):
         'item': item,
         'is_owner': request.user == item.user,
         'category': category,
-        # 'comments': comments,
     }
 
     return render(
@@ -118,21 +116,13 @@ def add_used_item(request):
 @login_required
 def edit_item(request, pk):
     item = Item.objects.filter(pk=pk).get()
-    # return get_post_item_form(
-    #     request,
-    #     ItemEditForm(request.POST or None, instance=item),
-    #     success_url=reverse_lazy('details item', pk=item.pk),
-    #     template_path='items/payment-edit.html',
-    #     pk=item.pk,
-    # )
+
     if request.method == 'GET':
         form = ItemEditForm(instance=item)
     else:
         form = ItemEditForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
-            # item = form.save(commit=False)
-            # item.user = request.user
-            # item.save()
+
             form.save()
 
             return redirect('details item', pk=item.pk)
@@ -153,21 +143,13 @@ def edit_item(request, pk):
 @login_required
 def edit_used_item(request, pk):
     item = UsedItem.objects.filter(pk=pk).get()
-    # return get_post_item_form(
-    #     request,
-    #     ItemEditForm(request.POST or None, instance=item),
-    #     success_url=reverse_lazy('details item', pk=item.pk),
-    #     template_path='items/payment-edit.html',
-    #     pk=item.pk,
-    # )
+
     if request.method == 'GET':
         form = UsedItemEditForm(instance=item)
     else:
         form = UsedItemEditForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
-            # item = form.save(commit=False)
-            # item.user = request.user
-            # item.save()
+
             form.save()
 
             return redirect('details used item', pk=item.pk)

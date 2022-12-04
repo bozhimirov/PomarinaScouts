@@ -65,7 +65,9 @@ class Profile(models.Model):
         null=True,
         blank=True,
         help_text="Upload your photo here",
-        validators=(validate_file_less_than_5mb,),
+        validators=(
+            validate_file_less_than_5mb,
+        ),
     )
 
     USERNAME_FIELD = 'user'

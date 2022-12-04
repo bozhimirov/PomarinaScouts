@@ -1,14 +1,11 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UsernameField
 from django.core import validators
 
 from Scouts.account_profile.models import Profile
 from Scouts.accounts.forms import AppUserEditForm, AppUserCreationForm
 from Scouts.core.form_mixins import DisabledFormMixin
-from Scouts.core.model_mixins import Gender
-from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_file_less_than_5mb, \
-    validate_mobile_number
+from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_mobile_number
 
 UserModel = get_user_model()
 
@@ -72,7 +69,12 @@ class UserCreateForm(AppUserCreationForm):
 
     class Meta:
         model = UserModel
-        fields = ('email', 'phone_number', 'first_name', 'last_name',)
+        fields = (
+            'email',
+            'phone_number',
+            'first_name',
+            'last_name',
+        )
 
     def save(self, commit=True):
         user = super().save(commit=commit)

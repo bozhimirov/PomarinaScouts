@@ -5,7 +5,7 @@ from Scouts.payments.views import add_payment, details_payment, edit_payment, de
 
 urlpatterns = (
 
-    path('add/', add_payment, name='add payment'),  #add payment button from staff member in nav bar?
+    path('add/', add_payment, name='add payment'),
     path('<int:pk>/', include([
         path('', details_payment, name='details payment'),
         path('edit/', edit_payment, name='edit payment'),
@@ -13,5 +13,6 @@ urlpatterns = (
         path('paid/', confirm_payment_by_staff, name='confirm paid'),
         path('delete/', delete_payment, name='delete payment'),
 
-    ])),
+    ])
+         ),
 )

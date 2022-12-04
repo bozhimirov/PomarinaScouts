@@ -20,7 +20,11 @@ class Item(StrFromFieldsMixin, models.Model):
         upload_to='items_photos/',
         null=False,
         blank=True,
-        validators=(validate_file_less_than_5mb,),
+        validators=(
+            validate_file_less_than_5mb,
+        ),
+        # on_delete=...
+        # https: // stackoverflow.com / questions / 16041232 / django - delete - filefield
     )
 
     name = models.CharField(
@@ -123,7 +127,9 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         upload_to='used_items_photos/',
         null=False,
         blank=True,
-        validators=(validate_file_less_than_5mb,),
+        validators=(
+            validate_file_less_than_5mb,
+        ),
     )
 
     category = models.CharField(
@@ -188,7 +194,6 @@ class UsedItem(StrFromFieldsMixin, models.Model):
     )
 
     def save(self, *args, **kwargs):
-        # Create / Update
 
         super().save(*args, **kwargs)
 

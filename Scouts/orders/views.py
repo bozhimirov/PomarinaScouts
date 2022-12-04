@@ -2,12 +2,11 @@ import datetime
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.models import User
-from django.db import models
+
 from django.shortcuts import render, redirect
 
 from Scouts.account_profile.models import Profile
-from Scouts.items.models import Item, UsedItem
+from Scouts.items.models import Item
 from Scouts.orders.forms import OrderCreateForm, OrderEditForm, OrderSendForm, OrderReceiveForm
 from Scouts.orders.models import Order
 
@@ -65,7 +64,6 @@ def add_order(request, pk):
             order.item_name = item.name
             order.user = request.user
             order.save()
-            # form.save_m2m()
             form.save()
 
             return redirect('details order', pk=order.pk)
@@ -95,9 +93,6 @@ def edit_order(request, pk):
     else:
         form = OrderEditForm(request.POST, request.FILES, instance=order)
         if form.is_valid():
-            # item = form.save(commit=False)
-            # item.user = request.user
-            # item.save()
             form.save()
 
             return redirect('details order', pk=order.pk)

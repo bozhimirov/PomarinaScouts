@@ -50,7 +50,6 @@ def add_payment(request):
     current_user_pk = request.user.pk
     user = Profile.objects.get(pk=current_user_pk)
 
-
     payment_set = Payment.objects.filter(staff_member=user.get_full_name())
     if request.method == 'GET':
         form = PaymentCreateForm()
@@ -95,6 +94,7 @@ def add_payment(request):
         context,
     )
 
+
 @permission_required('payments.edit_payment')
 @login_required
 def edit_payment(request, pk):
@@ -106,9 +106,7 @@ def edit_payment(request, pk):
     else:
         form = PaymentEditForm(request.POST, request.FILES, instance=payment)
         if form.is_valid():
-            # item = form.save(commit=False)
-            # item.user = request.user
-            # item.save()
+
             form.save()
 
             return redirect('add payment')

@@ -10,6 +10,7 @@ urlpatterns = (
         path('delete/', delete_order, name='delete order'),
         path('send/', send_order, name='send order'),
         path('receive/', receive_order, name='receive order'),
-    ])),
+    ])
+         ),
 
 )

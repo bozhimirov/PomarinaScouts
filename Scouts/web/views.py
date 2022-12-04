@@ -1,14 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views import generic as views
 
 from Scouts.account_profile.models import Profile
 from Scouts.items.models import Item, UsedItem
 from Scouts.orders.models import Order
 
-# from Scouts.web.forms import SearchPhotosForm, PhotoCommentForm
 
 UserModel = get_user_model()
 

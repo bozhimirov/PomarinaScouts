@@ -8,6 +8,6 @@ urlpatterns = (
             path('', details_kid, name='details kid'),
             path('edit/', edit_kid, name='edit kid'),
             path('delete/', delete_kid, name='delete kid'),
-        ])),
-
+        ])
+             ),
 )

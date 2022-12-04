@@ -16,9 +16,6 @@ class UserDetailsView(LoginRequiredMixin, views.DetailView):
     model = Profile
     payments = Payment.objects.all()
 
-    # current_user_pk = get_user_model().pk
-    # user = Profile.objects.get(pk=current_user_pk)
-    # payment_set = Payment.objects.filter(staff_member=user.get_full_name())
     # '''Made for migrations'''
     # payments = []
     unpaid = False
@@ -38,21 +35,28 @@ class UserDetailsView(LoginRequiredMixin, views.DetailView):
 class EditUserView(LoginRequiredMixin, views.UpdateView):
     template_name = 'profile/profile-edit.html'
     model = Profile
-    fields = ('first_name', 'last_name', 'gender', 'phone_number', 'profile_image')
+    fields = (
+        'first_name',
+        'last_name',
+        'gender',
+        'phone_number',
+        'profile_image',
+    )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context['is_owner'] = self.request.user == self.object.user
 
-        # context['kids_count'] = self.request.user == self.object.user
-
         return context
 
     def get_success_url(self):
-        return reverse_lazy('details user', kwargs={
-            'pk': self.request.user.pk,
-        })
+        return reverse_lazy(
+            'details user',
+            kwargs={
+                'pk': self.request.user.pk,
+            }
+        )
 
 
 class DeleteUserView(LoginRequiredMixin, views.DeleteView):
@@ -64,19 +68,8 @@ class DeleteUserView(LoginRequiredMixin, views.DeleteView):
         context = super().get_context_data(**kwargs)
 
         context['is_owner'] = self.request.user.pk == self.object.pk
-        # context['kids_count'] = self.request.user == self.object.user
 
         return context
-
-#
-# def get_profile_by_user_id(user_id):
-#     profile = Profile.objects.filter(user=user_id)
-#     return profile
-
-#
-# def get_full_name_by_email(user):
-#     profile = Profile.objects.get(user=user)
-#     return profile.get_full_name()
 
 
 class SignUpView(views.CreateView):

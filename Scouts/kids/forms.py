@@ -4,16 +4,10 @@ from Scouts.core.form_mixins import DisabledFormMixin
 from Scouts.kids.models import Kid
 
 
-# `ModelForm` and `Form`:
-# - `ModelForm` binds to models
-# - `Form` is detached from models
-
 class KidBaseForm(forms.ModelForm):
     class Meta:
         model = Kid
-        # fields = '__all__' (not the case, we want to skip `slug`
         fields = ('first_name', 'last_name', 'date_of_birth', 'gender', 'phone_number', 'profile_picture')
-        # exclude = ('slug',)
         labels = {
             'first_name': 'First Name',
             'last_name': 'Last Name',
@@ -22,25 +16,6 @@ class KidBaseForm(forms.ModelForm):
             'phone_number': 'Phone Number',
             'profile_picture': 'Profile Picture',
         }
-        # widgets = {
-        #     'first_name': forms.TextInput(
-        #         attrs={
-        #             'placeholder': 'First Name'
-        #         }
-        #     ),
-        #     'last_name': forms.TextInput(
-        #         attrs={
-        #             'placeholder': 'Last Name'
-        #         }
-        #     ),
-        #     'date_of_birth': forms.DateInput(
-        #         attrs={
-        #             'placeholder': 'mm/dd/yyyy',
-        #             'type': 'date',
-        #         }
-        #     ),
-        #
-        # }
 
 
 class KidCreateForm(KidBaseForm):
