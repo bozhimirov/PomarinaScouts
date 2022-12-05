@@ -14,32 +14,62 @@
 <div id="box">
     <header>
         <!-- Navigation Bar -->
-        <h1><img src="{% static '/images/scouts-stack-white.svg' %}" alt="scout" width="60px">
-            <a class="index-navigation" href="{% url 'index' %}"><span>P</span>omarina <span>S</span>couts<span>2</span></a></h1>
+        <h1>
+            <img src="{% static '/images/scouts-stack-white.svg' %}" alt="scout" width="60px">
+            <a class="index-navigation" href="{% url 'index' %}">
+                <span>
+                    P
+                </span>
+                omarina
+                <span>
+                    S
+                </span>
+                couts
+            </a>
+        </h1>
         <a class="index-navigation">
             <nav>
-                <a href="{% url 'contacts' %}">About Us</a>
-                <a href="{% url 'for parents' %}">For parents</a>
-                <a href="{% url 'scout store' %}">Scout Store</a>
+                <a href="{% url 'contacts' %}">
+                    About Us
+                </a>
+                <a href="{% url 'for parents' %}">
+                    For parents
+                </a>
+                <a href="{% url 'scout store' %}">
+                    Scout Store
+                </a>
 
             {% if not request.user.is_authenticated %}
-                <a href="{% url 'register user' %}">Join Scouts</a>
-                <a href="{% url 'login user' %}">Sign In</a>
+                <a href="{% url 'register user' %}">
+                    Join Scouts
+                </a>
+                <a href="{% url 'login user' %}">
+                    Sign In
+                </a>
             {% else %}
 
-{#            {% if request.user.is_superuser %}#}
-{#                <a href="{% url 'admin:index' %}">Admin</a>#}
-{#            {% endif %}#}
 
             {% if request.user.is_staff %}
-                <a href="{% url 'admin:index' %}">Admin</a>
-                <a href="{% url 'add item' %}">Add Item</a>
-                <a href="{% url 'add payment' %}">Make Payment</a>
+                <a href="{% url 'admin:index' %}">
+                    Admin
+                </a>
+                <a href="{% url 'add item' %}">
+                    Add Item
+                </a>
+                <a href="{% url 'add payment' %}">
+                    Make Payment
+                </a>
             {% endif %}
 
-                <a href="{% url 'add used item' %}">Trade Item</a>
-                <a href="{% url 'details user' pk=request.user.pk %}">Profile</a>
-                <a href="{% url 'logout user' %}">Sign Out</a>
+                <a href="{% url 'add used item' %}">
+                    Trade Item
+                </a>
+                <a href="{% url 'details user' pk=request.user.pk %}">
+                    Profile
+                </a>
+                <a href="{% url 'logout user' %}">
+                    Sign Out
+                </a>
             {% endif %}
             </nav>
         </a>

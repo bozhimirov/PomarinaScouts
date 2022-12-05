@@ -4,73 +4,78 @@
     <div class="container">
         <div class="col-9">
             <section id="catalogue">
-
-                <h1>Scout Shop New Items</h1>
-
-            {% for item in page_obj %}
-                <div class="car-card">
-                    <div class="image-wrap">
+                <h1>
+                    Scout Shop New Items
+                </h1>
+                {% for item in page_obj %}
+                    <div class="car-card">
+                        <div class="image-wrap">
                         <!-- item image -->
-                        <img src="{{ item.photo.url }}"
-                             alt="{{ item.slug }}">
-                    </div>
-                <!-- item category -->
-                    <h3>{{ item.category }}</h3>
-
-                    <div class="details-buttons">
+                        <img src="{{ item.photo.url }}" alt="{{ item.slug }}">
+                        </div>
+                        <!-- item category -->
+                        <h3>
+                            {{ item.category }}
+                        </h3>
+                        <div class="details-buttons">
                         <!-- item details button if staff-->
-                        <a href="{% url 'details item' item.pk %}" class="details-btn">Details</a>
-
+                        <a href="{% url 'details item' item.pk %}" class="details-btn">
+                            Details
+                        </a>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
-
+                {% endfor %}
             </section>
      </div>
     </div>
-
-{#        <div class="paginator">#}
-{#    {% if page_obj.has_previous %}#}
-{#        {% if page_obj.previous_page_number != page_obj.start_index %}#}
-{#            <a href="?page=1">1</a>#}
-{#            <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>#}
-{#            {% else %}#}
-{#                <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>#}
-{#            {% endif %}{% endif %}#}
-{#                {% if len_items > 0 %}#}
-{#                    <h4>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</h4>#}
-{#            {% endif %}#}
-{#            {% if page_obj.has_next %}#}
-{#                <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>#}
-{#                <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>#}
-{#            {% endif %}#}
-{#        </div>#}
-
     {% if page_obj.has_other_pages %}
-  <ul class="pagination">
-    {% if page_obj.has_previous %}
-      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li>
+                    <a href="?page={{ page_obj.previous_page_number }}">
+                        &laquo;
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <span>
+                        &laquo;
+                    </span>
+                </li>
+            {% endif %}
+            {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="active">
+                        <span>
+                            {{ i }}
+                            <span class="sr-only">
+
+                            </span>
+                        </span>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="?page={{ i }}">
+                            {{ i }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li>
+                    <a href="?page={{ page_obj.next_page_number }}">
+                        &raquo;
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <span>
+                        &raquo;
+                    </span>
+                </li>
+            {% endif %}
+        </ul>
     {% endif %}
-    {% for i in page_obj.paginator.page_range %}
-      {% if page_obj.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only"></span></span></li>
-      {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
-    {% endif %}
-  </ul>
-{% endif %}
-
-
-
-
     <!-- footer -->
 {% endblock %}
 

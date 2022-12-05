@@ -7,7 +7,9 @@
         <form id="delete" method="post" >
             <div class="container">
 
-                <h1>Delete Payment</h1>
+                <h1>
+                    Delete Payment
+                </h1>
                 {{ form.field.as_hidden }}
                 {% csrf_token %}
                 <input class="btn submit" type="submit" value="Delete Item">

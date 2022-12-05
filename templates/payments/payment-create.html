@@ -3,11 +3,14 @@
 {% block content %}
     <!-- profile details section -->
 <section id="car-details">
-        <h1>For confirmation</h1>
+        <h1>
+            For confirmation
+        </h1>
 
 {% for payment in payment_set  %}
     {% if not payment.paid  %}
-        <h5><a href=" {% url 'details payment' pk=payment.pk %}">
+        <h5>
+            <a href=" {% url 'details payment' pk=payment.pk %}">
 
             Type: {{ payment.model_name }}
             Kid:  {{ payment.kid.first_name }} {{ payment.kid.last_name }}
@@ -15,36 +18,38 @@
             Tax: {{ payment.tax_per_kid }}
             Period: {{ payment.period_billed }}
             Comment: {{ payment.comment }}
-            Status: {% if payment.paid %} Paid on {{ payment.confirmed_by_user }}{% else %} Pending {% endif %}
-            Confirmed by user at: {% if payment.confirmed_by_user %} {{ payment.confirmed_by_user }} {% else %} Not confirmed {% endif %}
-            <br><br></a></h5>
+            Status:
+                {% if payment.paid %}
+                    Paid on {{ payment.confirmed_by_user }}
+                {% else %}
+                    Pending
+                {% endif %}
+            Confirmed by user at:
+                {% if payment.confirmed_by_user %}
+                    {{ payment.confirmed_by_user }}
+                {% else %}
+                    Not confirmed
+                {% endif %}
+            <br><br>
+            </a>
+        </h5>
     {% endif %}
 {% endfor %}
 </section>
 
-
     <!-- create profile form -->
     <section id="register-page" class="content auth">
-
         <form id="register" method="post" enctype="multipart/form-data">
             <div class="container">
-
-
-
-                <div class="brand-logo"></div>
-                <h1>Generate Payment</h1>
-
-
+                <h1>
+                    Generate Payment
+                </h1>
                 {{ form.as_p }}
-
-
                 {% csrf_token %}
                 <input class="btn submit" type="submit" value="Place Order">
             </div>
         </form>
     </section>
-
-
 
     <!-- footer -->
 {% endblock %}

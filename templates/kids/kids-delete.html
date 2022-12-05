@@ -3,18 +3,19 @@
 {% block content %}
 
   <section id="register-page" class="content auth">
-
       <div class="container">
-        <h1>Are you sure you want to delete your kid {{ kid.first_name }} from your profile?</h1>
+        <h1>
+            Are you sure you want to delete your kid {{ kid.first_name }} from your profile?
+        </h1>
           <!-- Delete Profile Form -->
-{#        <form id='delete' method="post" action="{% url 'delete kid' username kid_slug %}">#}
         <form id='delete' method="post" >
             {% csrf_token %}
-        <!-- Confirm Button -->
-        <input class='btn submit' type='submit' value='Yes'>
-        <!-- Make it look like button -->
-        <a class="btn submit" href="javascript:history.back()" type="submit">Go Back</a>
-
+            <!-- Confirm Button -->
+            <input class='btn submit' type='submit' value='Yes'>
+            <!-- Make it look like button -->
+            <a class="btn submit" href="javascript:history.back()" type="submit">
+                Go Back
+            </a>
         </form>
       </div>
     <!-- End Delete Profile Form -->

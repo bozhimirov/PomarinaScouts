@@ -3,73 +3,93 @@
 {% block content %}
     <!-- profile details section -->
 
-
     <!-- create profile form -->
     <section id="register-page" class="content auth">
         <form id="register" method="post" enctype="multipart/form-data">
             <div class="container">
-                <div class="brand-logo"></div>
-
-
 
                     {% if not payment.paid %}
                         {% if is_owner %}
-                            <h1>You Have Pending Payment:</h1>
+                            <h1>
+                                You Have Pending Payment:
+                            </h1>
                         {% endif %}
                         {% if request.user.is_superuser %}
-                            <h1>You Have Made A Payment:</h1>
+                            <h1>
+                                You Have Made A Payment:
+                            </h1>
                         {% endif %}
                     {% else %}
                         {% if is_owner %}
-                            <h1>You Have Paid Payment:</h1>
+                            <h1>
+                                You Have Paid Payment:
+                            </h1>
                         {% endif %}
                         {% if request.user.is_superuser %}
-                            <h1>You Have Confirmed Payment:</h1>
+                            <h1>
+                                You Have Confirmed Payment:
+                            </h1>
                         {% endif %}
                     {% endif %}
 
-
-
-
-                <h2>Kid: {{ payment.kid.first_name }}</h2>
-
-                <h2>Type: {{ payment.model_name }}</h2>
-
-                <h2>Tax: {{ payment.tax_per_kid }}</h2>
-
-{#                <h2>Total sum: {{ payment.tax_per_kid }}</h2>#}
-
-            {% if payment.paid %}
-            <h2>Generated: {{ payment.generated_date }}</h2>
-            <h2>Status: {% if payment.paid %} Paid {% else %} Pending {% endif %}</h2>
-            <h2>Confirmed at: {% if payment.paid %} {{ payment.confirmed_by_staff }} {% else %} Not confirmed {% endif %}
-            </h2>{% endif %}
-                <h2>Payment details:
-                    Pomarina Scouts PNO</h2>
-                    <h2>IBAN: BG1000PSBN80009000100
+                <h2>
+                    Kid: {{ payment.kid.first_name }}
                 </h2>
-
-
-
+                <h2>
+                    Type: {{ payment.model_name }}
+                </h2>
+                <h2>
+                    Tax: {{ payment.tax_per_kid }}
+                </h2>
+                {% if payment.paid %}
+                    <h2>
+                        Generated: {{ payment.generated_date }}
+                    </h2>
+                    <h2>
+                        Status:
+                        {% if payment.paid %}
+                            Paid
+                        {% else %}
+                            Pending
+                        {% endif %}
+                    </h2>
+                    <h2>
+                        Confirmed at:
+                        {% if payment.paid %}
+                            {{ payment.confirmed_by_staff }}
+                        {% else %}
+                            Not confirmed
+                        {% endif %}
+                    </h2>
+                {% endif %}
+                <h2>
+                    Payment details:
+                    Pomarina Scouts PNO
+                </h2>
+                <h2>
+                    IBAN: BG1000PSBN80009000100
+                </h2>
                 <div class="edit-delete-shop-btns">
                        <!-- if user is staff -->
                 {% if not payment.paid %}
                     {% if request.user.is_staff %}
                         <a href="{% url 'edit payment' payment.pk %}">
                             <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}"
-                                 alt="edit button" width="40px">Edit Payment
+                                 alt="edit button" width="40px">
+                            Edit Payment
                         </a>
 
                         <!-- if user is staff -->
                         <a href="{% url 'delete payment' payment.pk %}">
                             <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
-                                 alt="bin button" width="40px">Delete Payment
+                                 alt="bin button" width="40px">
+                            Delete Payment
                         </a>
                          <a href="{% url 'confirm paid' payment.pk %}">
                             <img class="bin-img" src="{% static 'images/banknotes-xxl.png' %}"
                                  alt="bin button" width="40px">
                             Confirm Payment
-                        </a>
+                         </a>
                     {% else %}
                         <a href="{% url 'confirm payment' payment.pk %}">
                             <img class="bin-img" src="{% static 'images/banknotes-xxl.png' %}"
@@ -79,16 +99,15 @@
                     {% endif %}
                 {% else %}
                     <a href="{% url 'details user' pk=user.pk %}">
-                            <img class="edit-img" src="{% static 'images/user-xxl.png' %}"
-                                 alt="edit button" width="40px">Return to profile
-                        </a>
+                        <img class="edit-img" src="{% static 'images/user-xxl.png' %}"
+                                 alt="edit button" width="40px">
+                        Return to profile
+                    </a>
                 {% endif %}
                 </div>
             </div>
         </form>
     </section>
-
-
 
     <!-- footer -->
 {% endblock %}

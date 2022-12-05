@@ -1,28 +1,26 @@
 {% extends 'base.html'%}
 {% load static %}
 {% block content %}
-
     <!-- profile details section -->
-{% if request.user.is_authenticated %}
-    <h1>
-        Welcome
-    </h1>
-     <h4>You have successfully registered!
-         <div>
+    {% if request.user.is_authenticated %}
+        <h1>
+            Welcome
+        </h1>
+        <h4>
+            You have successfully registered!
+            <div>
              You are part of the Scout Adventure now. Enjoy!
-         </div>
-     </h4>
+            </div>
+        </h4>
+    {% endif %}
 
-{% endif %}
-
-{#    redirect to index after 5 secs#}
+{#    redirect to index after 4 secs#}
     <br>
-    <img src="{% static '/images/logo.png' %}"
-            alt="scout" width="500px">
+    <img src="{% static '/images/logo.png' %}" alt="scout" width="500px">
     <script>
        setTimeout(function(){
             window.location.href = "{% url 'index' %}";
-         }, 5000);
+         }, 4000);
     </script>
     <!-- footer -->
 {% endblock %}
