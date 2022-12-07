@@ -23,10 +23,12 @@ class UserDetailsView(LoginRequiredMixin, views.DetailView):
     # '''Made for migrations'''
     # payments = []
     unpaid = False
+    paid = False
     for payment in payments:
         if not payment.paid:
             unpaid = True
-
+        if payment.paid:
+            paid = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

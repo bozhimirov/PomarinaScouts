@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load group_filter %}
 {% load static %}
 {% block content %}
     <!-- profile details section -->
@@ -71,8 +72,8 @@
                 </h2>
                 <div class="edit-delete-shop-btns">
                        <!-- if user is staff -->
-                {% if not payment.paid %}
-                    {% if request.user.is_staff %}
+                {% if not payment.confirmed_by_user %}
+                    {% if request.user|has_group:"accountant" %}
                         <a href="{% url 'edit payment' payment.pk %}">
                             <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}"
                                  alt="edit button" width="40px">
@@ -85,10 +86,11 @@
                                  alt="bin button" width="40px">
                             Delete Payment
                         </a>
+
                          <a href="{% url 'confirm paid' payment.pk %}">
                             <img class="bin-img" src="{% static 'images/banknotes-xxl.png' %}"
                                  alt="bin button" width="40px">
-                            Confirm Payment
+                            Confirm Paid
                          </a>
                     {% else %}
                         <a href="{% url 'confirm payment' payment.pk %}">
