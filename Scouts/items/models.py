@@ -90,7 +90,9 @@ class Item(StrFromFieldsMixin, models.Model):
 
     user = models.ForeignKey(
         UserModel,
-        on_delete=models.RESTRICT,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
     )
 
     slug = models.SlugField(

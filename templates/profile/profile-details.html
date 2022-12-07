@@ -42,7 +42,7 @@
             </h1>
         {% endif %}
         {% if is_owner %}
-            {% if object.user.payment_set.all %}
+            {% if request.user.payment_set.all %}
                 <h1>
                     You have pending payment
                 </h1>
@@ -191,7 +191,7 @@
                                 {% endif %}
                                 Item: {{ order.category }};
                                 Quantity: {{ order.quantity }}
-                                Price: {{ price }}
+                                Price: {{ order.price }}*{{ order.quantity}}
                             </a>
                         </div>
                     {% endif %}

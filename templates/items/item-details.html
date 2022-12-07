@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load group_filter %}
 {% load static %}
 {% block content %}
     <!-- profile details section -->
@@ -25,7 +26,7 @@
                             {% endif %}
                             <br>
                             <div class="imgBx" id="place the id of the photo here" >
-                                <img src="{{ item.photo.url }}" alt="photo of the item " class="cover" width="350px">
+                                <img src="{{ item.photo.url }}" alt="{{ item.slug}}" class="cover" width="350px">
                             </div>
                             <!-- IF the photo has price -->
                             {% if item.price %}
@@ -41,7 +42,7 @@
                             {% endif %}
                             <div class="edit-delete-shop-btns">
                                 <!-- if user is staff -->
-                                {% if request.user.is_staff %}
+                                {% if request.user|has_group:"marketplace" %}
                                     <a href="{% url 'edit item' item.pk %}">
                                         <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}" alt="edit button" width="40px">
                                     </a>
@@ -50,15 +51,17 @@
                                         <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button" width="40px">
                                     </a>
                                 {% endif %}
-                                {% if is_owner %}
+                                {% if request.user.is_authenticated %}
                                 <a href="{% url 'add order' item.pk %}" >
                                     <img class="bin-img" src="{% static 'images/shopping-basket-xxl.png' %}" alt="shop button" width="40px">
                                 </a>
                                 {% endif %}
                                 <!-- return to profile -->
+                                {% if request.user.is_authenticated %}
                                 <a href="{% url 'details user' pk=request.user.pk %}">
                                     <img class="bin-img" src="{% static 'images/user-xxl.png' %}" alt="bin button" width="40px">
                                 </a>
+                                {% endif %}
                             </div>
                         </h3>
                     </div>

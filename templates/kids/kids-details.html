@@ -4,6 +4,7 @@
 
     <!-- profile kid details section -->
     <section id="car-details">
+    {% if is_owner %}
         <h1>
             Kid Details
         </h1>
@@ -58,6 +59,7 @@
                 </div>
             </div>
         </div>
+    {% endif %}
     </section>
 
 {% endblock %}

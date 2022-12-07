@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load group_filter %}
 {% load static %}
 {% block content %}
     <!-- create profile form -->
@@ -11,7 +12,7 @@
                             Your Order
                         </h1>
                     {% endif %}
-                    {% if request.user.is_superuser %}
+                    {% if request.user.is_superuser or request.user|has_group:"marketplace" %}
                         <h1>
                             Order for sending
                         </h1>
@@ -22,13 +23,13 @@
                             Your Order Is On Its Way
                         </h1>
                     {% endif %}
-                    {% if request.user.is_superuser %}
+                    {% if request.user.is_superuser or request.user|has_group:"marketplace"%}
                         <h1>
                             Order to be received
                         </h1>
                     {% endif %}
                 {% endif %}
-                {% if request.user.is_superuser %}
+                {% if request.user.is_superuser or request.user|has_group:"marketplace"%}
                     <div>
                         Number of order: {{ order.id }}
                     </div>
@@ -93,14 +94,14 @@
                                  alt="bin button" width="40px">
                             </a>
                         {% endif %}
-                        {% if request.user.is_superuser %}
+                        {% if request.user.is_superuser or request.user|has_group:"marketplace" %}
                             <a href="{% url 'send order' order.pk %}">
                                 <img class="bin-img" src="{% static 'images/pack.png' %}"
                                  alt="send button" width="40px">
                             </a>
                         {% endif %}
                     {% else %}
-                        {% if request.user.is_superuser %}
+                        {% if request.user.is_superuser or request.user|has_group:"marketplace"%}
                             <a href="{% url 'receive order' order.pk %}">
                                 <img class="bin-img" src="{% static 'images/done.png' %}"
                                  alt="send button" width="40px">

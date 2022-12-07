@@ -16,6 +16,7 @@ UserModel = get_user_model()
 class Kid(StrFromFieldsMixin, models.Model):
     str_fields = ('id', 'first_name', 'last_name')
     MAX_NAME = 30
+    MIN_NAME = 3
     MIN_LEN_PHONE = 10
     MAX_LEN_PHONE = 10
 
@@ -25,6 +26,9 @@ class Kid(StrFromFieldsMixin, models.Model):
         max_length=MAX_NAME,
         null=False,
         blank=False,
+        validators=(
+            validators.MinLengthValidator(MIN_NAME),
+        )
     )
 
     last_name = models.CharField(

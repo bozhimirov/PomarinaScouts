@@ -20,6 +20,7 @@ class OrderBaseForm(forms.ModelForm):
             'received',
             'sent',
             'staff_member_finished',
+            'additional_comment',
         )
 
 
@@ -41,6 +42,7 @@ class OrderEditForm(OrderBaseForm):
             'received_by_user',
             'received',
             'sent',
+            'additional_comment',
         )
 
 
@@ -58,12 +60,6 @@ class OrderReceiveForm(OrderBaseForm):
             }
         ),
     )
-
-    class Meta:
-        model = Order
-        fields = (
-            'additional_comment',
-        )
 
     class Meta:
         model = Order

@@ -1,3 +1,4 @@
+{% load group_filter %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -17,14 +18,8 @@
         <h1>
             <img src="{% static '/images/scouts-stack-white.svg' %}" alt="scout" width="60px">
             <a class="index-navigation" href="{% url 'index' %}">
-                <span>
-                    P
-                </span>
-                omarina
-                <span>
-                    S
-                </span>
-                couts
+                <span>P</span>omarina
+                <span>S</span>couts
             </a>
         </h1>
         <a class="index-navigation">
@@ -53,12 +48,16 @@
                 <a href="{% url 'admin:index' %}">
                     Admin
                 </a>
-                <a href="{% url 'add item' %}">
-                    Add Item
-                </a>
-                <a href="{% url 'add payment' %}">
-                    Make Payment
-                </a>
+                {% if request.user.is_superuser or request.user|has_group:"marketplace" %}
+                    <a href="{% url 'add item' %}">
+                        Add Item
+                    </a>
+                {% endif %}
+                {% if request.user.is_superuser or request.user|has_group:"accountant" %}
+                    <a href="{% url 'add payment' %}">
+                        Make Payment
+                    </a>
+                {% endif %}
             {% endif %}
 
                 <a href="{% url 'add used item' %}">

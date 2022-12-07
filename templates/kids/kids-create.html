@@ -1,6 +1,6 @@
 {% extends 'base.html'%}
 {% load static %}
-{% load placeholders %}
+{% load group_filter %}
 {% block content %}
 
     <!-- create profile form -->
@@ -8,14 +8,21 @@
         <form id="register" method="post" enctype="multipart/form-data">
             <div class="container">
                 <h1>Add Kid</h1>
-{#                {{ form }}#}
+{#            {% if form.errors %}#}
+{#                {{ form.errors }}#}
+{#            {% endif %}#}
+                {{ form }}
 
-                {{ form.first_name|placeholder:'First Name: ' }}
-                {{ form.last_name|placeholder:'Optional / Last Name: ' }}
-                {{ form.phone_number|placeholder:'Optional / Phone Number: '  }}
-                {{ form.date_of_birth|placeholder:'Date of birth: / YYYY-MM-DD '  }}
-                {{ form.gender|placeholder:'Gender: '  }}
-                {{ form.profile_picture  }}
+
+{#                {{ form.first_name|placeholder:'First Name: ' }}#}
+{#                {{ form.last_name|placeholder:'Optional / Last Name: ' }}#}
+{#                {{ form.phone_number|placeholder:'Optional / Phone Number: '  }}#}
+{#                {{ form.date_of_birth|placeholder:'Date of birth: / YYYY-MM-DD '  }}#}
+{#                {{ form.gender|placeholder:'Gender: '  }}#}
+{#                {{ form.profile_picture  }}#}
+{#                {% if form.errors %}#}
+{#                    {{ form.errors }}#}
+{#                {% endif %}#}
                 {% csrf_token %}
                 <input class="btn submit" type="submit" value="Add Kid">
             </div>

@@ -38,6 +38,8 @@ def scout_store(request):
     count_of_items = all_items.count()
     count_of_used_items = all_used_items.count()
     all_orders = Order.objects.all()
+
+
     all_users = Profile.objects.all()
     for_sending = False
     for sent in all_orders:

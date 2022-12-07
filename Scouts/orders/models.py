@@ -83,10 +83,16 @@ class Order(models.Model):
         null=False,
         blank=True,
     )
+    #
+    # price = models.ForeignKey(
+    #
+    # )
 
     user = models.ForeignKey(
         UserModel,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
     )
 
     staff_member = models.CharField(
