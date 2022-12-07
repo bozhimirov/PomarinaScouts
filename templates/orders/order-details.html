@@ -17,7 +17,7 @@
                             Order for sending
                         </h1>
                     {% endif %}
-                {% else %}
+                {% elif not order.received %}
                     {% if is_owner %}
                         <h1>
                             Your Order Is On Its Way
@@ -26,6 +26,17 @@
                     {% if request.user.is_superuser or request.user|has_group:"marketplace"%}
                         <h1>
                             Order to be received
+                        </h1>
+                    {% endif %}
+                {% else %}
+                    {% if is_owner %}
+                        <h1>
+                            Your Received Order
+                        </h1>
+                    {% endif %}
+                    {% if request.user.is_superuser or request.user|has_group:"marketplace"%}
+                        <h1>
+                            Order already received
                         </h1>
                     {% endif %}
                 {% endif %}
@@ -102,10 +113,12 @@
                         {% endif %}
                     {% else %}
                         {% if request.user.is_superuser or request.user|has_group:"marketplace"%}
+                            {% if not order.received %}
                             <a href="{% url 'receive order' order.pk %}">
                                 <img class="bin-img" src="{% static 'images/done.png' %}"
                                  alt="send button" width="40px">
                             </a>
+                                {% endif %}
                         {% endif %}
                     {% endif %}
                     <!-- return to profile -->

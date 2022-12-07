@@ -1,19 +1,22 @@
 {% extends 'base.html'%}
+{% load group_filter %}
 {% load static %}
 {% block content %}
 
     <!-- if staff user -->
     <section id="car-details">
-        {% if request.user.is_superuser %}
+        {% if request.user.is_superuser or request.user|has_group:"accountant" %}
+            {% if unpaid %}
             <h1>
-                Orders for confirmation
+                Payments for confirmation
             </h1>
             <div class="info-section">
-                {%  for payment in Payments.objects.all %}
-                    {% if payment.staff_member == request.user.full_name %}
-                        <h1>
-                            You made payments, not paid yet
-                        </h1>
+
+                {%  for payment in payments %}
+                    {% if not payment.paid %}
+{#                    <h1>#}
+{#                            You made payments, not paid yet#}
+{#                        </h1>#}
                         <a href="{% url 'details payment' pk=payment.pk %}" >
                             Kid: {{ payment.kid.first_name }}
                             Type: {{ payment.model_name }}
@@ -29,25 +32,31 @@
                                 To be paid
                             {% endif %}
                         </a>
+                    {% if not payment.paid %}
+                        {% if payment.confirmed_by_user %}
                         <button>
-                            <a href="{% url 'confirm payment' payment.pk %}" >
-                                Pay Now
+                            <a href="{% url 'confirm paid' payment.pk %}" >
+                                Confirm Payment
                             </a>
-                        </button><br>
+                        </button>
                     {% endif %}
+                    {% endif %}
+                    {% endif %}<br>
+
                 {% endfor %}
             </div>
             <h1>
-                Payments for confirmation
+                Orders for confirmation
             </h1>
         {% endif %}
+    {% endif %}
         {% if is_owner %}
-            {% if request.user.payment_set.all %}
+            {% if unpaid %}
                 <h1>
                     You have pending payment
                 </h1>
                 <div class="info-section">
-                    {%  for payment in object.user.payment_set.all %}
+                    {%  for payment in object.user.payment_parent.all %}
                         {% if not payment.paid %}
                             <a href="{% url 'details payment' pk=payment.pk %}" >
                                 Kid: {{ payment.kid.first_name }}
@@ -64,11 +73,13 @@
                                     To be paid
                                 {% endif %}
                             </a>
+                            {% if not payment.confirmed_by_user %}
                             <button>
                                 <a href="{% url 'confirm payment' payment.pk %}" >
                                     Pay Now
                                 </a>
-                            </button><br>
+                            </button>
+                                {% endif %}<br>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -155,11 +166,11 @@
                 </div>
             </div><br>
         {% endfor %}
-
-        <h1>
-            Items for Sale
-        </h1>
-
+        {% if items_for_sale %}
+            <h1>
+                Items for Sale
+            </h1>
+        {% endif %}
         {% for item in object.user.useditem_set.all %}
             <div class="info-section">
                 <div class="car-header">
@@ -173,14 +184,15 @@
                 </div>
             </div>
         {% endfor %}
-
+        {% if not_received_orders %}
         <h1>
             Orders Made
         </h1>
-        {% for order in object.user.order_set.all %}
+    {% endif %}
+        {% for order in not_received_orders %}
             <div class="info-section">
                 <div class="car-header">
-                    {% if order.pk %}
+                    {% if not order.received %}
                         <div>
                             <a href="{%  url 'details order' pk=order.pk %}">
                                 <h2>
@@ -191,18 +203,20 @@
                                 {% endif %}
                                 Item: {{ order.category }};
                                 Quantity: {{ order.quantity }}
-                                Price: {{ order.price }}*{{ order.quantity}}
+                                Sent: {{ order.sent }}
+                                Received: {{ order.received }}
                             </a>
                         </div>
                     {% endif %}
                 </div>
             </div>
         {% endfor %}
-
+    {% if paid_payments  %}
         <h1>
             Archive Payments
         </h1>
-        {%  for payment in object.user.payment_parent.all %}
+    {% endif %}
+        {%  for payment in paid_payments %}
             <div class="info-section">
                 <div class="car-header">
                     {% if payment.paid %}

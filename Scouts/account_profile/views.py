@@ -6,6 +6,8 @@ from django.views import generic as views
 
 from Scouts.account_profile.forms import UserCreateForm
 from Scouts.account_profile.models import Profile
+from Scouts.items.models import UsedItem
+from Scouts.orders.models import Order
 from Scouts.payments.models import Payment
 
 UserModel = get_user_model()
@@ -15,7 +17,9 @@ class UserDetailsView(LoginRequiredMixin, views.DetailView):
     template_name = 'profile/profile-details.html'
     model = Profile
     payments = Payment.objects.all()
-
+    not_received_orders = Order.objects.filter(received=False)
+    paid_payments = Payment.objects.filter(paid=True)
+    items_for_sale = UsedItem.objects.all()
     # '''Made for migrations'''
     # payments = []
     unpaid = False
@@ -23,11 +27,16 @@ class UserDetailsView(LoginRequiredMixin, views.DetailView):
         if not payment.paid:
             unpaid = True
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context['is_owner'] = self.request.user == self.object.user
         context['unpaid'] = self.unpaid
+        context['payments'] = self.payments
+        context['paid_payments'] = self.paid_payments
+        context['not_received_orders'] = self.not_received_orders
+        context['items_for_sale'] = self.items_for_sale
 
         return context
 
