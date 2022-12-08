@@ -6,7 +6,9 @@ from django.views import generic as views
 
 from Scouts.account_profile.forms import UserCreateForm
 from Scouts.account_profile.models import Profile
+from Scouts.accounts.models import AppUser
 from Scouts.items.models import UsedItem
+from Scouts.kids.models import Kid
 from Scouts.orders.models import Order
 from Scouts.payments.models import Payment
 
@@ -17,27 +19,52 @@ class UserDetailsView(LoginRequiredMixin, views.DetailView):
     template_name = 'profile/profile-details.html'
     model = Profile
     payments = Payment.objects.all()
-    not_received_orders = Order.objects.filter(received=False)
+    not_received_orders_all = Order.objects.filter(received=False)
+    not_received_orders = []
+    # Order.objects.filter(user_id=AppUser.objects.filter(pk=self.request.user.pk))
+
+    for order in not_received_orders_all:
+        # if order.user == self.object.user:
+        pass
     paid_payments = Payment.objects.filter(paid=True)
     items_for_sale = UsedItem.objects.all()
+    kids = Kid.objects.all()
+    len_kids = len(Kid.objects.all())
     # '''Made for migrations'''
     # payments = []
-    unpaid = False
+    # not_received_orders = []
+    # paid_payments = []
+    # items_for_sale = []
     paid = False
+    unpaid = False
     for payment in payments:
         if not payment.paid:
             unpaid = True
         if payment.paid:
             paid = True
+    used_items = False
+    for item in items_for_sale:
+        if item:
+            used_items = True
+    not_received = False
+    for order in not_received_orders:
+        if order:
+            not_received = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        context['not_received_orders'] = Order.objects.filter(user_id=self.request.user.pk)
         context['is_owner'] = self.request.user == self.object.user
+        context['paid'] = self.paid
         context['unpaid'] = self.unpaid
+        context['len_kids'] = self.len_kids
+        context['kids'] = self.kids
+        context['used_items'] = self.used_items
         context['payments'] = self.payments
         context['paid_payments'] = self.paid_payments
-        context['not_received_orders'] = self.not_received_orders
+        context['not_received_orders_all'] = self.not_received_orders_all
+        context['not_received'] = self.not_received
         context['items_for_sale'] = self.items_for_sale
 
         return context

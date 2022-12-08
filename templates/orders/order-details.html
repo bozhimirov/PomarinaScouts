@@ -96,17 +96,17 @@
                     <!-- if user is owner -->
                     {% if not order.sent %}
                         {% if is_owner %}
-                            <a href="{% url 'edit order' order.pk %}">
+                            <a href="{% url 'edit order' order.pk %}" title="Edit Order">
                                 <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}"
                                  alt="edit button" width="40px">
                             </a>
-                            <a href="{% url 'delete order' order.pk %}">
+                            <a href="{% url 'delete order' order.pk %}" title="Delete Order">
                                 <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
                                  alt="bin button" width="40px">
                             </a>
                         {% endif %}
                         {% if request.user.is_superuser or request.user|has_group:"marketplace" %}
-                            <a href="{% url 'send order' order.pk %}">
+                            <a href="{% url 'send order' order.pk %}" title="Send order">
                                 <img class="bin-img" src="{% static 'images/pack.png' %}"
                                  alt="send button" width="40px">
                             </a>
@@ -114,7 +114,7 @@
                     {% else %}
                         {% if request.user.is_superuser or request.user|has_group:"marketplace"%}
                             {% if not order.received %}
-                            <a href="{% url 'receive order' order.pk %}">
+                            <a href="{% url 'receive order' order.pk %}" title="Received">
                                 <img class="bin-img" src="{% static 'images/done.png' %}"
                                  alt="send button" width="40px">
                             </a>
@@ -122,10 +122,12 @@
                         {% endif %}
                     {% endif %}
                     <!-- return to profile -->
-                    <a href="{% url 'details user' pk=request.user.pk %}">
+                    <a href="{% url 'details user' pk=request.user.pk %}" title="Profile">
                         <img class="bin-img" src="{% static 'images/user-xxl.png' %}"
                                          alt="bin button" width="40px">
                     </a>
+                <a class="btn submit" href="javascript:history.back()" type="submit">
+                                        Go Back</a>
                 </div>
             </div>
         </form>

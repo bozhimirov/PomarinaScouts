@@ -31,7 +31,7 @@
                             <!-- IF the photo has price -->
                             {% if item.price %}
                                 <span>
-                                    Price: {{ item.price }}
+                                    Price: {{ item.price }} lv.
                                 </span>
                             {% endif %}
                             <!-- IF the photo has description -->
@@ -43,22 +43,22 @@
                             <div class="edit-delete-shop-btns">
                                 <!-- if user is staff -->
                                 {% if request.user|has_group:"marketplace" %}
-                                    <a href="{% url 'edit item' item.pk %}">
+                                    <a href="{% url 'edit item' item.pk %}" title="Edit Item">
                                         <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}" alt="edit button" width="40px">
                                     </a>
                                     <!-- if user is staff -->
-                                    <a href="{% url 'delete item' item.pk %}">
+                                    <a href="{% url 'delete item' item.pk %}" title="Delete Item">
                                         <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button" width="40px">
                                     </a>
                                 {% endif %}
                                 {% if request.user.is_authenticated %}
-                                <a href="{% url 'add order' item.pk %}" >
+                                <a href="{% url 'add order' item.pk %}" title="Make An Order">
                                     <img class="bin-img" src="{% static 'images/shopping-basket-xxl.png' %}" alt="shop button" width="40px">
                                 </a>
                                 {% endif %}
                                 <!-- return to profile -->
                                 {% if request.user.is_authenticated %}
-                                <a href="{% url 'details user' pk=request.user.pk %}">
+                                <a href="{% url 'details user' pk=request.user.pk %}" title="Details User">
                                     <img class="bin-img" src="{% static 'images/user-xxl.png' %}" alt="bin button" width="40px">
                                 </a>
                                 {% endif %}

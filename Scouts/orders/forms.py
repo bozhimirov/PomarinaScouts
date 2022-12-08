@@ -49,6 +49,7 @@ class OrderEditForm(OrderBaseForm):
 class OrderSendForm(OrderBaseForm):
     class Meta:
         model = Order
+        # fields = ('quantity', 'category', 'item_name', 'ages', 'size', 'gender', 'place_to_deliver', 'comments')
         fields = ()
 
 

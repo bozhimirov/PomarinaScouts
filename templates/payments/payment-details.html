@@ -14,19 +14,17 @@
                             <h1>
                                 You Have Pending Payment:
                             </h1>
-                        {% endif %}
-                        {% if request.user.is_superuser %}
+                        {% elif request.user.is_superuser or request.user|has_group:"accountant" %}
                             <h1>
                                 You Have Made A Payment:
                             </h1>
-                        {% endif %}
+                            {% endif %}
                     {% else %}
                         {% if is_owner %}
                             <h1>
                                 You Have Paid Payment:
                             </h1>
-                        {% endif %}
-                        {% if request.user.is_superuser %}
+                        {% elif request.user.is_superuser or request.user|has_group:"accountant"  %}
                             <h1>
                                 You Have Confirmed Payment:
                             </h1>
@@ -40,7 +38,7 @@
                     Type: {{ payment.model_name }}
                 </h2>
                 <h2>
-                    Tax: {{ payment.tax_per_kid }}
+                    Tax: {{ payment.tax_per_kid }} lv.
                 </h2>
                 {% if payment.paid %}
                     <h2>
@@ -73,37 +71,44 @@
                 <div class="edit-delete-shop-btns">
                        <!-- if user is staff -->
                 {% if not payment.confirmed_by_user %}
-                    {% if request.user|has_group:"accountant" %}
+                    {% if request.user|has_group:"accountant" or request.user.is_superuser %}
                         <a href="{% url 'edit payment' payment.pk %}">
                             <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}"
-                                 alt="edit button" width="40px">
-                            Edit Payment
+                                 alt="edit button" width="40px" title="Edit Payment">
                         </a>
 
                         <!-- if user is staff -->
                         <a href="{% url 'delete payment' payment.pk %}">
                             <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
-                                 alt="bin button" width="40px">
-                            Delete Payment
+                                 alt="bin button" width="40px" title="Delete Payment">
+
                         </a>
 
-                         <a href="{% url 'confirm paid' payment.pk %}">
-                            <img class="bin-img" src="{% static 'images/banknotes-xxl.png' %}"
-                                 alt="bin button" width="40px">
-                            Confirm Paid
-                         </a>
                     {% else %}
+
+                        {%  if is_owner %}
                         <a href="{% url 'confirm payment' payment.pk %}">
                             <img class="bin-img" src="{% static 'images/banknotes-xxl.png' %}"
-                                 alt="bin button" width="40px">
-                            Confirm Payment
+                                 alt="bin button" width="40px" title="Confirm Payment">
+
                         </a>
+                            {% endif %}
                     {% endif %}
                 {% else %}
+
+                {% if request.user|has_group:"accountant" or request.user.is_superuser %}
+                            {% if not payment.paid %}
+                                <a href="{% url 'confirm paid' payment.pk %}">
+                            <img class="bin-img" src="{% static 'images/banknotes-xxl.png' %}"
+                                 alt="bin button" width="40px" title="Confirm Paid">
+
+                            </a>
+                            {% endif %}
+                    {% endif %}
                     <a href="{% url 'details user' pk=user.pk %}">
                         <img class="edit-img" src="{% static 'images/user-xxl.png' %}"
-                                 alt="edit button" width="40px">
-                        Return to profile
+                                 alt="edit button" width="40px" title="Return to profile">
+
                     </a>
                 {% endif %}
                 </div>

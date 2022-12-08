@@ -21,6 +21,15 @@
     text-align: center;
 }
 
+#car-details>h3 {
+    letter-spacing: 4px;
+    font-family: 'Cinzel', serif;
+    color: #c41d1d;
+    font-size: 25px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
 .info-section {
     /*position: relative;*/
     width: 100%;
@@ -116,6 +125,13 @@
     box-shadow: 0 0 25px white;
     border-radius: 20px;
 }
+.delete-button1 {
+    padding: 6px;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0 15px white;
+    border-radius: 5px;
+}
 .edit-button{
     background: #5fb6fd;
 }
@@ -124,6 +140,13 @@
     background: #d53b3b;
 }
 
+.delete-button1{
+    background: #d53b3b;
+}
+
 .edit-button:hover, .delete-button:hover {
+    box-shadow: 0 0 100px #6b6464;
+}
+.delete-button1:hover {
     box-shadow: 0 0 100px #6b6464;
 }

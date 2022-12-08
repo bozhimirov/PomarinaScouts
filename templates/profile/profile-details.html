@@ -51,13 +51,12 @@
 {#        {% endif %}#}
 {#    {% endif %}#}
         {% if is_owner %}
-            {% if unpaid %}
-                <h1>
-                    You have pending payment
-                </h1>
-                <div class="info-section">
-                    {%  for payment in object.user.payment_parent.all %}
-                        {% if not payment.paid %}
+            {%  for payment in object.user.payment_parent.all %}
+                {% if not payment.paid %}
+                    <h3>
+                        You have pending payment
+                    </h3>
+                        <div class="info-section">
                             <a href="{% url 'details payment' pk=payment.pk %}" >
                                 Kid: {{ payment.kid.first_name }}
                                 Type: {{ payment.model_name }}
@@ -74,16 +73,17 @@
                                 {% endif %}
                             </a>
                             {% if not payment.confirmed_by_user %}
-                            <button>
-                                <a href="{% url 'confirm payment' payment.pk %}" >
-                                    Pay Now
-                                </a>
-                            </button>
-                                {% endif %}<br>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            {% endif %}
+                                <button>
+                                    <a href="{% url 'confirm payment' payment.pk %}" class="delete-button1" title="Pay Now">
+                                        Pay Now
+                                    </a>
+                                </button>
+                            {% endif %}<br>
+                        </div>
+                {% endif %}
+            {% endfor %}
+<br>
+
         {% endif %}
         <h1>
             Profile Details
@@ -141,11 +141,13 @@
                     </div>
                     </div>
                 {% endif %}
-        <h1>
-            Kids Details
-        </h1>
-        {% for kid in object.user.kid_set.all %}
-            <div class="info-section">
+        {% if len_kids >= 1 %}
+            <h1>
+                Kids Details
+            </h1>
+        {% endif %}
+        <div class="info-section">
+            {% for kid in object.user.kid_set.all %}
                 <div class="car-header">
                     {% if not kid.profile_picture %}
                         <div>
@@ -164,15 +166,16 @@
                         </div>
                     {% endif %}
                 </div>
-            </div><br>
-        {% endfor %}
-        {% if items_for_sale %}
+            {% endfor %}
+        </div><br>
+{#        {% if items_for_sale is not None %}#}
             <h1>
                 Items for Sale
             </h1>
-        {% endif %}
+{#        {% endif %}#}
+<div class="info-section">
         {% for item in object.user.useditem_set.all %}
-            <div class="info-section">
+
                 <div class="car-header">
                     {% if item.photo %}
                         <div>
@@ -182,15 +185,16 @@
                         </div>
                     {% endif %}
                 </div>
-            </div>
         {% endfor %}
-        {% if not_received_orders %}
-        <h1>
-            Orders Made
-        </h1>
-    {% endif %}
+</div>
+{#        {% if not_received %}#}
+            <h1>
+                Orders Made
+            </h1>
+{#        {% endif %}#}
+    <div class="info-section">
         {% for order in not_received_orders %}
-            <div class="info-section">
+
                 <div class="car-header">
                     {% if not order.received %}
                         <div>
@@ -209,15 +213,16 @@
                         </div>
                     {% endif %}
                 </div>
-            </div>
-        {% endfor %}
-    {% if paid  %}
+            {% endfor %}
+    </div>
+
+{#    {% if paid  %}#}
         <h1>
             Archive Payments
         </h1>
-
+<div class="info-section">
         {%  for payment in object.user.payment_parent.all %}
-            <div class="info-section">
+
                 <div class="car-header">
                     {% if payment.paid %}
                         <a href="{% url 'details payment' pk=payment.pk %}" >
@@ -244,9 +249,10 @@
                         </a>
                     {% endif %}
                 </div>
-            </div>
-        {% endfor %}
-    {% endif %}
+            {% endfor %}
+</div>
+
+{#    {% endif %}#}
     </section>
 
 

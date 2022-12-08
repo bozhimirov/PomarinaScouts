@@ -6,30 +6,28 @@
         <h1>
             For confirmation
         </h1>
-
 {% for payment in payment_set  %}
     {% if not payment.paid  %}
         <h5>
-            <a href=" {% url 'details payment' pk=payment.pk %}">
 
-            Type: {{ payment.model_name }}
-            Kid:  {{ payment.kid.first_name }} {{ payment.kid.last_name }}
-            Age: {{ payment.kid.age }}
-            Tax: {{ payment.tax_per_kid }}
-            Period: {{ payment.period_billed }}
-            Comment: {{ payment.comment }}
+            <a href=" {% url 'details payment' pk=payment.pk %}">
+            <b>Kid:  {{ payment.kid.first_name }} {{ payment.kid.last_name }} |</b>
+            Type: {{ payment.model_name }} |
+            Age: {{ payment.kid.age }} |
+            Tax: {{ payment.tax_per_kid }} lv. |
+            Period: {{ payment.period_billed }} |
             Status:
                 {% if payment.paid %}
                     Paid on {{ payment.confirmed_by_user }}
                 {% else %}
                     Pending
-                {% endif %}
+                {% endif %} |
             Confirmed by user at:
                 {% if payment.confirmed_by_user %}
                     {{ payment.confirmed_by_user }}
                 {% else %}
                     Not confirmed
-                {% endif %}
+                {% endif %} |
             <br><br>
             </a>
         </h5>

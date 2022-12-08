@@ -19,7 +19,7 @@ class Item(StrFromFieldsMixin, models.Model):
     photo = models.ImageField(
         upload_to='items_photos/',
         null=False,
-        blank=True,
+        blank=False,
         validators=(
             validate_file_less_than_5mb,
         ),
