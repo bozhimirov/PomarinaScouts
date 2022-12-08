@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core import validators
+from django.views.generic.edit import FormMixin
 
 from Scouts.account_profile.models import Profile
 from Scouts.accounts.forms import AppUserEditForm, AppUserCreationForm
@@ -39,6 +40,7 @@ class UserCreateForm(AppUserCreationForm):
 
     first_name = forms.CharField(
         max_length=MAX_LEN_FIRST_NAME,
+        label="First Name",
         widget=forms.TextInput(
             attrs={'placeholder': "First name"}),
         validators=(
@@ -49,6 +51,7 @@ class UserCreateForm(AppUserCreationForm):
 
     last_name = forms.CharField(
         max_length=MAX_LEN_LAST_NAME,
+        label="Last Name",
         widget=forms.TextInput(
             attrs={'placeholder': "Last name"}),
         validators=(
@@ -59,6 +62,7 @@ class UserCreateForm(AppUserCreationForm):
 
     phone_number = forms.CharField(
         max_length=MAX_LEN_PHONE,
+        label="Phone Number",
         widget=forms.TextInput(
             attrs={'placeholder': "Phone number"}),
         validators=(
@@ -75,6 +79,7 @@ class UserCreateForm(AppUserCreationForm):
             'first_name',
             'last_name',
         )
+
 
     def save(self, commit=True):
         user = super().save(commit=commit)

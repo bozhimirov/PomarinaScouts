@@ -1,12 +1,12 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, UsernameField
-
+from django.views.generic.edit import FormMixin
 
 UserModel = get_user_model()
 
 
-class AppUserEditForm(UserChangeForm):
+class AppUserEditForm(FormMixin, UserChangeForm):
     PASSWORD_LENGTH = 20
     email = forms.EmailField(
         widget=forms.TextInput(
@@ -40,7 +40,7 @@ class AppUserEditForm(UserChangeForm):
         }
 
 
-class AppUserCreationForm(UserCreationForm):
+class AppUserCreationForm(FormMixin, UserCreationForm):
     PASSWORD_LENGTH = 20
     email = forms.EmailField(
         widget=forms.TextInput(
@@ -65,7 +65,7 @@ class AppUserCreationForm(UserCreationForm):
 
     password2 = forms.CharField(
         max_length=PASSWORD_LENGTH,
-        label="Password confirmation",
+        label="Password Confirmation",
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': "Enter again the same password here"

@@ -1,6 +1,8 @@
 # from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.http import request
+from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import EmailField
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import views as auth_views, get_user_model, login
@@ -22,6 +24,7 @@ class SignInView(auth_views.LoginView):
     model = UserModel
     template_name = 'accounts/login.html'
     success_url = reverse_lazy('details user')
+
 
     def get_success_url(self):
         return reverse_lazy(

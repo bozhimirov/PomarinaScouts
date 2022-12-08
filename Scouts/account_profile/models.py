@@ -71,6 +71,7 @@ class Profile(models.Model):
     )
 
     USERNAME_FIELD = 'user'
+    # USERNAME_FIELD = 'email'
 
     def get_full_name(self):
         """

@@ -73,7 +73,7 @@
                                 {% endif %}
                             </a>
                             {% if not payment.confirmed_by_user %}
-                                <button>
+                                <button style="background-color:#cb0303; color:antiquewhite">
                                     <a href="{% url 'confirm payment' payment.pk %}" class="delete-button1" title="Pay Now">
                                         Pay Now
                                     </a>

@@ -5,6 +5,7 @@ from Scouts.orders.models import Order
 
 
 class OrderBaseForm(forms.ModelForm):
+
     class Meta:
         model = Order
         exclude = (
