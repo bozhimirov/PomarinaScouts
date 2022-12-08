@@ -115,12 +115,6 @@ class SignUpView(views.CreateView):
     template_name = 'accounts/register.html'
     form_class = UserCreateForm
 
-    def form_invalid(self, form):
-        """
-        If the form is invalid, re-render the context data with the
-        data-filled form and errors.
-        """
-        return self.render_to_response(self.get_context_data(form=form))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -133,7 +127,7 @@ class SignUpView(views.CreateView):
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
-
-        login(request, self.object)
+        if self.object:
+            login(request, self.object)
 
         return response
