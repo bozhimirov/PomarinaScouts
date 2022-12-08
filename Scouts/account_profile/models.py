@@ -16,7 +16,6 @@ class Profile(models.Model):
 
     first_name = models.CharField(
         max_length=MAX_LEN_FIRST_NAME,
-        help_text="Please use only letters.",
         validators=(
             validators.MinLengthValidator(MIN_LEN_FIRST_NAME),
             validate_only_letters,
@@ -25,7 +24,6 @@ class Profile(models.Model):
 
     last_name = models.CharField(
         max_length=MAX_LEN_LAST_NAME,
-        help_text="Please use only letters.",
         validators=(
             validators.MinLengthValidator(MIN_LEN_LAST_NAME),
             validate_only_letters,
@@ -42,7 +40,7 @@ class Profile(models.Model):
         null=True,
         blank=True,
         choices=Gender.choices(),
-        help_text="Please choose",
+        help_text="Optional / Please choose",
         max_length=Gender.max_len(),
     )
 
@@ -55,7 +53,6 @@ class Profile(models.Model):
         error_messages={
             'required': 'Place phone number in format: 0987654321'
         },
-        help_text="Type phone number in format: 0987654321",
         null=False,
         blank=False,
     )
@@ -64,13 +61,14 @@ class Profile(models.Model):
         upload_to='users_photos',
         null=True,
         blank=True,
-        help_text="Upload your photo here",
+        help_text="Optional / Upload your photo here",
         validators=(
             validate_file_less_than_5mb,
         ),
     )
 
     USERNAME_FIELD = 'user'
+
     # USERNAME_FIELD = 'email'
 
     def get_full_name(self):

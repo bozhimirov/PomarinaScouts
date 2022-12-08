@@ -76,8 +76,8 @@ class EditUserView(LoginRequiredMixin, views.UpdateView):
     fields = (
         'first_name',
         'last_name',
-        'gender',
         'phone_number',
+        'gender',
         'profile_image',
     )
 

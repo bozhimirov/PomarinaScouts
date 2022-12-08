@@ -6,29 +6,101 @@ from django.views.generic.edit import FormMixin
 from Scouts.account_profile.models import Profile
 from Scouts.accounts.forms import AppUserEditForm, AppUserCreationForm
 from Scouts.core.form_mixins import DisabledFormMixin
-from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_mobile_number
+from Scouts.core.model_mixins import Gender
+from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_mobile_number, \
+    validate_file_less_than_5mb
 
 UserModel = get_user_model()
 
 
 class UserEditForm(DisabledFormMixin, AppUserEditForm):
-    disabled_fields = ('first_name',)
+
+    # disabled_fields = ('first_name',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._disable_fields()
 
     class Meta:
+        MIN_LEN_FIRST_NAME = 2
+        MAX_LEN_FIRST_NAME = 30
+        MIN_LEN_LAST_NAME = 2
+        MAX_LEN_LAST_NAME = 30
+        MAX_LEN_PHONE = 10
+
         model = Profile
         fields = '__all__'
-        labels = {
-            'email': 'Email',
-            'phone_number': 'Phone Number',
-            'gender': 'Gender',
-            'first_name': 'First Name',
-            'last_name': 'Last Name',
-            'profile_image': 'Upload Your Picture',
-        }
+
+        first_name = forms.CharField(
+            max_length=MAX_LEN_FIRST_NAME,
+            label="First Name",
+            widget=forms.TextInput(
+                attrs={
+                    'placeholder': "First Name:"
+                }
+            ),
+            validators=(
+                validators.MinLengthValidator(MIN_LEN_FIRST_NAME),
+                validate_only_letters,
+            ),
+        )
+
+        last_name = forms.CharField(
+            max_length=MAX_LEN_LAST_NAME,
+            label="Last Name",
+            widget=forms.TextInput(
+                attrs={
+                    'placeholder': "Last Name:"
+                }
+            ),
+            help_text="Please use only letters.",
+            validators=(
+                validators.MinLengthValidator(MIN_LEN_LAST_NAME),
+                validate_only_letters,
+            ),
+        )
+
+        phone_number = forms.CharField(
+            max_length=MAX_LEN_PHONE,
+            label="Phone Number",
+            widget=forms.TextInput(
+                attrs={
+                    'placeholder': "Phone Number:"
+                }
+            ),
+            validators=(
+                validate_mobile_number,
+                validate_only_numbers,
+            ),
+            error_messages={
+                'required': 'Place phone number in format: 0987654321'
+            },
+            help_text="Type phone number in format: 0987654321",
+        )
+
+        gender = forms.CharField(
+            label="Optional / Gender:",
+            widget=forms.TextInput(
+                attrs={
+                    'placeholder': "Optional / Gender:"
+                }
+            ),
+            help_text="Optional / Please choose",
+            max_length=Gender.max_len(),
+        )
+
+        profile_image = forms.ImageField(
+            label="Optional / Profile Image",
+            widget=forms.TextInput(
+                attrs={
+                    'placeholder': " Optional / Profile Image:"
+                }
+            ),
+            help_text="Upload your photo here",
+            validators=(
+                validate_file_less_than_5mb,
+            ),
+        )
 
 
 class UserCreateForm(AppUserCreationForm):
