@@ -112,7 +112,7 @@ def add_used_item(request):
     )
 
 
-@permission_required('items.edit_item')
+@permission_required('items.add_item')
 @login_required
 def edit_item(request, pk):
     item = Item.objects.filter(pk=pk).get()
@@ -167,7 +167,7 @@ def edit_used_item(request, pk):
     )
 
 
-@permission_required('items.delete_item')
+@permission_required('items.add_item')
 @login_required
 def delete_item(request, pk):
     item = Item.objects.filter(pk=pk).get()

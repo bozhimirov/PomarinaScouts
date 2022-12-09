@@ -7,8 +7,8 @@ from Scouts.account_profile.models import Profile
 from Scouts.accounts.models import AppUser
 from Scouts.core.model_mixins import StrFromFieldsMixin, Gender
 from Scouts.core.utils import calculate_age
-from Scouts.core.validators import validate_only_numbers, validate_file_less_than_5mb
-
+from Scouts.core.validators import validate_only_numbers, validate_file_less_than_5mb, validate_only_letters, \
+    validate_birth_credentials, validate_age
 
 UserModel = get_user_model()
 
@@ -28,6 +28,7 @@ class Kid(StrFromFieldsMixin, models.Model):
         blank=False,
         validators=(
             validators.MinLengthValidator(MIN_NAME),
+            validate_only_letters,
         )
     )
 
@@ -35,6 +36,11 @@ class Kid(StrFromFieldsMixin, models.Model):
         max_length=MAX_NAME,
         null=True,
         blank=True,
+        help_text='Optional / Last Name',
+        validators=(
+            validators.MinLengthValidator(MIN_NAME),
+            validate_only_letters,
+        )
     )
 
     gender = models.CharField(
@@ -42,23 +48,29 @@ class Kid(StrFromFieldsMixin, models.Model):
         blank=False,
         choices=Gender.choices(),
         max_length=Gender.max_len(),
+        help_text='Please choose',
     )
 
     slug = models.SlugField(
         unique=True,
         null=False,
-        blank=True,
+        blank=False,
     )
 
     date_of_birth = models.DateField(
         null=False,
         blank=False,
+        help_text='Please Use Format YYYY-MM-DD:',
+        validators=(
+            validate_birth_credentials,
+        ),
     )
 
     profile_picture = models.ImageField(
         upload_to='kids_photos/',
         null=True,
         blank=True,
+        help_text='Optional / Upload Profile Picture',
         validators=(
             validate_file_less_than_5mb,
         ),
@@ -67,6 +79,7 @@ class Kid(StrFromFieldsMixin, models.Model):
     phone_number = models.CharField(
         null=True,
         blank=True,
+        help_text="Optional / Kid's Personal Phone Number",
         max_length=MAX_LEN_PHONE,
         validators=(
             validators.MinLengthValidator(MIN_LEN_PHONE),
@@ -118,6 +131,7 @@ class Kid(StrFromFieldsMixin, models.Model):
 
         if not self.age:
             age = calculate_age(born=self.date_of_birth)
+            validate_age(age)
             self.age = age
 
         return super().save(*args, **kwargs)

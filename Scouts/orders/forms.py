@@ -5,7 +5,6 @@ from Scouts.orders.models import Order
 
 
 class OrderBaseForm(forms.ModelForm):
-
     class Meta:
         model = Order
         exclude = (
@@ -26,10 +25,42 @@ class OrderBaseForm(forms.ModelForm):
 
 
 class OrderCreateForm(OrderBaseForm):
-    pass
+    quantity = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': "Required / Please choose quantity of item"
+            }
+        ),
+    )
+
+    comments = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': "Comments on order"
+            }
+        ),
+    )
 
 
 class OrderEditForm(OrderBaseForm):
+    quantity = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': "Required / Please choose quantity of item"
+            }
+        ),
+    )
+
+    comments = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': "Comments on order"
+            }
+        ),
+    )
+
     class Meta:
         model = Order
         exclude = (
@@ -44,6 +75,7 @@ class OrderEditForm(OrderBaseForm):
             'received',
             'sent',
             'additional_comment',
+            'staff_member_finished',
         )
 
 
@@ -56,6 +88,7 @@ class OrderSendForm(OrderBaseForm):
 
 class OrderReceiveForm(OrderBaseForm):
     additional_comment = forms.CharField(
+        required=False,
         widget=forms.TextInput(
             attrs={
                 'placeholder': "Comments if needed"

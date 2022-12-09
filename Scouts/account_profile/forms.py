@@ -90,6 +90,7 @@ class UserEditForm(DisabledFormMixin, AppUserEditForm):
         )
 
         profile_image = forms.ImageField(
+            required=False,
             label="Optional / Profile Image",
             widget=forms.TextInput(
                 attrs={

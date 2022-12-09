@@ -23,6 +23,7 @@ class Payment(models.Model):
         blank=False,
         choices=PaymentType.choices(),
         max_length=PaymentType.max_len(),
+        help_text='Required / Select payment type',
 
     )
 
@@ -36,6 +37,7 @@ class Payment(models.Model):
         blank=True,
         related_name='user_kid_type',
         on_delete=models.SET_NULL,
+        help_text='Required / Select Kid to generate payment',
     )
     parent = models.ForeignKey(
         UserModel,
@@ -48,17 +50,20 @@ class Payment(models.Model):
     tax_per_kid = models.PositiveIntegerField(
         null=True,
         blank=True,
+        help_text='Required / Tax depending of number of kids per parent',
     )
 
     period_billed = models.CharField(
         null=False,
         blank=False,
         max_length=MAX_NAME_LENGTH,
+        help_text='Required / Billed period',
     )
 
     comments = models.TextField(
         null=True,
         blank=True,
+        help_text='Optional / Comments on payment',
     )
 
     generated_date = models.DateField(

@@ -1,10 +1,12 @@
 from django.contrib.auth import get_user_model
+from django.core import validators
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils.text import slugify
 
 from Scouts.core.model_mixins import StrFromFieldsMixin, ItemCategory, AgeGroup, Size, Gender
-from Scouts.core.validators import validate_file_less_than_5mb
+from Scouts.core.validators import validate_file_less_than_5mb, validate_only_letters, validate_gt_zero, \
+    validate_only_numbers
 
 UserModel = get_user_model()
 
@@ -12,9 +14,11 @@ UserModel = get_user_model()
 class Item(StrFromFieldsMixin, models.Model):
     str_fields = ('pk', 'photo', 'category')
     MIN_DESCRIPTION_LENGTH = 5
+    MIN_LOCATION_LENGTH = 5
     MAX_DESCRIPTION_LENGTH = 300
     MAX_LOCATION_LENGTH = 30
     MAX_NAME = 30
+    MIN_NAME = 3
 
     photo = models.ImageField(
         upload_to='items_photos/',
@@ -23,14 +27,10 @@ class Item(StrFromFieldsMixin, models.Model):
         validators=(
             validate_file_less_than_5mb,
         ),
+        help_text='Upload photo of your Item here!'
+
         # on_delete=...
         # https: // stackoverflow.com / questions / 16041232 / django - delete - filefield
-    )
-
-    name = models.CharField(
-        null=True,
-        blank=True,
-        max_length=MAX_NAME,
     )
 
     category = models.CharField(
@@ -38,11 +38,27 @@ class Item(StrFromFieldsMixin, models.Model):
         blank=False,
         choices=ItemCategory.choices(),
         max_length=ItemCategory.max_len(),
+        help_text='Please choose category of the item'
+
     )
+
+    name = models.CharField(
+        null=True,
+        blank=True,
+        max_length=MAX_NAME,
+        help_text='Name of the item '
+
+    )
+
     # consider Float-field if necessary for price
     price = models.PositiveIntegerField(
         null=False,
         blank=False,
+        help_text='Price of the item ',
+        validators=(
+            validate_gt_zero,
+        ),
+
     )
 
     ages = models.CharField(
@@ -50,6 +66,8 @@ class Item(StrFromFieldsMixin, models.Model):
         blank=True,
         choices=AgeGroup.choices(),
         max_length=AgeGroup.max_len(),
+        help_text='Please choose Age category '
+
     )
 
     size = models.CharField(
@@ -57,6 +75,8 @@ class Item(StrFromFieldsMixin, models.Model):
         blank=True,
         choices=Size.choices(),
         max_length=Size.max_len(),
+        help_text='Please choose Size category '
+
     )
 
     gender = models.CharField(
@@ -64,21 +84,23 @@ class Item(StrFromFieldsMixin, models.Model):
         blank=True,
         choices=Gender.choices(),
         max_length=Gender.max_len(),
+        help_text='Please choose Gender category '
+
     )
 
     description = models.CharField(
         max_length=MAX_DESCRIPTION_LENGTH,
-        validators=(
-            MinLengthValidator(MIN_DESCRIPTION_LENGTH),
-        ),
         null=True,
         blank=True,
+        help_text='Description of the Item '
+
     )
 
     location = models.CharField(
         max_length=MAX_LOCATION_LENGTH,
         null=True,
         blank=True,
+
     )
 
     publication_date = models.DateField(
@@ -110,7 +132,7 @@ class Item(StrFromFieldsMixin, models.Model):
             self.slug = slugify(f'{self.pk}-{self.category}-{self.name}')
 
         if not self.name:
-            self.name = slugify(f'{self.pk}-{self.category}-{self.price}')
+            self.name = self.slug
 
         return super().save(*args, **kwargs)
 
@@ -128,10 +150,12 @@ class UsedItem(StrFromFieldsMixin, models.Model):
     photo = models.ImageField(
         upload_to='used_items_photos/',
         null=False,
-        blank=True,
+        blank=False,
         validators=(
             validate_file_less_than_5mb,
         ),
+        help_text='Upload photo of your Item here!',
+
     )
 
     category = models.CharField(
@@ -139,6 +163,8 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         blank=False,
         choices=ItemCategory.choices(),
         max_length=ItemCategory.max_len(),
+        help_text='Please choose category of the item'
+
     )
 
     ages = models.CharField(
@@ -146,6 +172,8 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         blank=True,
         choices=AgeGroup.choices(),
         max_length=AgeGroup.max_len(),
+        help_text='Please choose Age category '
+
     )
 
     size = models.CharField(
@@ -153,6 +181,8 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         blank=True,
         choices=Size.choices(),
         max_length=Size.max_len(),
+        help_text='Please choose Size category '
+
     )
 
     gender = models.CharField(
@@ -160,6 +190,7 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         blank=True,
         choices=Gender.choices(),
         max_length=Gender.max_len(),
+        help_text='Please choose Gender category '
     )
 
     description = models.CharField(

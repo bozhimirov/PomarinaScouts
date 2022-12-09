@@ -23,12 +23,14 @@ class Order(models.Model):
         blank=True,
         choices=ItemCategory.choices(),
         max_length=MAX_NAME_LENGTH,
+        help_text='Required / Please choose category of the item',
     )
 
     item_name = models.CharField(
         null=True,
         blank=True,
-        max_length=MAX_NAME_LENGTH
+        max_length=MAX_NAME_LENGTH,
+        help_text='Optional / Name of the item',
 
     )
 
@@ -37,6 +39,7 @@ class Order(models.Model):
         blank=False,
         choices=AgeGroup.choices(),
         max_length=AgeGroup.max_len(),
+        help_text='Required / Please choose ages category',
     )
 
     size = models.CharField(
@@ -44,6 +47,7 @@ class Order(models.Model):
         blank=True,
         choices=Size.choices(),
         max_length=Size.max_len(),
+        help_text='Optional / Please choose size category',
     )
 
     gender = models.CharField(
@@ -51,6 +55,7 @@ class Order(models.Model):
         blank=True,
         choices=Gender.choices(),
         max_length=Gender.max_len(),
+        help_text='Optional / Please choose gender category',
     )
 
     quantity = models.PositiveIntegerField(
@@ -58,7 +63,8 @@ class Order(models.Model):
         blank=False,
         validators=(
             validate_gt_zero,
-        )
+        ),
+        help_text='Required / Please choose quantity of item',
     )
 
     place_to_deliver = models.CharField(
@@ -66,15 +72,14 @@ class Order(models.Model):
         blank=False,
         choices=Delivery.choices(),
         max_length=Delivery.max_len(),
+        help_text='Required / Please choose place to receive item',
     )
 
     comments = models.TextField(
         max_length=MAX_DESCRIPTION_LENGTH,
-        validators=(
-            MinLengthValidator(MIN_DESCRIPTION_LENGTH),
-        ),
         null=True,
         blank=True,
+        help_text='Comments on order or place to receive',
     )
 
     publication_date = models.DateField(
@@ -131,6 +136,7 @@ class Order(models.Model):
     additional_comment = models.CharField(
         default='ok',
         blank=True,
+        null=True,
         max_length=MAX_DESCRIPTION_LENGTH,
     )
 

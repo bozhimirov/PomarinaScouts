@@ -140,10 +140,6 @@
     background: #d53b3b;
 }
 
-.delete-button1{
-    background: #d53b3b;
-}
-
 .edit-button:hover, .delete-button:hover {
     box-shadow: 0 0 100px #6b6464;
 }

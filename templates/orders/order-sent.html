@@ -10,6 +10,10 @@
                 <h1>
                     Pack and Send Order
                 </h1>
+                {% if form.errors %}
+                {{ value|escape }}
+                {{form.non_field_errors}}
+            {% endif %}
                 {{ form }}
                 {% csrf_token %}
                 <input class="btn submit" type="submit" value="Send Item">

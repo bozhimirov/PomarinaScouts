@@ -1,5 +1,11 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
+from django.db import IntegrityError
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse
+
 from Scouts.kids.forms import KidCreateForm, KidEditForm, KidDeleteForm
 from django.contrib.auth import get_user_model
 
@@ -35,9 +41,14 @@ def add_kid(request):
         if form.is_valid():
             kid = form.save(commit=False)
             kid.users = request.user
-            kid.save()
-            return redirect('details user', pk=request.user.pk)
+            try:
+                kid.save()
+                return redirect('details user', pk=request.user.pk)
+            except IntegrityError as e:
+                messages.error(request, 'Integrity error.' + str(e))
+                return HttpResponseRedirect(reverse('add kid', ))
 
+        # form = KidCreateForm()
     context = {
         'form': form,
 
@@ -95,5 +106,3 @@ def delete_kid(request, uid, kid_slug):
         'kids/kids-delete.html',
         context,
     )
-
-

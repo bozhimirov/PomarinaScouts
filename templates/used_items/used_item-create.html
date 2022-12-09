@@ -10,8 +10,12 @@
             <div class="container">
                 <div class="brand-logo"></div>
                 <h1>
-                    Add Item
+                    Add Item for Trade
                 </h1>
+                {% if form.errors %}
+                {{ value|escape }}
+                {{form.non_field_errors}}
+            {% endif %}
                 {{ form }}
                 {% csrf_token %}
                 <input class="btn submit" type="submit" value="Add Item">

@@ -10,6 +10,10 @@
                 <h1>
                     Edit Order
                 </h1>
+                {% if form.errors %}
+                {{ value|escape }}
+                {{form.non_field_errors}}
+            {% endif %}
                 {{ form.as_p }}
                 {% csrf_token %}
                 <input class="btn submit" type="submit" value="Edit Item">

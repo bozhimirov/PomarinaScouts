@@ -21,6 +21,10 @@
                     IBAN:<br>
                     BG1000PSBN80009000100
                 </h2>
+                {% if form.errors %}
+                {{ value|escape }}
+                {{form.non_field_errors}}
+            {% endif %}
                 {{ form.as_p }}
                 {% csrf_token %}
                 <input class="btn submit" type="submit" value="Confirm Payment">

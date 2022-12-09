@@ -42,9 +42,13 @@
                 <h1>
                     Generate Payment
                 </h1>
+                {% if form.errors %}
+                {{ value|escape }}
+                {{form.non_field_errors}}
+            {% endif %}
                 {{ form.as_p }}
                 {% csrf_token %}
-                <input class="btn submit" type="submit" value="Place Order">
+                <input class="btn submit" type="submit" value="Place Payment">
             </div>
         </form>
     </section>

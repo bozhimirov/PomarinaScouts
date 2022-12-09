@@ -10,13 +10,12 @@
             <div class="container">
                 <h1>Edit Profile</h1>
                 {% if is_owner %}
-{#                    {{ form.as_p }}#}
-                {{ form.first_name|placeholder:'First Name: ' }}
-                {{ form.last_name|placeholder:'Last Name: ' }}
-                {{ form.phone_number|placeholder:'Phone Number: '  }}
-                {{ form.date_of_birth|placeholder:'Date of birth: / YYYY-MM-DD '  }}
-                {{ form.profile_picture}}
-                {{ form.gender|placeholder:'Gender: '  }}
+                    {{ form.as_p }}
+{#                {{ form.first_name|placeholder:'First Name: ' }}#}
+{#                {{ form.last_name|placeholder:'Last Name: ' }}#}
+{#                {{ form.phone_number|placeholder:"Kid's Personal Phone Number: "  }}#}
+{#                {{ form.date_of_birth|placeholder:'Date of birth: / YYYY-MM-DD '  }}#}
+{#                {{ form.profile_picture}}#}
                 {% csrf_token %}
                 <input class="btn" type="submit" value="Edit Profile">
                 {% endif %}

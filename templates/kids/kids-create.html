@@ -8,9 +8,15 @@
         <form id="register" method="post" enctype="multipart/form-data">
             <div class="container">
                 <h1>Add Kid</h1>
-{#            {% if form.errors %}#}
-{#                {{ form.errors }}#}
-{#            {% endif %}#}
+            {% if form.errors %}
+                {{ value|escape }}
+                {{form.non_field_errors}}
+            {% endif %}
+            {% if messages %}
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+{% endif %}
                 {{ form }}
 
 

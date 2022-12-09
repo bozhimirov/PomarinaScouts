@@ -29,7 +29,19 @@ class PaymentBaseForm(forms.ModelForm):
 
 
 class PaymentCreateForm(PaymentBaseForm):
-    pass
+
+    comments = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': "Optional / Comments on payment"
+            }
+        ),
+    )
+
+    class Meta:
+        model = Payment
+        fields = ('model_name', 'kid', 'comments')
 
 
 class PaymentEditForm(PaymentBaseForm):

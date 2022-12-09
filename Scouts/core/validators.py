@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.core import exceptions
 
 from Scouts.core.utils import megabytes_to_bytes
@@ -30,3 +32,18 @@ def validate_file_less_than_5mb(fileobj):
     megabyte_limit = 5.0
     if filesize > megabytes_to_bytes(megabyte_limit):
         raise exceptions.ValidationError(f'Max file size is {megabyte_limit}MB')
+
+
+def validate_birth_credentials(born):
+    today = date.today()
+    if 4 > (today.year - born.year) > 26:
+        raise exceptions.ValidationError(f'Invalid year declared')
+    if 1 > born.month > 12:
+        raise exceptions.ValidationError(f'Invalid month declared')
+    if 1 > born.day > 31:
+        raise exceptions.ValidationError(f'Invalid day declared')
+
+
+def validate_age(age):
+    if 3 > age > 26:
+        raise exceptions.ValidationError(f'Invalid age declared')
