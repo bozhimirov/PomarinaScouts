@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
 html {
     font-family: Arial, sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     box-sizing: border-box;
 }
 
@@ -186,7 +186,7 @@ a {
 }
 .car-card>h3,
 .car-card>h1{
-    color: #2cb5e3;
+    color: #7140c4;
     text-align: center;
 }
 
