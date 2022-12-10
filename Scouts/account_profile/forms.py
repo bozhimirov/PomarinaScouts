@@ -79,7 +79,6 @@ class UserEditForm(DisabledFormMixin, AppUserEditForm):
         )
 
         gender = forms.CharField(
-            label="Optional / Gender:",
             widget=forms.TextInput(
                 attrs={
                     'placeholder': "Optional / Gender:"

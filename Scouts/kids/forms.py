@@ -5,7 +5,7 @@ from django.db import IntegrityError
 from Scouts.core.form_mixins import DisabledFormMixin
 from Scouts.core.model_mixins import Gender
 from Scouts.core.validators import validate_file_less_than_5mb, validate_only_numbers, validate_birth_credentials, \
-    validate_age
+    validate_age, validate_mobile_number
 from Scouts.kids.models import Kid
 
 
@@ -74,7 +74,7 @@ class KidBaseForm(forms.ModelForm):
             }
         ),
         validators=(
-            validators.MinLengthValidator(MIN_LEN_PHONE),
+            validate_mobile_number,
             validate_only_numbers,
         ),
     )

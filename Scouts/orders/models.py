@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.text import slugify
 
 from Scouts.accounts.models import AppUser
-from Scouts.core.model_mixins import AgeGroup, Size, Gender, ItemCategory, Delivery
+from Scouts.core.model_mixins import  Size, Gender, ItemCategory, Delivery, AgeGroupOrders
 from Scouts.core.validators import validate_gt_zero
 from Scouts.items.models import Item
 
@@ -37,8 +37,8 @@ class Order(models.Model):
     ages = models.CharField(
         null=False,
         blank=False,
-        choices=AgeGroup.choices(),
-        max_length=AgeGroup.max_len(),
+        choices=AgeGroupOrders.choices(),
+        max_length=AgeGroupOrders.max_len(),
         help_text='Required / Please choose ages category',
     )
 

@@ -9,7 +9,7 @@ class ItemBaseForm(forms.ModelForm):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'placeholder': "Location of the Item"
+                'placeholder': "Optional / Location of the Item"
             }
         ),
     )
@@ -18,7 +18,7 @@ class ItemBaseForm(forms.ModelForm):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'placeholder': "Description of the Item"
+                'placeholder': "Optional / Description of the Item"
             }
         ),
     )
@@ -27,7 +27,7 @@ class ItemBaseForm(forms.ModelForm):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'placeholder': "Name of the Item"
+                'placeholder': "Optional / Name of the Item"
             }
         ),
     )
@@ -36,7 +36,7 @@ class ItemBaseForm(forms.ModelForm):
     price = forms.IntegerField(
         widget=forms.TextInput(
             attrs={
-                'placeholder': "Price of the Item"
+                'placeholder': "Required / Price of the Item"
             }
         ),
     )
@@ -44,7 +44,7 @@ class ItemBaseForm(forms.ModelForm):
     class Meta:
         model = Item
         exclude = (
-            'publication_date',
+            'order_date',
             'user',
             'slug',
             'location',
@@ -58,7 +58,7 @@ class ItemCreateForm(ItemBaseForm):
             'ages',
             'size',
             'gender',
-            'publication_date',
+            'order_date',
             'user',
             'slug',
         )
@@ -71,7 +71,7 @@ class ItemEditForm(ItemBaseForm):
             'ages',
             'size',
             'gender',
-            'publication_date',
+            'order_date',
             'user',
             'slug',
         )
@@ -91,7 +91,7 @@ class UsedItemBaseForm(forms.ModelForm):
     description = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'placeholder': "Description of the Item"
+                'placeholder': "Required / Description of the Item"
             }
         ),
     )
@@ -100,7 +100,7 @@ class UsedItemBaseForm(forms.ModelForm):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'placeholder': "Location of the Item"
+                'placeholder': "Optional / Location of the Item"
             }
         ),
     )
@@ -108,7 +108,7 @@ class UsedItemBaseForm(forms.ModelForm):
     class Meta:
         model = UsedItem
         exclude = (
-            'publication_date',
+            'order_date',
             'user',
             'slug',
         )
@@ -120,7 +120,7 @@ class UsedItemCreateForm(UsedItemBaseForm):
         exclude = (
             'name',
             'price',
-            'publication_date',
+            'order_date',
             'user',
             'slug',
         )
@@ -132,7 +132,7 @@ class UsedItemEditForm(UsedItemBaseForm):
         exclude = (
             'name',
             'price',
-            'publication_date',
+            'order_date',
             'user',
             'slug',
         )

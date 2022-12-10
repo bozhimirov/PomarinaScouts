@@ -80,9 +80,9 @@
                         Delivery comments: {{ order.comments }}
                     </div>
                 {% endif %}
-                {% if order.publication_date %}
+                {% if order.order_date %}
                     <div>
-                        Date of order: {{ order.publication_date }}
+                        Date of order: {{ order.order_date }}
                     </div>
                 {% endif %}
                 {% for user in all_users %}

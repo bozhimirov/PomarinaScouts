@@ -40,7 +40,7 @@ class Profile(models.Model):
         null=True,
         blank=True,
         choices=Gender.choices(),
-        help_text="Optional / Please choose",
+        help_text="Optional / Please choose gender",
         max_length=Gender.max_len(),
     )
 

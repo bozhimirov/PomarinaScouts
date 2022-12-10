@@ -8,7 +8,6 @@ from Scouts.account_profile.models import Profile
 from Scouts.items.models import Item, UsedItem
 from Scouts.orders.models import Order
 
-
 UserModel = get_user_model()
 
 
@@ -38,7 +37,6 @@ def scout_store(request):
     count_of_items = all_items.count()
     count_of_used_items = all_used_items.count()
     all_orders = Order.objects.all()
-
 
     all_users = Profile.objects.all()
     for_sending = False
@@ -83,7 +81,7 @@ def scout_store_new(request):
 @login_required()
 def scout_store_used(request):
     all_used_items = UsedItem.objects.all()
-    paginator = Paginator(all_used_items, 4)
+    paginator = Paginator(all_used_items, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

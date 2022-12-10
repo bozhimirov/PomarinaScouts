@@ -38,7 +38,7 @@ class Item(StrFromFieldsMixin, models.Model):
         blank=False,
         choices=ItemCategory.choices(),
         max_length=ItemCategory.max_len(),
-        help_text='Please choose category of the item'
+        help_text='Required / Please choose category of the item'
 
     )
 
@@ -46,7 +46,7 @@ class Item(StrFromFieldsMixin, models.Model):
         null=True,
         blank=True,
         max_length=MAX_NAME,
-        help_text='Name of the item '
+        help_text='Optional / Name of the item '
 
     )
 
@@ -54,7 +54,7 @@ class Item(StrFromFieldsMixin, models.Model):
     price = models.PositiveIntegerField(
         null=False,
         blank=False,
-        help_text='Price of the item ',
+        help_text='Required / Price of the item ',
         validators=(
             validate_gt_zero,
         ),
@@ -66,7 +66,7 @@ class Item(StrFromFieldsMixin, models.Model):
         blank=True,
         choices=AgeGroup.choices(),
         max_length=AgeGroup.max_len(),
-        help_text='Please choose Age category '
+        help_text='Optional / Please choose Age category '
 
     )
 
@@ -75,7 +75,7 @@ class Item(StrFromFieldsMixin, models.Model):
         blank=True,
         choices=Size.choices(),
         max_length=Size.max_len(),
-        help_text='Please choose Size category '
+        help_text='Optional / Please choose Size category '
 
     )
 
@@ -84,7 +84,7 @@ class Item(StrFromFieldsMixin, models.Model):
         blank=True,
         choices=Gender.choices(),
         max_length=Gender.max_len(),
-        help_text='Please choose Gender category '
+        help_text='Optional / Please choose Gender category '
 
     )
 
@@ -92,7 +92,7 @@ class Item(StrFromFieldsMixin, models.Model):
         max_length=MAX_DESCRIPTION_LENGTH,
         null=True,
         blank=True,
-        help_text='Description of the Item '
+        help_text='Optional / Description of the Item '
 
     )
 
@@ -100,6 +100,7 @@ class Item(StrFromFieldsMixin, models.Model):
         max_length=MAX_LOCATION_LENGTH,
         null=True,
         blank=True,
+        help_text='Optional / Location of the Item '
 
     )
 
@@ -154,7 +155,7 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         validators=(
             validate_file_less_than_5mb,
         ),
-        help_text='Upload photo of your Item here!',
+        help_text='Required / Upload photo of your Item here!',
 
     )
 
@@ -163,7 +164,7 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         blank=False,
         choices=ItemCategory.choices(),
         max_length=ItemCategory.max_len(),
-        help_text='Please choose category of the item'
+        help_text='Required / Please choose category of the item'
 
     )
 
@@ -172,7 +173,7 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         blank=True,
         choices=AgeGroup.choices(),
         max_length=AgeGroup.max_len(),
-        help_text='Please choose Age category '
+        help_text='Optional / Please choose Age category '
 
     )
 
@@ -181,7 +182,7 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         blank=True,
         choices=Size.choices(),
         max_length=Size.max_len(),
-        help_text='Please choose Size category '
+        help_text='Optional / Please choose Size category '
 
     )
 
@@ -190,7 +191,7 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         blank=True,
         choices=Gender.choices(),
         max_length=Gender.max_len(),
-        help_text='Please choose Gender category '
+        help_text='Optional / Please choose Gender category '
     )
 
     description = models.CharField(
@@ -200,12 +201,14 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         ),
         null=False,
         blank=False,
+        help_text='Required / Description of the Item '
     )
 
     location = models.CharField(
         max_length=MAX_LOCATION_LENGTH,
         null=True,
         blank=True,
+        help_text='Optional / Location of the Item '
     )
 
     publication_date = models.DateField(

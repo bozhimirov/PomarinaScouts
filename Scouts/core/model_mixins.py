@@ -24,6 +24,11 @@ class Gender(ChoicesEnumMixin, Enum):
     female = 'Female'
 
 
+class GenderKids(ChoicesEnumMixin, Enum):
+    male = 'Male'
+    female = 'Female'
+
+
 class Delivery(ChoicesEnumMixin, Enum):
     Office = 'Office'
     Other = 'I will provide details in comments'
@@ -43,27 +48,40 @@ class PaymentType(ChoicesEnumMixin, Enum):
     AnnualFee = 'Annual Fee'
 
 
-class TaxType(ChoicesEnumMixin, Enum):
-    MONTHLY_TAX = '30'
-    ANNUAL_TAX = '35'
+#
+# class TaxType(ChoicesEnumMixin, Enum):
+#     MONTHLY_TAX = '30'
+#     ANNUAL_TAX = '35'
 
-
-class Months(ChoicesEnumMixin, Enum):
-    January = 'January'
-    February = 'February'
-    Merch = 'Merch'
-    April = 'April'
-    May = 'May'
-    June = 'June'
-    July = 'July'
-    August = 'August'
-    September = 'September'
-    October = 'October'
-    November = 'November'
-    December = 'December'
+#
+# class Months(ChoicesEnumMixin, Enum):
+#     January = 'January'
+#     February = 'February'
+#     Merch = 'Merch'
+#     April = 'April'
+#     May = 'May'
+#     June = 'June'
+#     July = 'July'
+#     August = 'August'
+#     September = 'September'
+#     October = 'October'
+#     November = 'November'
+#     December = 'December'
 
 
 class AgeGroup(ChoicesEnumMixin, Enum):
+    Beavers = 'Beavers'
+    Cubs = 'Cubs'
+    Scouts = 'Scouts'
+    Ventures = 'Ventures'
+    Rovers = 'Rovers'
+    AdultVolunteer = 'Adult Volunteer'
+    SmallKids = 'Beavers & Cubs'
+    TeenKids = 'Scouts & Ventures'
+    Adults = 'Rovers & Volunteers'
+
+
+class AgeGroupOrders(ChoicesEnumMixin, Enum):
     Beavers = 'Beavers'
     Cubs = 'Cubs'
     Scouts = 'Scouts'

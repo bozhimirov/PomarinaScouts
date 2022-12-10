@@ -47,3 +47,4 @@ def validate_birth_credentials(born):
 def validate_age(age):
     if 3 > age > 26:
         raise exceptions.ValidationError(f'Invalid age declared')
+
