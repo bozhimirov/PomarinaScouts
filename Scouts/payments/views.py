@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.db.models.functions import datetime
 from django.shortcuts import render, redirect
+from django.utils import timezone
 
 from Scouts.account_profile.models import Profile
 from Scouts.core.utils import kids_info, calculate_month, calculate_year
@@ -137,7 +138,7 @@ def confirm_payment(request, pk):
         form = PaymentConfirmForm(request.POST, request.FILES, instance=payment)
         if form.is_valid():
             payment = form.save(commit=False)
-            payment.confirmed_by_user = datetime.datetime.now()
+            payment.confirmed_by_user = timezone.now()
             payment.save()
             form.save()
 
@@ -170,7 +171,7 @@ def confirm_payment_by_staff(request, pk):
         form = PaymentConfirmForm(request.POST, request.FILES, instance=payment)
         if form.is_valid():
             payment = form.save(commit=False)
-            payment.confirmed_by_staff = datetime.datetime.now()
+            payment.confirmed_by_staff = timezone.now()
             payment.paid = True
             payment.save()
             form.save()

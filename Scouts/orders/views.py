@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
+from django.utils import timezone
 
 from Scouts.account_profile.models import Profile
 from Scouts.items.models import Item
@@ -118,7 +119,6 @@ def delete_order(request, pk):
     return redirect('scout store')
 
 
-
 @login_required
 def send_order(request, pk):
     order = Order.objects.filter(pk=pk).get()
@@ -129,7 +129,7 @@ def send_order(request, pk):
         form = OrderSendForm(request.POST, request.FILES, instance=order)
         if form.is_valid():
             order = form.save(commit=False)
-            order.confirmed_by_staff = datetime.datetime.now()
+            order.confirmed_by_staff = timezone.now()
             order.sent = True
             order.staff_member = request.user.pk
             order.save()
@@ -151,7 +151,6 @@ def send_order(request, pk):
     )
 
 
-
 @login_required
 def receive_order(request, pk):
     order = Order.objects.filter(pk=pk).get()
@@ -162,7 +161,7 @@ def receive_order(request, pk):
         form = OrderReceiveForm(request.POST, request.FILES, instance=order)
         if form.is_valid():
             order = form.save(commit=False)
-            order.received_by_user = datetime.datetime.now()
+            order.received_by_user = timezone.now()
             order.received = True
             order.staff_member_finished = request.user.pk
             order.save()
