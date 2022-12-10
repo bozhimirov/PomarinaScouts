@@ -59,6 +59,7 @@ class KidBaseForm(forms.ModelForm):
     profile_picture = forms.ImageField(
         required=False,
         label='Profile Picture',
+        help_text='Optional / Upload Profile Picture',
         validators=(
             validate_file_less_than_5mb,
         ),
@@ -93,7 +94,7 @@ class KidCreateForm(KidBaseForm):
 
 
 class KidEditForm(DisabledFormMixin, KidBaseForm):
-    disabled_fields = ('first_name', 'date_of_birth', 'gender')
+    # disabled_fields = ('first_name', 'date_of_birth', 'gender')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
