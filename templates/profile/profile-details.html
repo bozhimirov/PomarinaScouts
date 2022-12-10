@@ -3,94 +3,45 @@
 {% load static %}
 {% block content %}
 
-    <!-- if staff user -->
-    <section id="car-details">
-{#        {% if request.user.is_superuser or request.user|has_group:"accountant" %}#}
-{#            {% if unpaid %}#}
-{#            <h1>#}
-{#                Payments for confirmation#}
-{#            </h1>#}
-{#            <div class="info-section">#}
-{##}
-{#                {%  for payment in payments %}#}
-{#                    {% if not payment.paid %}#}
-{#                    <h1>#}
-{#                            You made payments, not paid yet#}
-{#                        </h1>#}
-{#                        <a href="{% url 'details payment' pk=payment.pk %}" >#}
-{#                            Kid: {{ payment.kid.first_name }}#}
-{#                            Type: {{ payment.model_name }}#}
-{#                            Period: {{ payment.period_billed }}#}
-{#                            Tax: {{ payment.tax_per_kid }}#}
-{#                            Generated: {{ payment.generated_date }}#}
-{#                            Status:#}
-{#                            {% if payment.paid %}#}
-{#                                Paid#}
-{#                            {% elif payment.confirmed_by_user %}#}
-{#                                Pending#}
-{#                            {% else %}#}
-{#                                To be paid#}
-{#                            {% endif %}#}
-{#                        </a>#}
-{#                    {% if not payment.paid %}#}
-{#                        {% if payment.confirmed_by_user %}#}
-{#                        <button>#}
-{#                            <a href="{% url 'confirm paid' payment.pk %}" >#}
-{#                                Confirm Payment#}
-{#                            </a>#}
-{#                        </button>#}
-{#                    {% endif %}#}
-{#                    {% endif %}#}
-{#                    {% endif %}<br>#}
-{##}
-{#                {% endfor %}#}
-{#            </div>#}
-{#            <h1>#}
-{#                Orders for confirmation#}
-{#            </h1>#}
-{#        {% endif %}#}
-{#    {% endif %}#}
+    <div id="car-details">
         {% if is_owner %}
             {%  for payment in object.user.payment_parent.all %}
                 {% if not payment.paid %}
                     <h3>
                         You have pending payment
                     </h3>
-                        <div class="info-section">
-                            <a href="{% url 'details payment' pk=payment.pk %}" >
-                                Kid: {{ payment.kid.first_name }}
-                                Type: {{ payment.model_name }}
-                                Period: {{ payment.period_billed }}
-                                Tax: {{ payment.tax_per_kid }}
-                                Generated: {{ payment.generated_date }}
-                                Status:
-                                {% if payment.paid %}
-                                    Paid
-                                {% elif payment.confirmed_by_user %}
-                                    Pending
-                                {% else %}
-                                    To be paid
-                                {% endif %}
-                            </a>
-                            {% if not payment.confirmed_by_user %}
-                                <button style="background-color:#cb0303; color:antiquewhite">
-                                    <a href="{% url 'confirm payment' payment.pk %}" class="delete-button1" title="Pay Now">
-                                        Pay Now
-                                    </a>
-                                </button>
-                            {% endif %}<br>
-                        </div>
+                    <div class="info-section">
+                        <a href="{% url 'details payment' pk=payment.pk %}" >
+                            Kid: {{ payment.kid.first_name }}
+                            Type: {{ payment.model_name }}
+                            Period: {{ payment.period_billed }}
+                            Tax: {{ payment.tax_per_kid }}
+                            Generated: {{ payment.generated_date }}
+                            Status:
+                            {% if payment.paid %}
+                                Paid
+                            {% elif payment.confirmed_by_user %}
+                                Pending
+                            {% else %}
+                                To be paid
+                            {% endif %}
+                        </a>
+                        {% if not payment.confirmed_by_user %}
+                            <button style="background-color:#cb0303; color:antiquewhite">
+                                <a href="{% url 'confirm payment' payment.pk %}" class="delete-button1" title="Pay Now">
+                                    Pay Now
+                                </a>
+                            </button>
+                        {% endif %}<br>
+                    </div>
                 {% endif %}
             {% endfor %}
-<br>
-
-        {% endif %}
+        <br>
         <h1>
             Profile Details
         </h1>
         <div class="info-section">
             <div class="car-header">
-                {% if is_owner %}
                 <!-- default profile image (if the user does NOT have any)-->
                 {% if not object.profile_image %}
                     <img class="car-img" src="{% static '/images/default-profile.png' %}" alt='profile-image'/>
@@ -112,7 +63,6 @@
                         Add Kid
                     </a>
                 </div>
-
 
                 <!-- user email -->
                 <p class="description">
@@ -138,123 +88,137 @@
                         Delete
                     </a>
                 </div>
-                    </div>
-                    </div>
-                {% endif %}
-        {% if len_kids >= 1 %}
+            </div>
+        </div>
+            <br>
+            {% if kids %}
             <h1>
                 Kids Details
             </h1>
-        {% endif %}
-        <div class="info-section">
-            {% for kid in object.user.kid_set.all %}
-                <div class="car-header">
-                    {% if not kid.profile_picture %}
-                        <div>
-                            <a href="{%  url 'details kid' kid_slug=kid.slug uid=object.user.id %}">
-                                <strong>
-                                    {{ kid.first_name }}
-                                </strong>
-                            </a>
+                <div class="info-section">
+                    {% for kid in kids %}
+                        <div class="car-header">
+                            {% if not kid.profile_picture %}
+                                <div>
+                                    <a href="{%  url 'details kid' kid_slug=kid.slug uid=object.user.id %}">
+                                        <strong style="font-size: 25px; color: #28a1c9;text-transform: uppercase;">
+                                            {{ kid.first_name }}
+                                        </strong>
+                                    </a>
+                                </div>
+                                <!-- if the user has a profile image -->
+                            {% else %}
+                                <div>
+                                    <a href="{%  url 'details kid' kid_slug=kid.slug uid=object.user.id %}">
+                                        <img class="car-img2" src="{{ kid.profile_picture.url }}" alt='{{ kid.first_name }}' />
+                                    </a>
+                                </div>
+                            {% endif %}
                         </div>
-                        <!-- if the user has a profile image -->
-                    {% else %}
-                        <div>
-                            <a href="{%  url 'details kid' kid_slug=kid.slug uid=object.user.id %}">
-                                <img class="car-img2" src="{{ kid.profile_picture.url }}" alt='{{ kid.first_name }}' />
-                            </a>
-                        </div>
-                    {% endif %}
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        </div><br>
-{#        {% if items_for_sale is not None %}#}
-            <h1>
-                Items for Sale
-            </h1>
-{#        {% endif %}#}
-<div class="info-section">
-        {% for item in object.user.useditem_set.all %}
-
-                <div class="car-header">
-                    {% if item.photo %}
-                        <div>
-                            <a href="{%  url 'details used item' pk=item.pk %}">
-                                <img class="car-img2" src="{{ item.photo.url }}" alt='{{ item.slug }}'/>
-                            </a>
-                        </div>
-                    {% endif %}
+            {% endif %}<br>
+            {% if items_for_sale %}
+                <h1>
+                    Items for Sale
+                </h1>
+                <div class="info-section">
+                {% for item in items_for_sale %}
+                    <div class="car-header">
+                        {% if item.photo %}
+                            <div>
+                                <a href="{%  url 'details used item' pk=item.pk %}">
+                                    <img class="car-img2" src="{{ item.photo.url }}" alt='{{ item.slug }}'/>
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
                 </div>
-        {% endfor %}
-</div>
-{#        {% if not_received %}#}
-            <h1>
-                Orders Made
-            </h1>
-{#        {% endif %}#}
-    <div class="info-section">
-        {% for order in not_received_orders %}
-
-                <div class="car-header">
-                    {% if not order.received %}
-                        <div>
-                            <a href="{%  url 'details order' pk=order.pk %}">
-                                <h2>
-                                    Order details:
-                                </h2><hr>
-                                {% if order.item_name %}
-                                    Name: {{ order.item_name }};
-                                {% endif %}
+            {% endif %}<br>
+            {% if not_received_orders_self %}
+                <h1>
+                    Orders Made
+                </h1>
+                <div class="info-section">
+                {% for order in not_received_orders_self %}
+                    <div class="car-header">
+                        <a href="{%  url 'details order' pk=order.pk %}">
+                            <h2>
+                                Order details:
+                            </h2><hr>
+                            {% if order.item_name %}
+                                Name: {{ order.item_name }};
+                            {% endif %}
                                 Item: {{ order.category }};
                                 Quantity: {{ order.quantity }}
                                 Sent: {{ order.sent }}
                                 Received: {{ order.received }}
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}<br>
+            {% if self_payments  %}
+                <h1>
+                    Archive Payments
+                </h1>
+                <div class="info-section">
+                    {%  for payment in self_payments %}
+                        <div class="car-header">
+                            <a href="{% url 'details payment' pk=payment.pk %}" >
+                                <h2>
+                                    Payment details:
+                                </h2><hr>
+                                Kid: {{ payment.kid.first_name }}
+                                Type: {{ payment.model_name }}
+                                Period: {{ payment.period_billed }}
+                                Tax: {{ payment.tax_per_kid }}
+                                Generated: {{ payment.generated_date }}
+                                Status: Paid on {{ payment.confirmed_by_user }}
+                                Confirmed at: {{ payment.confirmed_by_staff }}
                             </a>
                         </div>
-                    {% endif %}
+                    {% endfor %}
+                    <form class="pagination">
+                        {% if self_payments.has_other_pages %}
+                            {% if self_payments.has_previous %}
+                                <a href="?page={{ self_payments.previous_page_number }}">
+                                    &laquo;
+                                </a>
+                            {% else %}
+                                <span class="disabled">
+                                    &laquo;
+                                </span>
+                            {% endif %}
+                            {% for i in self_payments.paginator.page_range %}
+                                {% if self_payments.number == i %}
+                                    <span class="active">
+                                        {{ i }}
+                                        <span class="sr-only">
+                                        </span>
+                                    </span>
+                                {% else %}
+                                    <a href="?page={{ i }}">
+                                        {{ i }}
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                            {% if self_payments.has_next %}
+                                <a href="?page={{ self_payments.next_page_number }}">
+                                    &raquo;
+                                </a>
+                            {% else %}
+                                <span class="disabled">
+                                    &raquo;
+                                </span>
+                            {% endif %}
+                        {% endif %}
+                    </form>
                 </div>
-            {% endfor %}
+            {% endif %}
+        {% endif %}
     </div>
-
-{#    {% if paid  %}#}
-        <h1>
-            Archive Payments
-        </h1>
-<div class="info-section">
-        {%  for payment in object.user.payment_parent.all %}
-
-                <div class="car-header">
-                    {% if payment.paid %}
-                        <a href="{% url 'details payment' pk=payment.pk %}" >
-                            <h2>
-                                Payment details:
-                            </h2><hr>
-                        Kid: {{ payment.kid.first_name }}
-                        Type: {{ payment.model_name }}
-                        Period: {{ payment.period_billed }}
-                        Tax: {{ payment.tax_per_kid }}
-                        Generated: {{ payment.generated_date }}
-                        Status:
-                            {% if payment.paid %}
-                                Paid on {{ payment.confirmed_by_user }}
-                            {% else %}
-                                Pending
-                            {% endif %}
-                        Confirmed at:
-                            {% if payment.paid %}
-                                {{ payment.confirmed_by_staff }}
-                            {% else %}
-                                Not confirmed
-                            {% endif %}
-                        </a>
-                    {% endif %}
-                </div>
-            {% endfor %}
-</div>
-
-{#    {% endif %}#}
-    </section>
-
 
     <!-- footer -->
 {% endblock %}
