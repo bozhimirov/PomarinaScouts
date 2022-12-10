@@ -26,13 +26,17 @@ SECRET_KEY = 'django-insecure-df5g87(iyeb3207navx6x$@44nf!ppr@kn&b7_f^*pd8lz_@n=
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
+# TODO replace on release!!!
 ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "admin_interface",
+    "colorfield",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,7 +62,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+# X_FRAME_OPTIONS = "SAMEORIGIN"  #from custom admin
+# SILENCED_SYSTEM_CHECKS = ["security.W019"]  #from custom admin
 ROOT_URLCONF = 'Scouts.urls'
 
 TEMPLATES = [
@@ -72,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
             'libraries':{
                 'custom_templatetags': 'Scouts.accounts.templatetags.placeholders',
@@ -135,6 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
