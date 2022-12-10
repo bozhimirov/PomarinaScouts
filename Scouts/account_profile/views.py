@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 
 from django.views import generic as views
@@ -18,54 +19,45 @@ UserModel = get_user_model()
 class UserDetailsView(LoginRequiredMixin, views.DetailView):
     template_name = 'profile/profile-details.html'
     model = Profile
-    payments = Payment.objects.all()
-    not_received_orders_all = Order.objects.filter(received=False)
-    not_received_orders = []
-    # Order.objects.filter(user_id=AppUser.objects.filter(pk=self.request.user.pk))
 
-    for order in not_received_orders_all:
-        # if order.user == self.object.user:
-        pass
-    paid_payments = Payment.objects.filter(paid=True)
-    items_for_sale = UsedItem.objects.all()
-    kids = Kid.objects.all()
-    len_kids = len(Kid.objects.all())
+    # def get_self_pk(self):
+    #     return self.request.user.pk
+    # print(get_self_pk())
+
+    payments_paginate_by = 2
+    payments = Payment.objects.all()
+    orders = Order.objects.all()
+    items_for_sale = UsedItem.objects.order_by('publication_date')
+    kids = Kid.objects.order_by('-age')
+    not_received_orders_all = orders.filter(received=False)
+    not_received_orders_ordered = not_received_orders_all.order_by('publication_date')
+
     # '''Made for migrations'''
     # payments = []
-    # not_received_orders = []
-    # paid_payments = []
+    # orders = []
     # items_for_sale = []
-    paid = False
-    unpaid = False
-    for payment in payments:
-        if not payment.paid:
-            unpaid = True
-        if payment.paid:
-            paid = True
-    used_items = False
-    for item in items_for_sale:
-        if item:
-            used_items = True
-    not_received = False
-    for order in not_received_orders:
-        if order:
-            not_received = True
+
+    def get_payments_page(self):
+        return self.request.GET.get('page', 1)
+
+    def get_paginated_payments(self):
+        page = self.get_payments_page()
+        self_pk = self.request.user.pk
+        paid_payments_unordered = self.payments.filter(paid=True)
+        paid_payments = paid_payments_unordered.order_by('-confirmed_by_staff')
+        self_payments = paid_payments.filter(parent_id=self_pk)
+
+        paginator = Paginator(self_payments, self.payments_paginate_by)
+        return paginator.get_page(page)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['not_received_orders'] = Order.objects.filter(user_id=self.request.user.pk)
+        context['self_payments'] = self.get_paginated_payments()
+        context['not_received_orders_self'] = self.not_received_orders_all.filter(user_id=self.request.user)
+        context['items_for_sale'] = self.items_for_sale.filter(user_id=self.request.user.pk)
         context['is_owner'] = self.request.user == self.object.user
-        context['paid'] = self.paid
-        context['unpaid'] = self.unpaid
-        context['len_kids'] = self.len_kids
-        context['kids'] = self.kids
-        context['used_items'] = self.used_items
-        context['payments'] = self.payments
-        context['paid_payments'] = self.paid_payments
-        context['not_received_orders_all'] = self.not_received_orders_all
-        context['not_received'] = self.not_received
-        context['items_for_sale'] = self.items_for_sale
+        context['kids'] = self.kids.filter(users_id=self.request.user.pk)
 
         return context
 
