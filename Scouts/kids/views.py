@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ValidationError
+import logging
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -45,7 +45,12 @@ def add_kid(request):
                 kid.save()
                 return redirect('details user', pk=request.user.pk)
             except IntegrityError as e:
-                messages.error(request, 'Integrity error.' + str(e))
+                logging.error(
+                    f'Server error appeared for {request.path}; method: {request.method} with response content: {e}'
+                )
+                messages.error(request, 'Wrong Birth Details!'
+                                        ' Please enter correct birth credentials.')
+                kid.delete()
                 return HttpResponseRedirect(reverse('add kid', ))
 
         # form = KidCreateForm()

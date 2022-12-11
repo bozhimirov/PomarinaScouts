@@ -19,6 +19,8 @@ from django.contrib import admin
 
 from django.urls import path, include
 
+from Scouts.core.exception_handler import custom_handler500, page_not_found_handler
+
 urlpatterns = [
                   path('', include('Scouts.web.urls')),
                   path('scouts_admin/', admin.site.urls),
@@ -30,3 +32,6 @@ urlpatterns = [
                   path('payments/', include('Scouts.payments.urls')),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = page_not_found_handler
+handler500 = custom_handler500

@@ -17,7 +17,6 @@ from django.urls import reverse_lazy
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -30,7 +29,6 @@ DEBUG = True
 
 # TODO replace on release!!!
 ALLOWED_HOSTS = ["*"]
-
 
 # Application definition
 
@@ -61,6 +59,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+
+    'Scouts.custom_middleware.handle_exception'
+    # 'Scouts.custom_middleware.Correlation',
+    # 'Scouts.custom_middleware.CustomMiddleware',
 ]
 # X_FRAME_OPTIONS = "SAMEORIGIN"  #from custom admin
 # SILENCED_SYSTEM_CHECKS = ["security.W019"]  #from custom admin
@@ -79,7 +82,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
             ],
-            'libraries':{
+            'libraries': {
                 'custom_templatetags': 'Scouts.accounts.templatetags.placeholders',
 
             }
@@ -89,7 +92,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Scouts.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -104,7 +106,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -124,6 +125,66 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGGING_LEVEL = "DEBUG"
+
+# 'structlog'  consider using it
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format':
+                # '{levelname} {asctime} {module} {process:d} {thread:d} {message} {correlation_id} '
+                '{levelname} {asctime} {module} {process:d} {thread:d} {message}  '
+                '{filename} {lineno} - {funcName}',
+            'style': '{',
+        },
+        'simple': {
+            # 'format': '%(levelname)s %(asctime)s %(module)s %(message)s {\'correlationId\':\'%(correlation_id)s\'}',
+            'format': '%(levelname)s %(asctime)s %(module)s %(message)s ',
+        },
+    },
+    # 'filters': {
+    #     'correlation_filter': {
+    #         '()': 'Scouts.custom_middleware.CorrelationFilter',
+    #     }
+    # },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            # 'filters': ['correlation_filter'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+
+        },
+        'file': {
+            'level': 'DEBUG',
+            # 'filters': ['correlation_filter'],
+            'class': 'logging.FileHandler',
+            'filename': '/Users/stani/PycharmProjects/PomarinaScouts/logs.txt',
+            'formatter': 'verbose'
+        },
+        # 'mail_admins': {
+        #     'level': 'ERROR',
+        #     'class': 'django.utils.log.AdminEmailHandler',
+        #     'filters': ['require_debug_false'],
+        #
+        # },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',  # change debug level as appropiate
+            'propagate': True,
+        },
+    },
+    'root': {
+        'handlers': ['console', 'file'],
+        'level': 'DEBUG',
+    },
+
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -135,7 +196,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

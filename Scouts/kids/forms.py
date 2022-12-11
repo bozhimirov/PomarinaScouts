@@ -4,6 +4,7 @@ from django.db import IntegrityError
 
 from Scouts.core.form_mixins import DisabledFormMixin
 from Scouts.core.model_mixins import Gender
+from Scouts.core.utils import calculate_age
 from Scouts.core.validators import validate_file_less_than_5mb, validate_only_numbers, validate_birth_credentials, \
     validate_age, validate_mobile_number
 from Scouts.kids.models import Kid
@@ -90,11 +91,34 @@ class KidBaseForm(forms.ModelForm):
 
 
 class KidCreateForm(KidBaseForm):
-    pass
+    date_of_birth = forms.DateField(
+        label='Date of Birth',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': "Required / Please use format YYYY-MM-DD:"
+            }
+        ),
+        validators=(
+            validate_birth_credentials,
+        ),
+        error_messages={
+            'required': 'Place enter correct birth credentials'
+        },
+
+    )
+
+    class Meta:
+        MAX_NAME = 30
+        MIN_NAME = 3
+        MIN_LEN_PHONE = 10
+        MAX_LEN_PHONE = 10
+
+        model = Kid
+        fields = ('first_name', 'last_name', 'date_of_birth', 'gender', 'phone_number', 'profile_picture')
 
 
 class KidEditForm(DisabledFormMixin, KidBaseForm):
-    # disabled_fields = ('first_name', 'date_of_birth', 'gender')
+    disabled_fields = ('first_name', 'date_of_birth', 'gender')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
