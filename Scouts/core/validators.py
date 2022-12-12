@@ -36,15 +36,15 @@ def validate_file_less_than_5mb(fileobj):
 
 def validate_birth_credentials(born):
     today = date.today()
-    if 4 > (today.year - born.year) > 26:
+
+    if 4 > (int(today.year) - born.year()) or (int(today.year) - born.year()) > 26:
         raise exceptions.ValidationError(f'Invalid year declared')
-    if 1 > born.month > 12:
+    if 1 > born.month() or born.month() > 12:
         raise exceptions.ValidationError(f'Invalid month declared')
-    if 1 > born.day > 31:
+    if 1 > born.day() or born.day() > 31:
         raise exceptions.ValidationError(f'Invalid day declared')
 
 
 def validate_age(age):
-    if 3 > age > 26:
+    if 3 > age or age > 26:
         raise exceptions.ValidationError(f'Invalid age declared')
-
