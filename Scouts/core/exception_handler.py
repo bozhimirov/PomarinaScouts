@@ -1,8 +1,6 @@
 import logging
 
-from django.http import HttpResponse, response
 from django.shortcuts import render
-from django.template import loader
 
 
 def custom_handler500(request, *args, **kwargs):

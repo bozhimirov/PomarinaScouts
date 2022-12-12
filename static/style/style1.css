@@ -497,7 +497,7 @@ button {
   }
 }
 @media (max-width: 750px) {
-  body, html, {
+  body, html,media {
     max-height: 100vh;
   }
    .error__content {

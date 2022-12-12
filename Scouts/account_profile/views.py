@@ -47,13 +47,13 @@ class UserDetailsView(LoginRequiredMixin, views.DetailView):
         paginator = Paginator(self_payments, self.payments_paginate_by)
         return paginator.get_page(page)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
 
+        context['is_owner'] = self.request.user == self.object.user
         context['self_payments'] = self.get_paginated_payments()
         context['not_received_orders_self'] = self.not_received_orders_all.filter(user_id=self.request.user)
         context['items_for_sale'] = self.items_for_sale.filter(user_id=self.request.user.pk)
-        context['is_owner'] = self.request.user == self.object.user
         context['kids'] = self.kids.filter(users_id=self.request.user.pk)
 
         return context
