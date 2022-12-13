@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.contrib.auth import get_user_model
 from django.core import validators
 from django.db import models
@@ -64,14 +65,13 @@ class Kid(StrFromFieldsMixin, models.Model):
         ),
     )
 
-    profile_picture = models.ImageField(
-        upload_to='kids_photos/',
+    profile_picture = CloudinaryField(
         null=True,
         blank=True,
         help_text='Optional / Upload Profile Picture',
-        validators=(
-            validate_file_less_than_5mb,
-        ),
+        # validators=(
+        #     validate_file_less_than_5mb,
+        # ),
     )
 
     phone_number = models.CharField(

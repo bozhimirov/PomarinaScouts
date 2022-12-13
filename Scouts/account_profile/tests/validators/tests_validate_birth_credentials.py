@@ -3,7 +3,16 @@ from datetime import date
 
 from django.core.exceptions import ValidationError
 
-from Scouts.core.validators import validate_birth_credentials
+
+def validate_birth_credentials(born):
+    today = date.today()
+
+    if 4 > (today.year - born.year()) or (today.year - born.year()) > 26:
+        raise ValidationError(f'Invalid year declared')
+    if 1 > born.month() or born.month() > 12:
+        raise ValidationError(f'Invalid month declared')
+    if 1 > born.day() or born.day() > 31:
+        raise ValidationError(f'Invalid day declared')
 
 
 class Born:

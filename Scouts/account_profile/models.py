@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.core import validators
 from django.db import models
 
@@ -57,14 +58,13 @@ class Profile(models.Model):
         blank=False,
     )
 
-    profile_image = models.ImageField(
-        upload_to='users_photos',
+    profile_image = CloudinaryField(
         null=True,
         blank=True,
         help_text="Optional / Upload your photo here",
-        validators=(
-            validate_file_less_than_5mb,
-        ),
+        # validators=(
+        #     validate_file_less_than_5mb,
+        # ),
     )
 
     USERNAME_FIELD = 'user'
@@ -77,3 +77,5 @@ class Profile(models.Model):
         """
         full_name = "%s %s" % (self.first_name, self.last_name)
         return full_name.strip()
+
+

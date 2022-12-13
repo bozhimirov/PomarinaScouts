@@ -14,7 +14,7 @@ class AppUserAdmin(auth_admin.UserAdmin):
     exclude = ('username',)
     ordering = ('-is_staff', '-is_active', 'id')
 
-    list_display = ('id', 'email', 'date_joined', 'last_login')
+    list_display = ('email', 'date_joined', 'last_login')
 
     add_fieldsets = (
         (

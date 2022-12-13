@@ -1,3 +1,4 @@
+import cloudinary
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -122,7 +123,6 @@ def edit_item(request, pk):
     else:
         form = ItemEditForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
-
             form.save()
 
             return redirect('details item', pk=item.pk)
@@ -149,7 +149,6 @@ def edit_used_item(request, pk):
     else:
         form = UsedItemEditForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
-
             form.save()
 
             return redirect('details used item', pk=item.pk)

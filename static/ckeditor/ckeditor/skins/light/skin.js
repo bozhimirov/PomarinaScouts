@@ -44,7 +44,7 @@ CKEDITOR.skin.name = 'husky';
 // The browser files must be named after the main file names, appended by an
 // underscore and the browser name (e.g. editor_ie.css, dialog_ie8.css).
 //
-// The accepted browser names must match the CKEDITOR.env properties. The most
+// The accepted browser names must match the CKEDITOR..env properties. The most
 // common names are: ie, opera, webkit and gecko. Check the documentation for
 // the complete list:
 // http://docs.ckeditor.com/#!/api/CKEDITOR.env
@@ -312,7 +312,7 @@ CKEDITOR.skin.chameleon = (function() {
 //			'superscript,table,templates-rtl,templates,textarea-rtl,textarea,' +
 //			'textcolor,textfield-rtl,textfield,uicolor,underline,undo-rtl,undo,unlink' ).split( ',' );
 //
-//		var iconsFolder = CKEDITOR.getUrl( CKEDITOR.skin.path() + 'icons/' + ( CKEDITOR.env.hidpi ? 'hidpi/' : '' ) );
+//		var iconsFolder = CKEDITOR.getUrl( CKEDITOR.skin.path() + 'icons/' + ( CKEDITOR..env.hidpi ? 'hidpi/' : '' ) );
 //
 //		for ( var i = 0; i < icons.length; i++ ) {
 //			CKEDITOR.skin.addIcon( icons[ i ], iconsFolder + icons[ i ] + '.png' );

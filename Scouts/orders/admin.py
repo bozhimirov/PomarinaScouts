@@ -18,19 +18,25 @@ class OrderAdmin(admin.ModelAdmin):
         'comments',
         'publication_date',
         'user',
+        'sent',
+        'received',
     )
     list_filter = (
         'category',
+        'publication_date',
+        'place_to_deliver',
+        'sent',
+        'received',
         'item_name',
         'ages',
         'size',
         'gender',
-        'publication_date',
-        'place_to_deliver',
     )
     ordering = (
         '-publication_date',
         'place_to_deliver',
         'user',
         'category',
+        'sent',
+        'received',
     )

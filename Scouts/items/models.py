@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.contrib.auth import get_user_model
 from django.core import validators
 from django.core.validators import MinLengthValidator
@@ -20,17 +21,14 @@ class Item(StrFromFieldsMixin, models.Model):
     MAX_NAME = 30
     MIN_NAME = 3
 
-    photo = models.ImageField(
-        upload_to='items_photos/',
+    photo = CloudinaryField(
         null=False,
         blank=False,
-        validators=(
-            validate_file_less_than_5mb,
-        ),
+        # validators=(
+        #     validate_file_less_than_5mb,
+        # ),
         help_text='Upload photo of your Item here!'
 
-        # on_delete=...
-        # https: // stackoverflow.com / questions / 16041232 / django - delete - filefield
     )
 
     category = models.CharField(
@@ -148,13 +146,12 @@ class UsedItem(StrFromFieldsMixin, models.Model):
     MAX_LOCATION_LENGTH = 30
     MAX_NAME = 30
 
-    photo = models.ImageField(
-        upload_to='used_items_photos/',
+    photo = CloudinaryField(
         null=False,
         blank=False,
-        validators=(
-            validate_file_less_than_5mb,
-        ),
+        # validators=(
+        #     validate_file_less_than_5mb,
+        # ),
         help_text='Required / Upload photo of your Item here!',
 
     )

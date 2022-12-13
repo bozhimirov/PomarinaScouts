@@ -84,6 +84,7 @@ class Order(models.Model):
 
     publication_date = models.DateField(
         # Automatically sets current date on `save` (update or create)
+        verbose_name='date created',
         auto_now=True,
         null=False,
         blank=True,

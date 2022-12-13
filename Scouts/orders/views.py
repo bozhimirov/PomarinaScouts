@@ -181,3 +181,4 @@ def receive_order(request, pk):
         'orders/order-received.html',
         context,
     )
+
