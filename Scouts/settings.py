@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os.path
 from pathlib import Path
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,14 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-df5g87(iyeb3207navx6x$@44nf!ppr@kn&b7_f^*pd8lz_@n='
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get('DEBUG'))
 # DEBUG = False
-
 # TODO replace on release!!!
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(' ')
 
 # Application definition
 
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
     'Scouts.items',
     'Scouts.orders',
     'Scouts.payments',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -59,7 +62,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 
     'Scouts.custom_middleware.handle_exception'
     # 'Scouts.custom_middleware.Correlation',
@@ -130,11 +132,11 @@ LOGGING_LEVEL = "DEBUG"
 # 'structlog'  consider using it
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
             'format':
-                # '{levelname} {asctime} {module} {process:d} {thread:d} {message} {correlation_id} '
+            # '{levelname} {asctime} {module} {process:d} {thread:d} {message} {correlation_id} '
                 '{levelname} {asctime} {module} {process:d} {thread:d} {message}  '
                 '{filename} {lineno} - {funcName}',
             'style': '{',
@@ -185,7 +187,6 @@ LOGGING = {
 
 }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -206,7 +207,16 @@ STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
+
+# CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
+
+cloudinary.config(
+    cloud_name=os.environ.get('cloud_name'),
+    api_key=os.environ.get('api_key'),
+    api_secret=os.environ.get('api_secret'),
+    secure=True
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
