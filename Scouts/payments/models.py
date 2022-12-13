@@ -5,7 +5,6 @@ from django.db import models
 from django.utils.text import slugify
 
 from Scouts.accounts.models import AppUser
-from Scouts.core.model_mixins import PaymentType
 from Scouts.kids.models import Kid
 
 UserModel = get_user_model()
@@ -18,13 +17,12 @@ class Payment(models.Model):
     MAX_NAME_LENGTH = 100
     MAX_DESCRIPTION_LENGTH = 300
 
+    CHOICES = [(None, 'Required / Select payment type'), ('Monthly Tax', 'Monthly Tax'), ('Annual Fee', 'Annual Fee')]
     model_name = models.CharField(
         null=False,
         blank=False,
-        choices=PaymentType.choices(),
-        max_length=PaymentType.max_len(),
-        help_text='Required / Select payment type',
-
+        choices=CHOICES,
+        max_length=(max(len(value) for _, value in CHOICES)),
     )
 
     staff_member = models.CharField(

@@ -1,4 +1,4 @@
-from enum import Enum
+# from enum import Enum
 
 
 class StrFromFieldsMixin:
@@ -18,36 +18,7 @@ class ChoicesEnumMixin:
     def max_len(cls):
         return max(len(name) for name, _ in cls.choices())
 
-
-class Gender(ChoicesEnumMixin, Enum):
-    male = 'Male'
-    female = 'Female'
-
-
-class GenderKids(ChoicesEnumMixin, Enum):
-    male = 'Male'
-    female = 'Female'
-
-
-class Delivery(ChoicesEnumMixin, Enum):
-    Office = 'Office'
-    Other = 'I will provide details in comments'
-
-
-class ItemCategory(ChoicesEnumMixin, Enum):
-    Hoodies = 'Hoodies'
-    Tshirts = 'T-shirts'
-    Shirts = 'Shirts'
-    Hats = 'Hats'
-    Scarves = 'Scarves'
-    Others = 'Others'
-
-
-class PaymentType(ChoicesEnumMixin, Enum):
-    MonthlyTax = 'Monthly Tax'
-    AnnualFee = 'Annual Fee'
-
-
+#
 #
 # class TaxType(ChoicesEnumMixin, Enum):
 #     MONTHLY_TAX = '30'
@@ -67,38 +38,3 @@ class PaymentType(ChoicesEnumMixin, Enum):
 #     October = 'October'
 #     November = 'November'
 #     December = 'December'
-
-
-class AgeGroup(ChoicesEnumMixin, Enum):
-    Beavers = 'Beavers'
-    Cubs = 'Cubs'
-    Scouts = 'Scouts'
-    Ventures = 'Ventures'
-    Rovers = 'Rovers'
-    AdultVolunteer = 'Adult Volunteer'
-    SmallKids = 'Beavers & Cubs'
-    TeenKids = 'Scouts & Ventures'
-    Adults = 'Rovers & Volunteers'
-
-
-class AgeGroupOrders(ChoicesEnumMixin, Enum):
-    Beavers = 'Beavers'
-    Cubs = 'Cubs'
-    Scouts = 'Scouts'
-    Ventures = 'Ventures'
-    Rovers = 'Rovers'
-    AdultVolunteer = 'Adult Volunteer'
-    SmallKids = 'Beavers & Cubs'
-    TeenKids = 'Scouts & Ventures'
-    Adults = 'Rovers & Volunteers'
-
-
-class Size(ChoicesEnumMixin, Enum):
-    XXS = 'XXS'
-    XS = 'XS'
-    S = 'S'
-    M = 'M'
-    L = 'L'
-    XL = 'XL'
-    XXL = 'XXL'
-    XXXL = 'XXXL'

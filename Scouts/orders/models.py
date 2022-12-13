@@ -4,8 +4,7 @@ from django.db import models
 from django.utils.text import slugify
 
 from Scouts.accounts.models import AppUser
-from Scouts.core.model_mixins import  Size, Gender, ItemCategory, Delivery, AgeGroupOrders
-from Scouts.core.validators import validate_gt_zero
+from Scouts.core.validators import validate_gt_zero, validate_max_quantity
 from Scouts.items.models import Item
 
 UserModel = get_user_model()
@@ -18,12 +17,17 @@ class Order(models.Model):
     MAX_NAME_LENGTH = 100
     MAX_LOCATION_LENGTH = 30
 
+    CHOICES_CATEGORY = [
+        (None, 'Required / Please choose category of the item'), ('Hoodies', 'Hoodies'), ('T-shirts', 'T-shirts'),
+        ('Shirts', 'Shirts'), ('Hats', 'Hats'), ('Scarves', 'Scarves'), ('Trousers', 'Trousers'),
+        ('Soft Shell', 'Soft Shell'), ('Others', 'Others')
+    ]
+
     category = models.CharField(
-        null=True,
-        blank=True,
-        choices=ItemCategory.choices(),
-        max_length=MAX_NAME_LENGTH,
-        help_text='Required / Please choose category of the item',
+        null=False,
+        blank=False,
+        choices=CHOICES_CATEGORY,
+        max_length=(max(len(value) for _, value in CHOICES_CATEGORY)),
     )
 
     item_name = models.CharField(
@@ -34,28 +38,36 @@ class Order(models.Model):
 
     )
 
+    CHOICES_AGE = [
+        (None, 'Required / Please choose ages category'), ('Beavers', 'Beavers'), ('Cubs', 'Cubs'),
+        ('Scouts', 'Scouts'), ('Ventures', 'Ventures'), ('Rovers', 'Rovers'), ('Adult Volunteer', 'Adult Volunteer'),
+        ('Beavers & Cubs', 'Beavers & Cubs'), ('Scouts & Ventures', 'Scouts & Ventures'),
+        ('Rovers & Volunteers', 'Rovers & Volunteers')
+    ]
     ages = models.CharField(
         null=False,
         blank=False,
-        choices=AgeGroupOrders.choices(),
-        max_length=AgeGroupOrders.max_len(),
-        help_text='Required / Please choose ages category',
+        choices=CHOICES_AGE,
+        max_length=(max(len(value) for _, value in CHOICES_AGE)),
     )
 
+    CHOICES_SIZE = [
+        (None, 'Optional / Please choose size category'), ('XXS', 'XXS'), ('XS', 'XS'), ('S', 'S'), ('M', 'M'),
+        ('L', 'L'), ('XL', 'XL'), ('XXL', 'XXL'), ('XXXL', 'XXXL')
+    ]
     size = models.CharField(
         null=True,
         blank=True,
-        choices=Size.choices(),
-        max_length=Size.max_len(),
-        help_text='Optional / Please choose size category',
+        choices=CHOICES_SIZE,
+        max_length=(max(len(value) for _, value in CHOICES_SIZE)),
     )
 
+    CHOICES_GENDER = [(None, 'Optional / Please choose gender category'), ('Male', 'Male'), ('Female', 'Female')]
     gender = models.CharField(
         null=True,
         blank=True,
-        choices=Gender.choices(),
-        max_length=Gender.max_len(),
-        help_text='Optional / Please choose gender category',
+        choices=CHOICES_GENDER,
+        max_length=(max(len(value) for _, value in CHOICES_GENDER)),
     )
 
     quantity = models.PositiveIntegerField(
@@ -63,16 +75,20 @@ class Order(models.Model):
         blank=False,
         validators=(
             validate_gt_zero,
+            validate_max_quantity,
         ),
         help_text='Required / Please choose quantity of item',
     )
 
+    CHOICES_DELIVERY = [
+        (None, 'Required / Please choose place to receive items'), ('Office', 'Office'),
+        ('I will provide details in comments', 'I will provide details in comments')
+    ]
     place_to_deliver = models.CharField(
         null=False,
         blank=False,
-        choices=Delivery.choices(),
-        max_length=Delivery.max_len(),
-        help_text='Required / Please choose place to receive item',
+        choices=CHOICES_DELIVERY,
+        max_length=(max(len(value) for _, value in CHOICES_DELIVERY)),
     )
 
     comments = models.TextField(

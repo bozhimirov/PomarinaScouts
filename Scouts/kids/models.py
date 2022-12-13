@@ -6,7 +6,7 @@ from django.utils.text import slugify
 
 from Scouts.account_profile.models import Profile
 from Scouts.accounts.models import AppUser
-from Scouts.core.model_mixins import StrFromFieldsMixin, GenderKids
+from Scouts.core.model_mixins import StrFromFieldsMixin
 from Scouts.core.utils import calculate_age
 from Scouts.core.validators import validate_only_numbers, validate_file_less_than_5mb, validate_only_letters, \
     validate_birth_credentials, validate_age, validate_mobile_number
@@ -42,12 +42,12 @@ class Kid(StrFromFieldsMixin, models.Model):
         )
     )
 
+    CHOICES = [(None, 'Required / Please choose gender'), ('Male', 'Male'), ('Female', 'Female')]
     gender = models.CharField(
         null=False,
         blank=False,
-        choices=GenderKids.choices(),
-        max_length=GenderKids.max_len(),
-        help_text='Required / Please choose gender',
+        choices=CHOICES,
+        max_length=(max(len(value) for _, value in CHOICES)),
     )
 
     slug = models.SlugField(

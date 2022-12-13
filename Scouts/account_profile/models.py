@@ -3,9 +3,7 @@ from django.core import validators
 from django.db import models
 
 from Scouts.accounts.models import AppUser
-from Scouts.core.model_mixins import Gender
-from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_file_less_than_5mb, \
-    validate_mobile_number
+from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_mobile_number
 
 
 class Profile(models.Model):
@@ -36,13 +34,12 @@ class Profile(models.Model):
         primary_key=True,
         on_delete=models.CASCADE,
     )
-
+    CHOICES = [(None, 'Optional / Please choose gender'), ('Male', 'Male'), ('Female', 'Female')]
     gender = models.CharField(
         null=True,
         blank=True,
-        choices=Gender.choices(),
-        help_text="Optional / Please choose gender",
-        max_length=Gender.max_len(),
+        choices=CHOICES,
+        max_length=(max(len(value) for _, value in CHOICES))
     )
 
     phone_number = models.CharField(

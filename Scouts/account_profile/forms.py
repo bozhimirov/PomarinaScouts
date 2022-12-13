@@ -6,9 +6,7 @@ from django.views.generic.edit import FormMixin
 from Scouts.account_profile.models import Profile
 from Scouts.accounts.forms import AppUserEditForm, AppUserCreationForm
 from Scouts.core.form_mixins import DisabledFormMixin
-from Scouts.core.model_mixins import Gender
-from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_mobile_number, \
-    validate_file_less_than_5mb
+from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_mobile_number
 
 UserModel = get_user_model()
 
@@ -77,15 +75,9 @@ class UserEditForm(DisabledFormMixin, AppUserEditForm):
             },
             help_text="Type phone number in format: 0987654321",
         )
-
-        gender = forms.CharField(
-            widget=forms.TextInput(
-                attrs={
-                    'placeholder': "Optional / Gender:"
-                }
-            ),
-            help_text="Optional / Please choose",
-            max_length=Gender.max_len(),
+        CHOICES = [(None, 'Optional / Please choose gender'), ('Male', 'Male'), ('Female', 'Female')]
+        gender = forms.ChoiceField(
+            choices=CHOICES,
         )
 
         profile_image = forms.ImageField(
@@ -97,9 +89,7 @@ class UserEditForm(DisabledFormMixin, AppUserEditForm):
                 }
             ),
             help_text="Upload your photo here",
-            validators=(
-                validate_file_less_than_5mb,
-            ),
+
         )
 
 
