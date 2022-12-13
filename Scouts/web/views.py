@@ -91,3 +91,31 @@ def scout_store_used(request):
     }
 
     return render(request, template_name='core/marketplace-used.html', context=context)
+
+
+@login_required
+def orders_all(request):
+
+    all_orders = Order.objects.all()
+
+    for_sending = False
+    for sent in all_orders:
+        if not sent.sent:
+            for_sending = True
+    received = False
+    for rec in all_orders:
+        if not rec.received and rec.sent:
+            received = True
+    done = False
+    for rec in all_orders:
+        if not rec.c and rec.sent:
+            received = True
+
+    context = {
+        'for_sending': for_sending,
+        'received': received,
+        'all_orders': all_orders,
+    }
+
+    return render(request, template_name='orders/orders-all.html', context=context)
+
