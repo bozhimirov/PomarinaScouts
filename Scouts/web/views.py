@@ -65,7 +65,7 @@ def scout_store(request):
 def scout_store_new(request):
     all_items = Item.objects.all()
     len_items = len(all_items)
-    paginator = Paginator(all_items, 3)
+    paginator = Paginator(all_items, 4)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -105,10 +105,6 @@ def orders_all(request):
     received = False
     for rec in all_orders:
         if not rec.received and rec.sent:
-            received = True
-    done = False
-    for rec in all_orders:
-        if not rec.c and rec.sent:
             received = True
 
     context = {

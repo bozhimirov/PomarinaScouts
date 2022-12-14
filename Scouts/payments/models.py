@@ -13,7 +13,6 @@ UserModel = get_user_model()
 class Payment(models.Model):
     ANNUAL_TAX = 40
     MONTHLY_TAX = 30
-
     MAX_NAME_LENGTH = 100
     MAX_DESCRIPTION_LENGTH = 300
 
@@ -22,7 +21,7 @@ class Payment(models.Model):
         null=False,
         blank=False,
         choices=CHOICES,
-        max_length=(max(len(value) for _, value in CHOICES)),
+        max_length=MAX_NAME_LENGTH,
     )
 
     staff_member = models.CharField(

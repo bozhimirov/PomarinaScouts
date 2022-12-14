@@ -27,6 +27,11 @@ def validate_mobile_number(value):
         raise exceptions.ValidationError('Place phone number in format: 0987654321')
 
 
+def validate_max_quantity(value):
+    if value > 100:
+        raise exceptions.ValidationError('Contact us if you want to make order greater than 100 items!')
+
+
 def validate_file_less_than_5mb(fileobj):
     filesize = fileobj.file.size
     megabyte_limit = 5.0

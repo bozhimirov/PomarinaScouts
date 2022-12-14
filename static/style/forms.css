@@ -42,8 +42,8 @@ textarea{
 
 label {
     margin-bottom: 8px;
-    font-size: 18px;
-    color: #1c1a1a;
+    font-size: 15px;
+    color: #3a3737;
     margin-top: 10px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -65,7 +65,7 @@ input[type="url"]{
     padding: 20px 20px 20px 20px;
     height: 50px;
     margin-top: 10px;
-    font-size: 17px;
+    font-size: 15px;
     border-radius: 50px;
     box-shadow: inset 6px 6px 6px #c0c2c5, inset -6px -6px 6px white;
 }
@@ -75,7 +75,7 @@ select {
     padding: 10px 20px 10px 20px;
     height: 50px;
     margin-top: 10px;
-    font-size: 17px;
+    font-size: 15px;
     border-radius: 50px;
     box-shadow: inset 6px 6px 6px #c0c2c5, inset -6px -6px 6px white;
 }
@@ -118,7 +118,7 @@ label[for="terms"] > select{
 
 .field > span {
     position: absolute;
-    font-size: 18px;
+    font-size: 15px;
     bottom: 17px;
     right: 8px;
     text-decoration: none;
@@ -134,7 +134,7 @@ textarea {
     min-height: 7em;
     border: 2px solid #86a480;
     border-radius: 0.7em;
-    font-size: 17px;
+    font-size: 15px;
     border-bottom-color: #ecf0f3;
     background-color: #ecf0f3;
     border-right-color: #ecf0f3;
@@ -144,4 +144,17 @@ textarea {
 
 .errorlist{
     color: red
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: black;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: black;
 }

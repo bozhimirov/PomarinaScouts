@@ -3,10 +3,7 @@ from django.core import validators
 from django.db import IntegrityError
 
 from Scouts.core.form_mixins import DisabledFormMixin
-from Scouts.core.model_mixins import Gender
-from Scouts.core.utils import calculate_age
-from Scouts.core.validators import validate_file_less_than_5mb, validate_only_numbers, validate_birth_credentials, \
-    validate_age, validate_mobile_number
+from Scouts.core.validators import validate_only_numbers, validate_birth_credentials, validate_mobile_number
 from Scouts.kids.models import Kid
 
 
@@ -61,9 +58,9 @@ class KidBaseForm(forms.ModelForm):
         required=False,
         label='Profile Picture',
         help_text='Optional / Upload Profile Picture',
-        validators=(
-            validate_file_less_than_5mb,
-        ),
+        # validators=(
+        #     validate_file_less_than_5mb,
+        # ),
     )
 
     phone_number = forms.CharField(
@@ -118,7 +115,7 @@ class KidCreateForm(KidBaseForm):
 
 
 class KidEditForm(DisabledFormMixin, KidBaseForm):
-    disabled_fields = ('first_name', 'date_of_birth', 'gender')
+    disabled_fields = ('first_name', 'date_of_birth')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -126,7 +123,7 @@ class KidEditForm(DisabledFormMixin, KidBaseForm):
 
     class Meta:
         model = Kid
-        fields = ('first_name', 'last_name', 'date_of_birth', 'gender', 'phone_number', 'profile_picture')
+        fields = ('first_name', 'last_name', 'date_of_birth', 'phone_number', 'profile_picture')
 
 
 class KidDeleteForm(DisabledFormMixin, KidBaseForm):

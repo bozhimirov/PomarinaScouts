@@ -18,6 +18,7 @@ class Item(StrFromFieldsMixin, models.Model):
     MAX_LOCATION_LENGTH = 30
     MAX_NAME = 30
     MIN_NAME = 3
+    MAX_NAME_LENGTH = 100
 
     photo = CloudinaryField(
         null=False,
@@ -38,7 +39,7 @@ class Item(StrFromFieldsMixin, models.Model):
         null=False,
         blank=False,
         choices=CHOICES_CATEGORY,
-        max_length=(max(len(value) for _, value in CHOICES_CATEGORY)),
+        max_length=MAX_NAME_LENGTH,
     )
 
     name = models.CharField(
@@ -69,7 +70,7 @@ class Item(StrFromFieldsMixin, models.Model):
         null=True,
         blank=True,
         choices=CHOICES_AGE,
-        max_length=(max(len(value) for _, value in CHOICES_AGE)),
+        max_length=MAX_NAME_LENGTH,
     )
 
     CHOICES_SIZE = [
@@ -80,16 +81,14 @@ class Item(StrFromFieldsMixin, models.Model):
         null=True,
         blank=True,
         choices=CHOICES_SIZE,
-        max_length=(max(len(value) for _, value in CHOICES_SIZE)),
-
+        max_length=MAX_NAME_LENGTH,
     )
     CHOICES_GENDER = [(None, 'Optional / Please choose gender category'), ('Male', 'Male'), ('Female', 'Female')]
     gender = models.CharField(
         null=True,
         blank=True,
         choices=CHOICES_GENDER,
-        max_length=(max(len(value) for _, value in CHOICES_GENDER)),
-
+        max_length=MAX_NAME_LENGTH,
     )
 
     description = models.CharField(

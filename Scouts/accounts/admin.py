@@ -1,8 +1,5 @@
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin, get_user_model
-from django.contrib.auth.models import User
-
-from Scouts.account_profile.forms import UserEditForm
 from Scouts.accounts.forms import AppUserCreationForm
 
 UserModel = get_user_model()

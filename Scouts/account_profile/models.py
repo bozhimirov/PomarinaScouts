@@ -12,6 +12,7 @@ class Profile(models.Model):
     MIN_LEN_LAST_NAME = 2
     MAX_LEN_LAST_NAME = 30
     MAX_LEN_PHONE = 10
+    MAX_NAME_LENGTH = 100
 
     first_name = models.CharField(
         max_length=MAX_LEN_FIRST_NAME,
@@ -39,7 +40,7 @@ class Profile(models.Model):
         null=True,
         blank=True,
         choices=CHOICES,
-        max_length=(max(len(value) for _, value in CHOICES))
+        max_length=MAX_NAME_LENGTH
     )
 
     phone_number = models.CharField(

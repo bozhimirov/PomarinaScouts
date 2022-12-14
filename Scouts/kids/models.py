@@ -20,6 +20,7 @@ class Kid(StrFromFieldsMixin, models.Model):
     MIN_NAME = 3
     MIN_LEN_PHONE = 10
     MAX_LEN_PHONE = 10
+    MAX_NAME_LENGTH = 100
 
     id = models.AutoField(primary_key=True)
 
@@ -47,7 +48,7 @@ class Kid(StrFromFieldsMixin, models.Model):
         null=False,
         blank=False,
         choices=CHOICES,
-        max_length=(max(len(value) for _, value in CHOICES)),
+        max_length=MAX_NAME_LENGTH,
     )
 
     slug = models.SlugField(

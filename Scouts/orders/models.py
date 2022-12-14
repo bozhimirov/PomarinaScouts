@@ -27,7 +27,7 @@ class Order(models.Model):
         null=False,
         blank=False,
         choices=CHOICES_CATEGORY,
-        max_length=(max(len(value) for _, value in CHOICES_CATEGORY)),
+        max_length=MAX_NAME_LENGTH,
     )
 
     item_name = models.CharField(
@@ -48,7 +48,7 @@ class Order(models.Model):
         null=False,
         blank=False,
         choices=CHOICES_AGE,
-        max_length=(max(len(value) for _, value in CHOICES_AGE)),
+        max_length=MAX_NAME_LENGTH,
     )
 
     CHOICES_SIZE = [
@@ -59,7 +59,7 @@ class Order(models.Model):
         null=True,
         blank=True,
         choices=CHOICES_SIZE,
-        max_length=(max(len(value) for _, value in CHOICES_SIZE)),
+        max_length=MAX_NAME_LENGTH,
     )
 
     CHOICES_GENDER = [(None, 'Optional / Please choose gender category'), ('Male', 'Male'), ('Female', 'Female')]
@@ -67,7 +67,7 @@ class Order(models.Model):
         null=True,
         blank=True,
         choices=CHOICES_GENDER,
-        max_length=(max(len(value) for _, value in CHOICES_GENDER)),
+        max_length=MAX_NAME_LENGTH,
     )
 
     quantity = models.PositiveIntegerField(
@@ -88,7 +88,7 @@ class Order(models.Model):
         null=False,
         blank=False,
         choices=CHOICES_DELIVERY,
-        max_length=(max(len(value) for _, value in CHOICES_DELIVERY)),
+        max_length=MAX_NAME_LENGTH,
     )
 
     comments = models.TextField(
