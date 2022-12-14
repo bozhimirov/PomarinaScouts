@@ -32,13 +32,13 @@
                 </div>
                 <!-- users kid phone -->
                 {% if kid.phone_number %}
-                <p class="description">
-                    Phone Number: {{ kid.phone_number }}
-                </p>
+                    <p class="description">
+                        Phone Number: {{ kid.phone_number }}
+                    </p>
                 {% else %}
-                <p class="description">
-                    Parent Phone Number: {{ kid.parent_phone }}
-                </p>
+                    <p class="description">
+                        Parent Phone Number: {{ kid.parent_phone }}
+                    </p>
                 {% endif %}
                 <!-- users kid gender -->
                 {% if kid.gender %}
@@ -47,7 +47,12 @@
                     </p>
                 {% endif %}
                 <!-- users kid age -->
-                <p class="description">Age: {% if kid.age %}{{ kid.age }}{% endif %}</p>
+                <p class="description">
+                    Age:
+                    {% if kid.age %}
+                        {{ kid.age }}
+                    {% endif %}
+                </p>
                 <!-- Edit/Delete buttons -->
                 <div class="buttons">
                     <a href="{% url 'edit kid' uid kid_slug %}" class="edit-button">

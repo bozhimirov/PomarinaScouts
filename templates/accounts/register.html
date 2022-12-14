@@ -7,7 +7,9 @@
         <form id="register" method="post" action="{% url 'register user' %}" enctype="multipart/form-data">
             <div class="container">
                 <div class="brand-logo"></div>
-                <h1>Pomarina Scouts</h1>
+                <h1>
+                    Pomarina Scouts
+                </h1>
                 {% if form.errors %}
                       {{ value|escape }}
                 {% endif %}

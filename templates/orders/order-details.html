@@ -93,7 +93,6 @@
                     {% endif %}
                 {% endfor %}
                 <div class="edit-delete-shop-btns">
-                    <!-- if user is owner -->
                     {% if not order.sent %}
                         {% if is_owner %}
                             <a href="{% url 'edit order' order.pk %}" title="Edit Order">
@@ -126,7 +125,6 @@
                         <img class="bin-img" src="{% static 'images/user-xxl.png' %}"
                                          alt="bin button" width="40px">
                     </a>
-
                 </div>
             </div>
         </form>

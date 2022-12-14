@@ -9,9 +9,10 @@
         <form id="register" method="post" action="{% url 'login user' %}">
             <div class="container">
                 <div class="brand-logo"></div>
-                <h1>Pomarina Scouts</h1>
+                <h1>
+                    Pomarina Scouts
+                </h1>
                 {% if form.errors %}
-
                     {% for key,value in form.errors.items %}
                       {{ value|escape }}
                     {% endfor %}

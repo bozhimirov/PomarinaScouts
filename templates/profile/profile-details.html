@@ -49,7 +49,6 @@
                 {% else %}
                     <img class="car-img" src="{{ object.profile_image.url }}" alt='profile-image'/>
                 {% endif %}
-
                 <h1>
                     {% if object.first_name %}
                         {{ object.first_name }}
@@ -89,12 +88,11 @@
                     </a>
                 </div>
             </div>
-        </div>
-            <br>
+        </div><br>
             {% if kids %}
-            <h1>
-                Kids Details
-            </h1>
+                <h1>
+                    Kids Details
+                </h1>
                 <div class="info-section">
                     {% for kid in kids %}
                         <div class="car-header">

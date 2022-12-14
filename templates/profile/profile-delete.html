@@ -4,13 +4,11 @@
 {% block content %}
 
   <section id="create-page" class="auth">
-
       <div class="container">
           {% if is_owner %}
               <h1>
                   Are you sure you want to delete your profile?
               </h1>
-              <!-- Delete Profile Form -->
               <form id='delete' method="post" action="{% url 'delete user' pk=object.pk %}" enctype="multipart/form-data">
                   {% csrf_token %}
                   <!-- Confirm Button -->

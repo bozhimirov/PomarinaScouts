@@ -2,22 +2,19 @@
 {% load static %}
 {% block content %}
 
-    <!-- edit game form -->
     <section id="delete-page" class="auth">
         <form id="delete" method="post" >
             <div class="container">
-
                 <h1>
                     Delete Payment
                 </h1>
                 {% if form.errors %}
-                {{ value|escape }}
-                {{form.non_field_errors}}
-            {% endif %}
+                    {{ value|escape }}
+                    {{form.non_field_errors}}
+                {% endif %}
                 {{ form.field.as_hidden }}
                 {% csrf_token %}
                 <input class="btn submit" type="submit" value="Delete Item">
-
             </div>
         </form>
     </section>

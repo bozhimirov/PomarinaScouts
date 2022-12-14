@@ -6,18 +6,16 @@
     <section id="delete-page" class="auth">
         <form id="receive" method="post" >
             <div class="container">
-
                 <h1>
                     Receive Order
                 </h1>
                 {% if form.errors %}
-                {{ value|escape }}
-                {{form.non_field_errors}}
-            {% endif %}
+                    {{ value|escape }}
+                    {{form.non_field_errors}}
+                {% endif %}
                 {{ form }}
                 {% csrf_token %}
                 <input class="btn submit" type="submit" value="Receive Item">
-
             </div>
         </form>
     </section>

@@ -11,14 +11,10 @@
             <div class="car-header">
                 <!-- default profile image (if the user does NOT have any)-->
                {% if not user.profile_image %}
-
                    <img class="car-img2" src="{% static '/images/default-profile.png' %} " alt='{{ user.first_name }}'/>
-
                 <!-- if the user has a profile image -->
                {% else %}
-
                    <img class="car-img2" src="{{ user.profile_image.url }}" alt='{{ user.first_name }}'/>
-
                {% endif %}
                 <!-- user full name (if any) -->
                <h1>
@@ -35,13 +31,10 @@
                         Phone Number: {{ user.phone_number }}
                     </p>
                 {% endif %}
-            <a class="btn submit" href="javascript:history.back()" type="submit">
-                                        Go Back
-                                    </a>
-
-
+                <a class="btn submit" href="javascript:history.back()" type="submit">
+                    Go Back
+                </a>
                 <!-- buttons if needed-->
-
             </div>
         </div>
     </section>
