@@ -25,7 +25,6 @@ class SignInView(auth_views.LoginView):
     template_name = 'accounts/login.html'
     success_url = reverse_lazy('details user')
 
-
     def get_success_url(self):
         return reverse_lazy(
             'details user',
@@ -38,4 +37,3 @@ class SignInView(auth_views.LoginView):
 class SignOutView(auth_views.LogoutView):
     model = UserModel
     next_page = reverse_lazy('index')
-

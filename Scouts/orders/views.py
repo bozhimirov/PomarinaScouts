@@ -10,7 +10,6 @@ from Scouts.account_profile.models import Profile
 from Scouts.items.models import Item
 from Scouts.orders.forms import OrderCreateForm, OrderEditForm, OrderSendForm, OrderReceiveForm
 from Scouts.orders.models import Order
-from Scouts.orders.signals import send_email_on_successful_order
 
 UserModel = get_user_model()
 
@@ -69,7 +68,6 @@ def add_order(request, pk):
             form.save()
 
             return redirect('details order', pk=order.pk)
-    # send_email_on_successful_order(UserModel, )
     context = {
         'form': form,
         'item': item,

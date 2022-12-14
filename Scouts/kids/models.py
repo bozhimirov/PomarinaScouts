@@ -3,24 +3,32 @@ from django.contrib.auth import get_user_model
 from django.core import validators
 from django.db import models
 from django.utils.text import slugify
-
 from Scouts.account_profile.models import Profile
 from Scouts.accounts.models import AppUser
 from Scouts.core.model_mixins import StrFromFieldsMixin
 from Scouts.core.utils import calculate_age
-from Scouts.core.validators import validate_only_numbers, validate_file_less_than_5mb, validate_only_letters, \
-    validate_birth_credentials, validate_age, validate_mobile_number
+from Scouts.core.validators import validate_only_numbers, validate_birth_credentials,\
+    validate_age, validate_mobile_number
 
 UserModel = get_user_model()
 
 
 class Kid(StrFromFieldsMixin, models.Model):
-    str_fields = ('id', 'first_name', 'last_name')
+    str_fields = (
+        'id',
+        'first_name',
+        'last_name'
+    )
     MAX_NAME = 30
     MIN_NAME = 3
     MIN_LEN_PHONE = 10
     MAX_LEN_PHONE = 10
     MAX_NAME_LENGTH = 100
+    CHOICES = [
+        (None, 'Required / Please choose gender'),
+        ('Male', 'Male'),
+        ('Female', 'Female')
+    ]
 
     id = models.AutoField(primary_key=True)
 
@@ -29,7 +37,9 @@ class Kid(StrFromFieldsMixin, models.Model):
         null=False,
         blank=False,
         validators=(
-            validators.MinLengthValidator(MIN_NAME),
+            validators.MinLengthValidator(
+                MIN_NAME
+            ),
         )
     )
 
@@ -39,11 +49,12 @@ class Kid(StrFromFieldsMixin, models.Model):
         blank=True,
         help_text='Optional / Last Name',
         validators=(
-            validators.MinLengthValidator(MIN_NAME),
+            validators.MinLengthValidator(
+                MIN_NAME
+            ),
         )
     )
 
-    CHOICES = [(None, 'Required / Please choose gender'), ('Male', 'Male'), ('Female', 'Female')]
     gender = models.CharField(
         null=False,
         blank=False,

@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils.text import slugify
-
 from Scouts.core.model_mixins import StrFromFieldsMixin
 from Scouts.core.validators import validate_gt_zero
 
@@ -19,6 +18,45 @@ class Item(StrFromFieldsMixin, models.Model):
     MAX_NAME = 30
     MIN_NAME = 3
     MAX_NAME_LENGTH = 100
+    CHOICES_CATEGORY = [
+        (None, 'Optional / Please choose category of the item'),
+        ('Hoodies', 'Hoodies'),
+        ('T-shirts', 'T-shirts'),
+        ('Shirts', 'Shirts'),
+        ('Hats', 'Hats'),
+        ('Scarves', 'Scarves'),
+        ('Trousers', 'Trousers'),
+        ('Soft Shell', 'Soft Shell'),
+        ('Others', 'Others'),
+    ]
+    CHOICES_AGE = [
+        (None, 'Optional / Please choose ages category'),
+        ('Beavers', 'Beavers'),
+        ('Cubs', 'Cubs'),
+        ('Scouts', 'Scouts'),
+        ('Ventures', 'Ventures'),
+        ('Rovers', 'Rovers'),
+        ('Adult Volunteer', 'Adult Volunteer'),
+        ('Beavers & Cubs', 'Beavers & Cubs'),
+        ('Scouts & Ventures', 'Scouts & Ventures'),
+        ('Rovers & Volunteers', 'Rovers & Volunteers'),
+    ]
+    CHOICES_SIZE = [
+        (None, 'Optional / Please choose size category'),
+        ('XXS', 'XXS'),
+        ('XS', 'XS'),
+        ('S', 'S'),
+        ('M', 'M'),
+        ('L', 'L'),
+        ('XL', 'XL'),
+        ('XXL', 'XXL'),
+        ('XXXL', 'XXXL'),
+    ]
+    CHOICES_GENDER = [
+        (None, 'Optional / Please choose gender category'),
+        ('Male', 'Male'),
+        ('Female', 'Female')
+    ]
 
     photo = CloudinaryField(
         null=False,
@@ -27,14 +65,8 @@ class Item(StrFromFieldsMixin, models.Model):
         #     validate_file_less_than_5mb,
         # ),
         help_text='Upload photo of your Item here!'
-
     )
 
-    CHOICES_CATEGORY = [
-        (None, 'Optional / Please choose category of the item'), ('Hoodies', 'Hoodies'), ('T-shirts', 'T-shirts'),
-        ('Shirts', 'Shirts'), ('Hats', 'Hats'), ('Scarves', 'Scarves'), ('Trousers', 'Trousers'),
-        ('Soft Shell', 'Soft Shell'), ('Others', 'Others')
-    ]
     category = models.CharField(
         null=False,
         blank=False,
@@ -47,7 +79,6 @@ class Item(StrFromFieldsMixin, models.Model):
         blank=True,
         max_length=MAX_NAME,
         help_text='Optional / Name of the item '
-
     )
 
     # consider Float-field if necessary for price
@@ -58,14 +89,8 @@ class Item(StrFromFieldsMixin, models.Model):
         validators=(
             validate_gt_zero,
         ),
-
     )
-    CHOICES_AGE = [
-        (None, 'Optional / Please choose ages category'), ('Beavers', 'Beavers'), ('Cubs', 'Cubs'),
-        ('Scouts', 'Scouts'), ('Ventures', 'Ventures'), ('Rovers', 'Rovers'), ('Adult Volunteer', 'Adult Volunteer'),
-        ('Beavers & Cubs', 'Beavers & Cubs'), ('Scouts & Ventures', 'Scouts & Ventures'),
-        ('Rovers & Volunteers', 'Rovers & Volunteers')
-    ]
+
     ages = models.CharField(
         null=True,
         blank=True,
@@ -73,17 +98,13 @@ class Item(StrFromFieldsMixin, models.Model):
         max_length=MAX_NAME_LENGTH,
     )
 
-    CHOICES_SIZE = [
-        (None, 'Optional / Please choose size category'), ('XXS', 'XXS'), ('XS', 'XS'), ('S', 'S'), ('M', 'M'),
-        ('L', 'L'), ('XL', 'XL'), ('XXL', 'XXL'), ('XXXL', 'XXXL')
-    ]
     size = models.CharField(
         null=True,
         blank=True,
         choices=CHOICES_SIZE,
         max_length=MAX_NAME_LENGTH,
     )
-    CHOICES_GENDER = [(None, 'Optional / Please choose gender category'), ('Male', 'Male'), ('Female', 'Female')]
+
     gender = models.CharField(
         null=True,
         blank=True,
@@ -150,6 +171,45 @@ class UsedItem(StrFromFieldsMixin, models.Model):
     MAX_DESCRIPTION_LENGTH = 300
     MAX_LOCATION_LENGTH = 30
     MAX_NAME = 30
+    CHOICES_CATEGORY = [
+        (None, 'Required / Please choose category of the item'),
+        ('Hoodies', 'Hoodies'),
+        ('T-shirts', 'T-shirts'),
+        ('Shirts', 'Shirts'),
+        ('Hats', 'Hats'),
+        ('Scarves', 'Scarves'),
+        ('Trousers', 'Trousers'),
+        ('Soft Shell', 'Soft Shell'),
+        ('Others', 'Others'),
+    ]
+    CHOICES_AGE = [
+        (None, 'Optional / Please choose ages category'),
+        ('Beavers', 'Beavers'),
+        ('Cubs', 'Cubs'),
+        ('Scouts', 'Scouts'),
+        ('Ventures', 'Ventures'),
+        ('Rovers', 'Rovers'),
+        ('Adult Volunteer', 'Adult Volunteer'),
+        ('Beavers & Cubs', 'Beavers & Cubs'),
+        ('Scouts & Ventures', 'Scouts & Ventures'),
+        ('Rovers & Volunteers', 'Rovers & Volunteers'),
+    ]
+    CHOICES_SIZE = [
+        (None, 'Optional / Please choose size category'),
+        ('XXS', 'XXS'),
+        ('XS', 'XS'),
+        ('S', 'S'),
+        ('M', 'M'),
+        ('L', 'L'),
+        ('XL', 'XL'),
+        ('XXL', 'XXL'),
+        ('XXXL', 'XXXL'),
+    ]
+    CHOICES_GENDER = [
+        (None, 'Optional / Please choose gender category'),
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+    ]
 
     photo = CloudinaryField(
         null=False,
@@ -160,11 +220,7 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         help_text='Required / Upload photo of your Item here!',
 
     )
-    CHOICES_CATEGORY = [
-        (None, 'Required / Please choose category of the item'), ('Hoodies', 'Hoodies'), ('T-shirts', 'T-shirts'),
-        ('Shirts', 'Shirts'), ('Hats', 'Hats'), ('Scarves', 'Scarves'), ('Trousers', 'Trousers'),
-        ('Soft Shell', 'Soft Shell'), ('Others', 'Others')
-    ]
+
     category = models.CharField(
         null=False,
         blank=False,
@@ -172,22 +228,13 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         max_length=(max(len(value) for _, value in CHOICES_CATEGORY)),
     )
 
-    CHOICES_AGE = [
-        (None, 'Optional / Please choose ages category'), ('Beavers', 'Beavers'), ('Cubs', 'Cubs'),
-        ('Scouts', 'Scouts'), ('Ventures', 'Ventures'), ('Rovers', 'Rovers'), ('Adult Volunteer', 'Adult Volunteer'),
-        ('Beavers & Cubs', 'Beavers & Cubs'), ('Scouts & Ventures', 'Scouts & Ventures'),
-        ('Rovers & Volunteers', 'Rovers & Volunteers')
-    ]
     ages = models.CharField(
         null=True,
         blank=True,
         choices=CHOICES_AGE,
         max_length=(max(len(value) for _, value in CHOICES_AGE)),
     )
-    CHOICES_SIZE = [
-        (None, 'Optional / Please choose size category'), ('XXS', 'XXS'), ('XS', 'XS'), ('S', 'S'), ('M', 'M'),
-        ('L', 'L'), ('XL', 'XL'), ('XXL', 'XXL'), ('XXXL', 'XXXL')
-    ]
+
     size = models.CharField(
         null=True,
         blank=True,
@@ -195,7 +242,7 @@ class UsedItem(StrFromFieldsMixin, models.Model):
         max_length=(max(len(value) for _, value in CHOICES_SIZE)),
 
     )
-    CHOICES_GENDER = [(None, 'Optional / Please choose gender category'), ('Male', 'Male'), ('Female', 'Female')]
+
     gender = models.CharField(
         null=True,
         blank=True,
@@ -239,7 +286,6 @@ class UsedItem(StrFromFieldsMixin, models.Model):
     )
 
     def save(self, *args, **kwargs):
-
         super().save(*args, **kwargs)
 
         if not self.slug:

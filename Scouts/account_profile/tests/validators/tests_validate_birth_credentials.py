@@ -21,22 +21,16 @@ class Born:
 
     def year(self):
         split_value = self.value.split('-')
-        # strip_int_value = [int(x) for x in strip_value]
-        # print(strip_int_value)
-        # print(strip_int_value[0])
         return int(split_value[0])
-        # return strip_int_value[0]
 
     def month(self):
         split_value = self.value.split('-')
         split_int_value = [int(x) for x in split_value]
-        # return strip_value[1]
         return split_int_value[1]
 
     def day(self):
         split_value = self.value.split('-')
         split_int_value = [int(x) for x in split_value]
-        # return strip_value[2]
         return split_int_value[2]
 
 

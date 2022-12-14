@@ -21,7 +21,9 @@ class KidBaseForm(forms.ModelForm):
             }
         ),
         validators=(
-            validators.MinLengthValidator(MIN_NAME),
+            validators.MinLengthValidator(
+                MIN_NAME
+            ),
         )
     )
 
@@ -34,7 +36,9 @@ class KidBaseForm(forms.ModelForm):
             }
         ),
         validators=(
-            validators.MinLengthValidator(MIN_NAME),
+            validators.MinLengthValidator(
+                MIN_NAME
+            ),
         )
     )
 
@@ -84,7 +88,14 @@ class KidBaseForm(forms.ModelForm):
         MAX_LEN_PHONE = 10
 
         model = Kid
-        fields = ('first_name', 'last_name', 'date_of_birth', 'gender', 'phone_number', 'profile_picture')
+        fields = (
+            'first_name',
+            'last_name',
+            'date_of_birth',
+            'gender',
+            'phone_number',
+            'profile_picture',
+        )
 
 
 class KidCreateForm(KidBaseForm):
@@ -111,11 +122,21 @@ class KidCreateForm(KidBaseForm):
         MAX_LEN_PHONE = 10
 
         model = Kid
-        fields = ('first_name', 'last_name', 'date_of_birth', 'gender', 'phone_number', 'profile_picture')
+        fields = (
+            'first_name',
+            'last_name',
+            'date_of_birth',
+            'gender',
+            'phone_number',
+            'profile_picture',
+        )
 
 
 class KidEditForm(DisabledFormMixin, KidBaseForm):
-    disabled_fields = ('first_name', 'date_of_birth')
+    disabled_fields = (
+        'first_name',
+        'date_of_birth',
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -123,7 +144,13 @@ class KidEditForm(DisabledFormMixin, KidBaseForm):
 
     class Meta:
         model = Kid
-        fields = ('first_name', 'last_name', 'date_of_birth', 'phone_number', 'profile_picture')
+        fields = (
+            'first_name',
+            'last_name',
+            'date_of_birth',
+            'phone_number',
+            'profile_picture',
+        )
 
 
 class KidDeleteForm(DisabledFormMixin, KidBaseForm):

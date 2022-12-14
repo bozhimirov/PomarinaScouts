@@ -41,7 +41,11 @@ class PaymentCreateForm(PaymentBaseForm):
 
     class Meta:
         model = Payment
-        fields = ('model_name', 'kid', 'comments')
+        fields = (
+            'model_name',
+            'kid',
+            'comments',
+        )
 
 
 class PaymentEditForm(PaymentBaseForm):

@@ -21,7 +21,11 @@ class KidsFormTests(TestCase):
         self.assertEqual(1, len(disabled_fields))
 
     def test_kid_edit_disabled_fields__when_name_date_gender_disabled__expect_3_disabled(self):
-        KidEditForm.disabled_fields = ('first_name', 'date_of_birth', 'gender')
+        KidEditForm.disabled_fields = (
+            'first_name',
+            'date_of_birth',
+            'gender'
+        )
         form = KidEditForm()
         disabled_fields = {
             name: field.widget.attrs[KidEditForm.disabled_attr_name]

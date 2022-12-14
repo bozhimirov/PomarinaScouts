@@ -48,12 +48,13 @@ def add_kid(request):
                 logging.error(
                     f'Server error appeared for {request.path}; method: {request.method} with response content: {e}'
                 )
-                messages.error(request, 'Wrong Birth Details!'
-                                        ' Please enter correct birth credentials.')
+                messages.error(request,
+                               'Wrong Birth Details!'
+                               ' Please enter correct birth credentials.'
+                               )
                 kid.delete()
                 return HttpResponseRedirect(reverse('add kid', ))
 
-        # form = KidCreateForm()
     context = {
         'form': form,
 

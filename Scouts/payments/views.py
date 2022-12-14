@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.db.models.functions import datetime
 from django.shortcuts import render, redirect
 from django.utils import timezone
 
@@ -51,7 +50,6 @@ def add_payment(request):
     current_user_pk = request.user.pk
     user = Profile.objects.get(pk=current_user_pk)
 
-    # payment_set = Payment.objects.filter(staff_member=user.get_full_name())
     payment_set = Payment.objects.all()
     if request.method == 'GET':
         form = PaymentCreateForm()

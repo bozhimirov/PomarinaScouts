@@ -15,8 +15,12 @@ class Payment(models.Model):
     MONTHLY_TAX = 30
     MAX_NAME_LENGTH = 100
     MAX_DESCRIPTION_LENGTH = 300
+    CHOICES = [
+        (None, 'Required / Select payment type'),
+        ('Monthly Tax', 'Monthly Tax'),
+        ('Annual Fee', 'Annual Fee')
+    ]
 
-    CHOICES = [(None, 'Required / Select payment type'), ('Monthly Tax', 'Monthly Tax'), ('Annual Fee', 'Annual Fee')]
     model_name = models.CharField(
         null=False,
         blank=False,

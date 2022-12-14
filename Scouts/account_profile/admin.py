@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin, get_user_model
-from django.contrib.auth.models import User
 
-from Scouts.account_profile.forms import UserEditForm, UserCreateForm
+from Scouts.account_profile.forms import UserCreateForm
 from Scouts.account_profile.models import Profile
 
 UserModel = get_user_model()
@@ -23,6 +22,7 @@ class ProfileAdmin(auth_admin.UserAdmin):
         'phone_number',
         'gender'
     )
+
     list_filter = (
         'last_name',
         'gender'

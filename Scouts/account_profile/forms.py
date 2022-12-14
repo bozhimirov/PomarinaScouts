@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core import validators
-from django.views.generic.edit import FormMixin
 
 from Scouts.account_profile.models import Profile
 from Scouts.accounts.forms import AppUserEditForm, AppUserCreationForm
@@ -38,7 +37,9 @@ class UserEditForm(DisabledFormMixin, AppUserEditForm):
                 }
             ),
             validators=(
-                validators.MinLengthValidator(MIN_LEN_FIRST_NAME),
+                validators.MinLengthValidator(
+                    MIN_LEN_FIRST_NAME
+                ),
                 validate_only_letters,
             ),
         )
@@ -53,7 +54,9 @@ class UserEditForm(DisabledFormMixin, AppUserEditForm):
             ),
             help_text="Please use only letters.",
             validators=(
-                validators.MinLengthValidator(MIN_LEN_LAST_NAME),
+                validators.MinLengthValidator(
+                    MIN_LEN_LAST_NAME
+                ),
                 validate_only_letters,
             ),
         )
@@ -75,7 +78,10 @@ class UserEditForm(DisabledFormMixin, AppUserEditForm):
             },
             help_text="Type phone number in format: 0987654321",
         )
-        CHOICES = [(None, 'Optional / Please choose gender'), ('Male', 'Male'), ('Female', 'Female')]
+        CHOICES = [
+            (None, 'Optional / Please choose gender'),
+            ('Male', 'Male'),
+            ('Female', 'Female')]
         gender = forms.ChoiceField(
             choices=CHOICES,
         )
@@ -104,9 +110,14 @@ class UserCreateForm(AppUserCreationForm):
         max_length=MAX_LEN_FIRST_NAME,
         label="First Name",
         widget=forms.TextInput(
-            attrs={'placeholder': "First name"}),
+            attrs={
+                'placeholder': "First name"
+            }
+        ),
         validators=(
-            validators.MinLengthValidator(MIN_LEN_FIRST_NAME),
+            validators.MinLengthValidator(
+                MIN_LEN_FIRST_NAME
+            ),
             validate_only_letters,
         ),
     )
@@ -115,9 +126,14 @@ class UserCreateForm(AppUserCreationForm):
         max_length=MAX_LEN_LAST_NAME,
         label="Last Name",
         widget=forms.TextInput(
-            attrs={'placeholder': "Last name"}),
+            attrs={
+                'placeholder': "Last name"
+            }
+        ),
         validators=(
-            validators.MinLengthValidator(MIN_LEN_LAST_NAME),
+            validators.MinLengthValidator(
+                MIN_LEN_LAST_NAME
+            ),
             validate_only_letters,
         ),
     )
@@ -126,7 +142,10 @@ class UserCreateForm(AppUserCreationForm):
         max_length=MAX_LEN_PHONE,
         label="Phone Number",
         widget=forms.TextInput(
-            attrs={'placeholder': "Phone number"}),
+            attrs={
+                'placeholder': "Phone number"
+            }
+        ),
         validators=(
             validate_mobile_number,
             validate_only_numbers,
@@ -141,7 +160,6 @@ class UserCreateForm(AppUserCreationForm):
             'first_name',
             'last_name',
         )
-
 
     def save(self, commit=True):
         user = super().save(commit=commit)

@@ -18,6 +18,7 @@ class ItemAdmin(admin.ModelAdmin):
         'location',
         'user',
     )
+
     list_filter = (
         'category',
         'ages',
@@ -25,6 +26,7 @@ class ItemAdmin(admin.ModelAdmin):
         'gender',
         'location'
     )
+
     ordering = (
         'category',
     )
@@ -43,12 +45,14 @@ class ItemAdmin(admin.ModelAdmin):
         'location',
         'user',
     )
+
     list_filter = (
         'category',
         'ages',
         'size',
         'gender',
     )
+
     ordering = (
         'publication_date',
         'category',

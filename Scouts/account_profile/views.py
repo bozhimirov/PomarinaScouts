@@ -1,14 +1,12 @@
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.template import loader
 from django.urls import reverse_lazy
 
 from django.views import generic as views
 
 from Scouts.account_profile.forms import UserCreateForm
 from Scouts.account_profile.models import Profile
-from Scouts.accounts.models import AppUser
 from Scouts.items.models import UsedItem
 from Scouts.kids.models import Kid
 from Scouts.orders.models import Order

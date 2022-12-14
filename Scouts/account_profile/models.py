@@ -1,7 +1,6 @@
 from cloudinary.models import CloudinaryField
 from django.core import validators
 from django.db import models
-
 from Scouts.accounts.models import AppUser
 from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_mobile_number
 
@@ -13,11 +12,18 @@ class Profile(models.Model):
     MAX_LEN_LAST_NAME = 30
     MAX_LEN_PHONE = 10
     MAX_NAME_LENGTH = 100
+    CHOICES = [
+        (None, 'Optional / Please choose gender'),
+        ('Male', 'Male'),
+        ('Female', 'Female')
+    ]
 
     first_name = models.CharField(
         max_length=MAX_LEN_FIRST_NAME,
         validators=(
-            validators.MinLengthValidator(MIN_LEN_FIRST_NAME),
+            validators.MinLengthValidator(
+                MIN_LEN_FIRST_NAME
+            ),
             validate_only_letters,
         ),
     )
@@ -25,7 +31,9 @@ class Profile(models.Model):
     last_name = models.CharField(
         max_length=MAX_LEN_LAST_NAME,
         validators=(
-            validators.MinLengthValidator(MIN_LEN_LAST_NAME),
+            validators.MinLengthValidator(
+                MIN_LEN_LAST_NAME
+            ),
             validate_only_letters,
         ),
     )
@@ -35,7 +43,7 @@ class Profile(models.Model):
         primary_key=True,
         on_delete=models.CASCADE,
     )
-    CHOICES = [(None, 'Optional / Please choose gender'), ('Male', 'Male'), ('Female', 'Female')]
+
     gender = models.CharField(
         null=True,
         blank=True,
