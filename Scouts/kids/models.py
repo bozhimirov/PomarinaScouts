@@ -2,12 +2,14 @@ from cloudinary.models import CloudinaryField
 from django.contrib.auth import get_user_model
 from django.core import validators
 from django.db import models
+from django.db.models import signals
+from django.dispatch import receiver
 from django.utils.text import slugify
 from Scouts.account_profile.models import Profile
 from Scouts.accounts.models import AppUser
 from Scouts.core.model_mixins import StrFromFieldsMixin
 from Scouts.core.utils import calculate_age
-from Scouts.core.validators import validate_only_numbers, validate_birth_credentials,\
+from Scouts.core.validators import validate_only_numbers, validate_birth_credentials, \
     validate_age, validate_mobile_number
 
 UserModel = get_user_model()
@@ -111,7 +113,7 @@ class Kid(StrFromFieldsMixin, models.Model):
     )
 
     parent_name = models.CharField(
-        max_length=MAX_NAME*2,
+        max_length=MAX_NAME * 2,
         null=True,
         blank=True,
     )
@@ -131,14 +133,6 @@ class Kid(StrFromFieldsMixin, models.Model):
         if not self.slug:
             self.slug = slugify(f'{self.id}-{self.first_name}-{self.last_name}')
 
-        if not self.parent_phone:
-            user = Profile.objects.filter(pk=self.users.pk).get()
-            self.parent_phone = user.phone_number
-
-        if not self.parent_name:
-            user = Profile.objects.filter(pk=self.users.pk).get()
-            self.parent_name = f'{user.first_name} {user.last_name}'
-
         if not self.age:
             age = calculate_age(born=self.date_of_birth)
             validate_age(age)
@@ -148,3 +142,4 @@ class Kid(StrFromFieldsMixin, models.Model):
 
     class Meta:
         ordering = ['-age']
+

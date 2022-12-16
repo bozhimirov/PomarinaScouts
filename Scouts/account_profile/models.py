@@ -1,6 +1,8 @@
 from cloudinary.models import CloudinaryField
 from django.core import validators
 from django.db import models
+from django.db.models.signals import pre_save
+
 from Scouts.accounts.models import AppUser
 from Scouts.core.validators import validate_only_letters, validate_only_numbers, validate_mobile_number
 
@@ -83,5 +85,3 @@ class Profile(models.Model):
         """
         full_name = "%s %s" % (self.first_name, self.last_name)
         return full_name.strip()
-
-

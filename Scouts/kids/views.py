@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
+from Scouts.account_profile.models import Profile
 from Scouts.kids.forms import KidCreateForm, KidEditForm, KidDeleteForm
 from django.contrib.auth import get_user_model
 
@@ -23,6 +24,7 @@ def details_kid(request, uid, kid_slug):
         'is_owner': kid.users == request.user,
         'uid': uid,
         'kid_slug': kid_slug,
+        'parent': Profile.objects.get(pk=request.user.pk)
     }
 
     return render(
