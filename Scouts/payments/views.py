@@ -63,7 +63,7 @@ def add_payment(request):
             payment.parent = payment.kid.users
             payment.period_billed = calculate_month(payment.generated_date)
 
-            if payment.model_name == 'MonthlyTax':
+            if payment.model_name == 'Monthly Tax':
 
                 payment.period_billed = calculate_month(payment.generated_date)
                 kids_list = kids_info(payment.kid.users)
@@ -72,7 +72,7 @@ def add_payment(request):
                 else:
                     payment.tax_per_kid = payment.MONTHLY_TAX
 
-            elif payment.model_name == 'AnnualFee':
+            elif payment.model_name == 'Annual Fee':
                 payment.tax_per_kid = payment.ANNUAL_TAX
 
                 payment.period_billed = calculate_year(payment.generated_date)
