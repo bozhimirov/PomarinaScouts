@@ -1,19 +1,19 @@
 # PomarinaScouts
 
 
-Description
+Description:
 This App was created as a Scout's club website, with a register for users and marketplace for new and used items.
 
 Built With
 Django
 
-Site
+Site:
 
-Landing Page
+Landing Page:
 ![image](https://user-images.githubusercontent.com/101798668/208144859-bfe13348-8626-49f8-a3d8-6dab0940c49f.png)
-About Page
+About Page:
 ![image](https://user-images.githubusercontent.com/101798668/208144924-1fc5b6ea-335c-42b8-9bf7-fcc68d50baeb.png)
-For Parents Page
+For Parents Page:
 ![image](https://user-images.githubusercontent.com/101798668/208144996-15dec0b9-be6c-4b30-b334-e66e9b46d3b2.png)
 
 Landing Page is showing some info about scouting as mission, values, growth. 
