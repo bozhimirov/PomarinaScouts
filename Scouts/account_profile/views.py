@@ -20,7 +20,7 @@ class UserDetailsView(LoginRequiredMixin, views.DetailView):
     model = Profile
 
     payments_paginate_by = 2
-    payments = Payment.objects.all()
+    payments = Payment.objects.order_by('-generated_date')
     orders = Order.objects.all()
     items_for_sale = UsedItem.objects.order_by('publication_date')
     kids = Kid.objects.order_by('-age')

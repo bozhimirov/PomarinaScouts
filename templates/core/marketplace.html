@@ -32,7 +32,7 @@
                                     {% if order.comment %}
                                         Comment: {{ order.comment }}
                                     {% endif %}
-                                    User ID:{{ order.user.pk }}
+{#                                    User ID:{{ order.user.pk }}#}
                                     {% for user in all_users %}
                                             {% if user.pk == order.user.pk %}
                                                 User:{{ user.get_full_name }}

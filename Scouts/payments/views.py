@@ -50,7 +50,7 @@ def add_payment(request):
     current_user_pk = request.user.pk
     user = Profile.objects.get(pk=current_user_pk)
 
-    payment_set = Payment.objects.all()
+    payment_set = Payment.objects.order_by('-period_billed', 'kid')
     if request.method == 'GET':
         form = PaymentCreateForm()
 

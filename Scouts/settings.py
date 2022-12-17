@@ -15,7 +15,7 @@ from pathlib import Path
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-from Scouts.custom_middleware import handle_exception
+from Scouts.middleware import handle_exception
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -64,7 +64,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'Scouts.custom_middleware.handle_exception'
+    'Scouts.middleware.handle_exception'
     # 'Scouts.custom_middleware.Correlation',
     # 'Scouts.custom_middleware.CustomMiddleware',
 ]
