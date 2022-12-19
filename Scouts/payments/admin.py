@@ -5,6 +5,7 @@ from Scouts.payments.models import Payment
 
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
+
     list_display = (
         'id',
         'paid',
@@ -18,6 +19,7 @@ class PaymentAdmin(admin.ModelAdmin):
         'staff_member',
         'comments',
     )
+
     list_filter = (
         'confirmed_by_user',
         'paid',
@@ -29,6 +31,7 @@ class PaymentAdmin(admin.ModelAdmin):
         'tax_per_kid',
         'staff_member',
     )
+
     ordering = (
         'paid',
         '-confirmed_by_user',

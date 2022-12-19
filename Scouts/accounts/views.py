@@ -1,21 +1,6 @@
-# from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.http import request
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.forms import EmailField
+
 from django.urls import reverse_lazy
-from django.views import generic as views
-from django.contrib.auth import views as auth_views, get_user_model, login
-
-from Scouts.account_profile.forms import UserCreateForm
-from Scouts.account_profile.models import Profile
-from Scouts.accounts.forms import AppUserCreationForm
-
-# from django.shortcuts import render
-
-# from Scouts.accounts.forms import UserCreateForm
-# from Scouts.accounts.models import Profile
-# from Scouts.payments.models import Payment
+from django.contrib.auth import views as auth_views, get_user_model
 
 UserModel = get_user_model()
 

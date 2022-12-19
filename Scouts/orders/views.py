@@ -1,4 +1,3 @@
-import datetime
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -16,6 +15,7 @@ UserModel = get_user_model()
 
 @login_required
 def details_order(request, pk):
+
     order = Order.objects.filter(pk=pk).get()
     user = UserModel.objects.get(pk=order.user_id)
     all_users = Profile.objects.all()
@@ -35,6 +35,7 @@ def details_order(request, pk):
 
 
 def get_post_order_form(request, form, success_url, template_path, pk=None):
+
     if request.method == 'POST':
         if form.is_valid():
             form.save()
@@ -50,10 +51,12 @@ def get_post_order_form(request, form, success_url, template_path, pk=None):
 
 @login_required
 def add_order(request, pk):
+
     item = Item.objects.filter(pk=pk).get()
     user = request.user
     category = item.category
     name = item.name
+
     if request.method == 'GET':
         form = OrderCreateForm()
 
@@ -68,6 +71,7 @@ def add_order(request, pk):
             form.save()
 
             return redirect('details order', pk=order.pk)
+
     context = {
         'form': form,
         'item': item,
@@ -86,6 +90,7 @@ def add_order(request, pk):
 
 @login_required
 def edit_order(request, pk):
+
     order = Order.objects.filter(pk=pk).get()
 
     if request.method == 'GET':
@@ -112,6 +117,7 @@ def edit_order(request, pk):
 
 @login_required
 def delete_order(request, pk):
+
     order = Order.objects.filter(pk=pk).get()
     order.delete()
 
@@ -120,6 +126,7 @@ def delete_order(request, pk):
 
 @login_required
 def send_order(request, pk):
+
     order = Order.objects.filter(pk=pk).get()
 
     if request.method == 'GET':
@@ -128,9 +135,9 @@ def send_order(request, pk):
         form = OrderSendForm(request.POST, request.FILES, instance=order)
         if form.is_valid():
             order = form.save(commit=False)
+            order.staff_member = request.user.pk
             order.confirmed_by_staff = timezone.now()
             order.sent = True
-            order.staff_member = request.user.pk
             order.save()
             form.save()
 
@@ -152,13 +159,16 @@ def send_order(request, pk):
 
 @login_required
 def receive_order(request, pk):
+
     order = Order.objects.filter(pk=pk).get()
 
     if request.method == 'GET':
         form = OrderReceiveForm(instance=order)
     else:
         form = OrderReceiveForm(request.POST, request.FILES, instance=order)
+
         if form.is_valid():
+
             order = form.save(commit=False)
             order.received_by_user = timezone.now()
             order.received = True

@@ -25,6 +25,7 @@ class OrderBaseForm(forms.ModelForm):
 
 
 class OrderCreateForm(OrderBaseForm):
+
     quantity = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -44,6 +45,7 @@ class OrderCreateForm(OrderBaseForm):
 
 
 class OrderEditForm(OrderBaseForm):
+
     quantity = forms.CharField(
         widget=forms.TextInput(
             attrs={

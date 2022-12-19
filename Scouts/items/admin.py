@@ -5,6 +5,7 @@ from Scouts.items.models import Item, UsedItem
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
+
     list_display = (
         'id',
         'photo',
@@ -34,6 +35,7 @@ class ItemAdmin(admin.ModelAdmin):
 
 @admin.register(UsedItem)
 class ItemAdmin(admin.ModelAdmin):
+
     list_display = (
         'id',
         'photo',

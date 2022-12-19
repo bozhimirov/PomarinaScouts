@@ -6,6 +6,7 @@ from Scouts.accounts.managers import AppUserManager
 
 
 class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
+
     email = models.EmailField(
         unique=True,
         null=False,
@@ -14,10 +15,12 @@ class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
             "unique": "A user with that email already exists.",
         },
     )
+
     is_staff = models.BooleanField(
         default=False,
         help_text="Designates whether the user can log into this admin site.",
     )
+
     is_active = models.BooleanField(
         default=True,
         help_text=(

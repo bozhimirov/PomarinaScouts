@@ -7,10 +7,12 @@ UserModel = get_user_model()
 
 @admin.register(UserModel)
 class AppUserAdmin(auth_admin.UserAdmin):
+
     add_form = AppUserCreationForm
     exclude = (
         'username',
     )
+
     ordering = (
         '-is_staff',
         '-is_active',
@@ -39,26 +41,19 @@ class AppUserAdmin(auth_admin.UserAdmin):
         ),
 
     )
+
     fieldsets = (
-        (None,
-         {'fields': (
-            'email',
-            'password'
-         )}),
-        (
-            'Permissions',
-            {
-                'fields': (
-                    'is_active',
-                    'is_staff',
-                    'is_superuser',
-                    'groups',
-                    'user_permissions',
-                ),
-            },
-        ),
-        ('Important dates',
-         {'fields': (
+        (None, {'fields': ('email', 'password')}),
+
+        ('Permissions', {'fields': (
+            'is_active',
+            'is_staff',
+            'is_superuser',
+            'groups',
+            'user_permissions',)}
+         ),
+
+        ('Important dates', {'fields': (
              'last_login',
              'date_joined'
          )}),

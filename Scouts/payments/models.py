@@ -1,4 +1,3 @@
-import datetime
 
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -40,6 +39,7 @@ class Payment(models.Model):
         on_delete=models.SET_NULL,
         help_text='Required / Select Kid to generate payment',
     )
+
     parent = models.ForeignKey(
         UserModel,
         null=True,

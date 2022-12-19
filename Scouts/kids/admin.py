@@ -5,11 +5,13 @@ from Scouts.kids.models import Kid
 
 @admin.register(Kid)
 class KidAdmin(admin.ModelAdmin):
+
     list_filter = (
         'age',
         'gender',
         'parent_name',
     )
+
     list_display = (
         'id',
         'first_name',
@@ -20,6 +22,7 @@ class KidAdmin(admin.ModelAdmin):
         'parent_phone',
         'parent_name',
     )
+
     ordering = (
         'users',
     )

@@ -60,7 +60,6 @@ class Order(models.Model):
         ('I will provide details in comments', 'I will provide details in comments'),
     ]
 
-
     category = models.CharField(
         null=False,
         blank=False,

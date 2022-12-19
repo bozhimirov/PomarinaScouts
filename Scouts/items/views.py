@@ -32,6 +32,7 @@ def details_item(request, pk):
 
 @login_required
 def details_used_item(request, pk):
+
     item = UsedItem.objects.filter(pk=pk).get()
     category = item.category
 
@@ -49,6 +50,7 @@ def details_used_item(request, pk):
 
 
 def get_post_item_form(request, form, success_url, template_path, pk=None):
+
     if request.method == 'POST':
         if form.is_valid():
             form.save()

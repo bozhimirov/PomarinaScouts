@@ -17,6 +17,7 @@ UserModel = get_user_model()
 
 @login_required
 def details_kid(request, uid, kid_slug):
+
     kid = get_kid_by_name_and_id(kid_slug, uid)
 
     context = {
@@ -36,10 +37,12 @@ def details_kid(request, uid, kid_slug):
 
 @login_required
 def add_kid(request):
+
     if request.method == 'GET':
         form = KidCreateForm()
     else:
         form = KidCreateForm(request.POST, request.FILES)
+
         if form.is_valid():
             kid = form.save(commit=False)
             kid.users = request.user
@@ -67,6 +70,7 @@ def add_kid(request):
 
 @login_required
 def edit_kid(request, uid, kid_slug):
+
     kid = get_kid_by_name_and_id(kid_slug, uid)
 
     if request.method == 'GET':
@@ -93,6 +97,7 @@ def edit_kid(request, uid, kid_slug):
 
 @login_required
 def delete_kid(request, uid, kid_slug):
+
     kid = get_kid_by_name_and_id(kid_slug, uid)
 
     if request.method == 'GET':

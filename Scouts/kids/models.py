@@ -2,8 +2,6 @@ from cloudinary.models import CloudinaryField
 from django.contrib.auth import get_user_model
 from django.core import validators
 from django.db import models
-from django.db.models import signals
-from django.dispatch import receiver
 from django.utils.text import slugify
 from Scouts.account_profile.models import Profile
 from Scouts.accounts.models import AppUser
@@ -16,6 +14,7 @@ UserModel = get_user_model()
 
 
 class Kid(StrFromFieldsMixin, models.Model):
+
     str_fields = (
         'id',
         'first_name',

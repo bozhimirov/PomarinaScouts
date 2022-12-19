@@ -8,12 +8,14 @@ UserModel = get_user_model()
 
 class AppUserEditForm(FormMixin, UserChangeForm):
     PASSWORD_LENGTH = 20
+
     email = forms.EmailField(
         widget=forms.TextInput(
             attrs={
                 'placeholder': "Email"
             }
         ),
+
         error_messages={
             "unique": "A user with that email doesn't exists.",
         },
@@ -42,6 +44,7 @@ class AppUserEditForm(FormMixin, UserChangeForm):
 
 class AppUserCreationForm(FormMixin, UserCreationForm):
     PASSWORD_LENGTH = 20
+
     email = forms.EmailField(
         widget=forms.TextInput(
             attrs={

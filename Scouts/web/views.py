@@ -32,6 +32,7 @@ class ForParentsView(views.TemplateView):
 
 
 def scout_store(request):
+
     all_items = Item.objects.all()
     all_used_items = UsedItem.objects.all()
     count_of_items = all_items.count()
@@ -39,10 +40,12 @@ def scout_store(request):
     all_orders = Order.objects.all()
 
     all_users = Profile.objects.all()
+
     for_sending = False
     for sent in all_orders:
         if not sent.sent:
             for_sending = True
+
     received = False
     for rec in all_orders:
         if not rec.received and rec.sent:
@@ -63,6 +66,7 @@ def scout_store(request):
 
 
 def scout_store_new(request):
+
     all_items = Item.objects.all()
     len_items = len(all_items)
     paginator = Paginator(all_items, 4)
@@ -80,6 +84,7 @@ def scout_store_new(request):
 
 @login_required()
 def scout_store_used(request):
+
     all_used_items = UsedItem.objects.all()
     paginator = Paginator(all_used_items, 3)
     page_number = request.GET.get('page')
@@ -102,6 +107,7 @@ def orders_all(request):
     for sent in all_orders:
         if not sent.sent:
             for_sending = True
+
     received = False
     for rec in all_orders:
         if not rec.received and rec.sent:

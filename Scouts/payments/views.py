@@ -14,6 +14,7 @@ UserModel = get_user_model()
 
 @login_required
 def details_payment(request, pk):
+
     payment = Payment.objects.filter(pk=pk).get()
     user = UserModel.objects.get(pk=payment.parent_id)
 
@@ -31,6 +32,7 @@ def details_payment(request, pk):
 
 
 def get_post_order_form(request, form, success_url, template_path, pk=None):
+
     if request.method == 'POST':
         if form.is_valid():
             form.save()
@@ -47,15 +49,18 @@ def get_post_order_form(request, form, success_url, template_path, pk=None):
 @permission_required('payments.add_payment')
 @login_required
 def add_payment(request):
+
     current_user_pk = request.user.pk
     user = Profile.objects.get(pk=current_user_pk)
 
     payment_set = Payment.objects.order_by('-period_billed', 'kid')
+
     if request.method == 'GET':
         form = PaymentCreateForm()
 
     else:
         form = PaymentCreateForm(request.POST, request.FILES)
+
         if form.is_valid():
             payment = form.save(commit=False)
             payment.staff_member = user.get_full_name()
@@ -98,6 +103,7 @@ def add_payment(request):
 @permission_required('payments.add_payment')
 @login_required
 def edit_payment(request, pk):
+
     payment = Payment.objects.filter(pk=pk).get()
     user = UserModel.objects.get(pk=payment.parent_id)
 
@@ -105,6 +111,7 @@ def edit_payment(request, pk):
         form = PaymentEditForm(instance=payment)
     else:
         form = PaymentEditForm(request.POST, request.FILES, instance=payment)
+
         if form.is_valid():
             form.save()
 
@@ -127,6 +134,7 @@ def edit_payment(request, pk):
 
 @login_required
 def confirm_payment(request, pk):
+
     payment = Payment.objects.filter(pk=pk).get()
     user = UserModel.objects.get(pk=payment.parent_id)
 
@@ -134,6 +142,7 @@ def confirm_payment(request, pk):
         form = PaymentConfirmForm(instance=payment)
     else:
         form = PaymentConfirmForm(request.POST, request.FILES, instance=payment)
+
         if form.is_valid():
             payment = form.save(commit=False)
             payment.confirmed_by_user = timezone.now()
@@ -160,6 +169,7 @@ def confirm_payment(request, pk):
 @permission_required('payments.add_payment')
 @login_required
 def confirm_payment_by_staff(request, pk):
+
     payment = Payment.objects.filter(pk=pk).get()
     staff_user = UserModel.objects.get(pk=request.user.pk)
 
@@ -167,6 +177,7 @@ def confirm_payment_by_staff(request, pk):
         form = PaymentConfirmForm(instance=payment)
     else:
         form = PaymentConfirmForm(request.POST, request.FILES, instance=payment)
+
         if form.is_valid():
             payment = form.save(commit=False)
             payment.confirmed_by_staff = timezone.now()
@@ -194,6 +205,7 @@ def confirm_payment_by_staff(request, pk):
 @permission_required('payments.delete_payment')
 @login_required
 def delete_payment(request, pk):
+
     payment = Payment.objects.filter(pk=pk).get()
     payment.delete()
 

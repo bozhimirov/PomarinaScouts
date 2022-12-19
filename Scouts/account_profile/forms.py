@@ -78,6 +78,7 @@ class UserEditForm(DisabledFormMixin, AppUserEditForm):
             },
             help_text="Type phone number in format: 0987654321",
         )
+
         CHOICES = [
             (None, 'Optional / Please choose gender'),
             ('Male', 'Male'),
@@ -173,6 +174,7 @@ class UserCreateForm(AppUserCreationForm):
             phone_number=phone_number,
             user=user,
         )
+
         if commit:
             profile.save()
 

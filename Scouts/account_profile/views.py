@@ -85,6 +85,7 @@ class EditUserView(LoginRequiredMixin, views.UpdateView):
 
 
 class DeleteUserView(LoginRequiredMixin, views.DeleteView):
+
     template_name = 'profile/profile-delete.html'
     model = UserModel
     success_url = reverse_lazy('index')
@@ -98,6 +99,7 @@ class DeleteUserView(LoginRequiredMixin, views.DeleteView):
 
 
 class SignUpView(views.CreateView):
+
     model = Profile
     template_name = 'accounts/register.html'
     form_class = UserCreateForm

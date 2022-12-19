@@ -21,6 +21,7 @@ class OrderAdmin(admin.ModelAdmin):
         'sent',
         'received',
     )
+
     list_filter = (
         'category',
         'publication_date',
@@ -32,6 +33,7 @@ class OrderAdmin(admin.ModelAdmin):
         'size',
         'gender',
     )
+
     ordering = (
         '-publication_date',
         'place_to_deliver',

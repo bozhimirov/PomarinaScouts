@@ -1,0 +1,22 @@
+WARNING 2022-12-18 12:42:45,225 base 16356 5320 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 12:42:48,297 base 16356 2760 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 12:42:51,020 base 16356 2760 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 12:42:52,197 base 16356 2760 Session data corrupted  base.py 108 - decode
+INFO 2022-12-18 13:49:12,479 autoreload 6140 10112 Watching for file changes with StatReloader  autoreload.py 677 - run_with_reloader
+WARNING 2022-12-18 13:49:14,978 base 6140 5008 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:52:21,447 base 6140 6432 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:52:25,830 base 6140 6432 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:52:49,577 base 6140 3964 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:53:22,975 base 6140 10920 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:53:24,615 base 6140 10920 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:53:26,533 base 6140 10920 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:53:35,868 base 6140 15964 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:53:43,119 base 6140 6752 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:54:02,010 base 6140 6752 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:54:20,499 base 6140 6752 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:54:30,063 base 6140 6752 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:54:40,027 base 6140 6752 Session data corrupted  base.py 108 - decode
+WARNING 2022-12-18 13:55:02,296 base 6140 6752 Session data corrupted  base.py 108 - decode
+DEBUG 2022-12-18 13:57:22,354 connectionpool 6140 6752 Starting new HTTPS connection (1): api.cloudinary.com:443  connectionpool.py 1003 - _new_conn
+DEBUG 2022-12-18 13:57:23,980 connectionpool 6140 6752 https://api.cloudinary.com:443 "POST /v1_1/dyejuigwz/image/upload HTTP/1.1" 200 None  connectionpool.py 456 - _make_request
+INFO 2022-12-19 15:23:53,708 autoreload 12352 10052 Watching for file changes with StatReloader  autoreload.py 677 - run_with_reloader

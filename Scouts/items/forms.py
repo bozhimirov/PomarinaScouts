@@ -5,6 +5,7 @@ from Scouts.items.models import Item, UsedItem
 
 
 class ItemBaseForm(forms.ModelForm):
+
     location = forms.CharField(
         required=False,
         widget=forms.TextInput(

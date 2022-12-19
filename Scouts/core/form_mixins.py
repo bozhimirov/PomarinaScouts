@@ -1,9 +1,11 @@
 class DisabledFormMixin:
+
     disabled_attr_name = 'readonly'
     disabled_fields = ()
     fields = {}
 
     def _disable_fields(self):
+
         if self.disabled_fields == '__all__':
             fields = self.fields.keys()
         else:

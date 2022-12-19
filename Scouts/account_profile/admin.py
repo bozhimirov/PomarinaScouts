@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin, get_user_model
-
 from Scouts.account_profile.forms import UserCreateForm
 from Scouts.account_profile.models import Profile
 
@@ -43,12 +42,14 @@ class ProfileAdmin(auth_admin.UserAdmin):
             },
         ),
     )
+
     fieldsets = (
         (None,
          {
              'fields': ()
          }
          ),
+
         (
             'Personal info',
             {
@@ -62,6 +63,7 @@ class ProfileAdmin(auth_admin.UserAdmin):
             }
         ),
     )
+
     filter_horizontal = (
 
     )
