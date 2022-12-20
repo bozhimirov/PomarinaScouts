@@ -9,15 +9,18 @@
 
         <h4>
             You have successfully registered {{ user_self }}!
+
             <div>
                 You are part of the Scout Adventure now. Enjoy!
             </div>
+
         </h4>
     {% endif %}
 
 {#    redirect to index after 3 secs#}
     <br>
     <img src="{% static '/images/logo.png' %}" alt="scout" width="500px">
+
     <script>
        setTimeout(function(){
             window.location.href = "{% url 'index' %}";

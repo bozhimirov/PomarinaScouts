@@ -5,57 +5,21 @@
     <div class="container">
         <div class="col-9">
             <section id="catalogue">
-                <section id="car-details">
-                {% if request.user.is_authenticated %}
-                    {% if request.user.is_superuser or request.user|has_group:"marketplace"  %}
-                        {% if for_sending %}
-                            <h1>
-                                For confirmation
-                            </h1>
-                        {% endif %}
 
-                        {% for order in all_orders  %}
-                            {% if not order.sent  %}
-                                <h4>
-                                    <a href=" {% url 'details order' pk=order.pk %}">
-                                    Quantity: {{ order.quantity }}
-                                    Category: {{ order.category }}
-                                    Item Name:  {{ order.item_name }} {{ payment.kid.last_name }}
-                                    Age: {{ order.ages }}
-                                    {% if order.size %}
-                                        Size: {{ order.size }}
-                                    {% endif %}
-                                    {% if order.gender %}
-                                        Gender: {{ order.gender }}
-                                    {% endif %}
-                                    Place to deliver: {{ order.place_to_deliver }}
-                                    {% if order.comment %}
-                                        Comment: {{ order.comment }}
-                                    {% endif %}
-{#                                    User ID:{{ order.user.pk }}#}
-                                    {% for user in all_users %}
-                                            {% if user.pk == order.user.pk %}
-                                                User:{{ user.get_full_name }}
-                                            {% endif %}
-                                    {% endfor %}
-                                        <br><br>
-                                    </a>
-                                </h4>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                {% endif %}
-                </section>
                 <section id="car-details">
+
                 <h1>
                     Scout Store
                 </h1>
+
                 </section>
                 <div class="car-card">
+
                     <div class="image-wrap">
                         <!-- item image -->
                         <img src="{%  static 'images/new.jpg' %}" alt=" new products ">
                     </div>
+
                 <!-- item count -->
                     <h3>
                         Total items: {{ count_of_items }}
@@ -67,14 +31,19 @@
                             Shop New Items
                         </a>
                     </div>
+
                 </div>
+
                 {% if request.user.is_authenticated %}
                 <div class="car-card">
+
                     <div class="image-wrap">
                         <!-- item image -->
                         <img src="{% static 'images/used.jpg' %}" alt="used products">
                     </div>
+
                 <!-- item count -->
+
                     <h3>
                         Total items: {{ count_of_used_items }}
                     </h3>
@@ -85,47 +54,10 @@
                             Trade Used Items
                         </a>
                     </div>
+
                 </div>
                 {% endif %}
-<section id="car-details"><br>
-{% if received %}
-        <h1>
-            For finishing
-        </h1>
-{% endif %}
 
-{% for order in all_orders  %}
-    {% if order.sent  %}
-        {% if not order.received %}
-        <h4>
-            <a href=" {% url 'details order' pk=order.pk %}">
-            Quantity: {{ order.quantity }}
-            Category: {{ order.category }}
-            Item Name:  {{ order.item_name }} {{ payment.kid.last_name }}
-            Age: {{ order.ages }}
-            {% if order.size %}
-                Size: {{ order.size }}
-            {% endif %}
-            {% if order.gender %}
-                Gender: {{ order.gender }}
-            {% endif %}
-            Place to deliver: {{ order.place_to_deliver }}
-            {% if order.comment %}
-                Comment: {{ order.comment }}
-            {% endif %}
-            User ID:{{ order.user.pk }}
-    {% for user in all_users %}
-        {% if user.pk == order.user.pk %}
-            User:{{ user.get_full_name }}
-        {% endif %}
-    {% endfor %}
-            <br><br>
-            </a>
-        </h4>
-        {% endif %}
-    {% endif %}
-{% endfor %}
-</section>
             </section>
         </div>
     </div>

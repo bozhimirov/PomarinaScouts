@@ -4,9 +4,11 @@
     <div class="container">
         <div class="col-9">
             <section id="catalogue">
+
                 <h1>
                     Scout Trade Used Items
                 </h1>
+
                 {% for item in all_used_items %}
                     <div class="car-card">
                         <div class="image-wrap">
@@ -17,19 +19,23 @@
                         <h3>
                             {{ item.category }}
                         </h3>
+
                         <div class="details-buttons">
                         <!-- item details button if staff-->
                         <a href="{% url 'details used item' item.pk %}" class="details-btn">
                             Details
                         </a>
                         </div>
+
                     </div>
                 {% endfor %}
             </section>
         </div>
     </div>
+
     {% if page_obj.has_other_pages %}
         <ul class="pagination">
+
             {% if page_obj.has_previous %}
                 <li>
                     <a href="?page={{ page_obj.previous_page_number }}">
@@ -37,14 +43,17 @@
                     </a>
                 </li>
             {% else %}
+
                 <li class="disabled">
                     <span>
                         &laquo;
                     </span>
                 </li>
             {% endif %}
+
             {% for i in page_obj.paginator.page_range %}
                 {% if page_obj.number == i %}
+
                     <li class="active">
                         <span>
                             {{ i }}
@@ -54,25 +63,31 @@
                         </span>
                     </li>
                 {% else %}
+
                     <li>
                         <a href="?page={{ i }}">
                             {{ i }}
                         </a>
                     </li>
+
                 {% endif %}
             {% endfor %}
+
             {% if page_obj.has_next %}
+
                 <li>
                     <a href="?page={{ page_obj.next_page_number }}">
                     &raquo;
                     </a>
                 </li>
             {% else %}
+
                 <li class="disabled">
                     <span>
                         &raquo;
                     </span>
                 </li>
+
             {% endif %}
         </ul>
     {% endif %}

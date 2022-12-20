@@ -7,32 +7,44 @@
     <!-- create profile form -->
     <section id="register-page" class="content auth">
         <form id="register" method="post" action="{% url 'login user' %}">
+
             <div class="container">
                 <div class="brand-logo"></div>
+
                 <h1>
                     Pomarina Scouts
                 </h1>
+
                 {% if form.errors %}
+
                     {% for key,value in form.errors.items %}
                       {{ value|escape }}
                     {% endfor %}
 
                 {% endif %}
+
                 Email:
                 {{ form.username|placeholder:'Email: ' }}
+
                 <div></div>
                 Password:
                 {{ form.password|placeholder:'Password: ' }}
+
                 <input type="hidden" name="next" value="{{ next }}">
+
                 {% csrf_token %}
+
                 <input class="btn submit" type="submit" value="Log in">
+
             </div>
         </form>
         <div>
             <p>Don't have an account?
+
                 <a href="{% url 'register user' %}">
                     Register
                 </a>
+
             </p>
         </div>
     </section>

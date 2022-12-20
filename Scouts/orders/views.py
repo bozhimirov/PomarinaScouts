@@ -141,7 +141,7 @@ def send_order(request, pk):
             order.save()
             form.save()
 
-            return redirect('scout store')
+            return redirect('orders all')
 
     context = {
         'form': form,
@@ -176,7 +176,7 @@ def receive_order(request, pk):
             order.save()
             form.save()
 
-            return redirect('scout store')
+            return redirect('orders all')
 
     context = {
         'form': form,

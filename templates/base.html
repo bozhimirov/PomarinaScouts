@@ -52,9 +52,9 @@
                     Admin
                 </a>
                 {% if request.user.is_superuser or request.user|has_group:"marketplace" %}
-{#                    <a href="{% url 'orders all' %}">#}
-{#                        Orders#}
-{#                    </a>#}
+                    <a href="{% url 'orders all' %}">
+                        Orders
+                    </a>
                     <a href="{% url 'add item' %}">
                         Add Item
                     </a>
