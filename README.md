@@ -38,7 +38,7 @@ Register Page
 
 Scout Marketplace
 When logged in users can purchase new items and can access used items for trade.
-![image](https://user-images.githubusercontent.com/101798668/208160939-ec4256d7-c797-4f2b-ac38-ef3a56900764.png)
+![image](https://user-images.githubusercontent.com/101798668/208758346-b71924c5-9532-4ca8-9df2-6f052a47f4d8.png)
 New items are ordanized in categories
 ![image](https://user-images.githubusercontent.com/101798668/208161075-dca55a04-8441-481d-b5b8-206fe6e65893.png)
 And users can make an order
