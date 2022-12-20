@@ -77,7 +77,7 @@ Pending Payments are displayed on top of Profile Page
  ![image](https://user-images.githubusercontent.com/101798668/208168046-1a19d68d-f10c-492d-acdd-5cd8c4d675e3.png)
 
 Also The website has Customized Admin Panel
-![image](https://user-images.githubusercontent.com/101798668/208169277-687f88eb-f137-4f49-8839-6b425dd13ac3.png)
+![image](https://user-images.githubusercontent.com/101798668/208757934-1d5f4e4e-3782-47cb-9a9e-424f2f2ffdef.png)
 
 
 
