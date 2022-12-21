@@ -38,7 +38,7 @@ Register Page
 
 Scout Marketplace
 When logged in users can purchase new items and can access used items for trade.
-![image](https://user-images.githubusercontent.com/101798668/208160939-ec4256d7-c797-4f2b-ac38-ef3a56900764.png)
+![image](https://user-images.githubusercontent.com/101798668/208758346-b71924c5-9532-4ca8-9df2-6f052a47f4d8.png)
 New items are ordanized in categories
 ![image](https://user-images.githubusercontent.com/101798668/208161075-dca55a04-8441-481d-b5b8-206fe6e65893.png)
 And users can make an order
@@ -77,7 +77,7 @@ Pending Payments are displayed on top of Profile Page
  ![image](https://user-images.githubusercontent.com/101798668/208168046-1a19d68d-f10c-492d-acdd-5cd8c4d675e3.png)
 
 Also The website has Customized Admin Panel
-![image](https://user-images.githubusercontent.com/101798668/208169277-687f88eb-f137-4f49-8839-6b425dd13ac3.png)
+![image](https://user-images.githubusercontent.com/101798668/208757934-1d5f4e4e-3782-47cb-9a9e-424f2f2ffdef.png)
 
 
 
