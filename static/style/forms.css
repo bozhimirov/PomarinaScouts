@@ -12,6 +12,17 @@
     border-radius: 70px 0 70px;
 }
 
+#invoice-page {
+    position: relative;
+    width: 1550px;
+    height: auto;
+    background: transparent;
+    text-align: center;
+    padding: 10px;
+    border: 3px solid #E2E8EA;
+    border-radius: 70px 0 70px;
+}
+
 .container {
     padding: 40px;
 }

@@ -17,11 +17,18 @@ def details_payment(request, pk):
 
     payment = Payment.objects.filter(pk=pk).get()
     user = UserModel.objects.get(pk=payment.parent_id)
+    profile = Profile.objects.get(pk=payment.parent_id)
+    # self_payments = Payment.objects.filter(parent_id=user.pk)
+    # self_unpaid = []
+    # for payments in self_payments:
+    #     if not payments.confirmed_by_staff:
+    #         self_unpaid.append(payments)
 
     context = {
         'payment': payment,
         'is_owner': request.user == payment.parent,
         'user': user,
+        'profile': profile,
     }
 
     return render(

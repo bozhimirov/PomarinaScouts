@@ -5,7 +5,7 @@
     <!-- profile details section -->
 
     <!-- create profile form -->
-    <section id="register-page" class="content auth">
+    <section id="invoice-page" class="content auth">
         <form id="register" method="post" enctype="multipart/form-data">
             <div class="container">
 
@@ -30,43 +30,46 @@
                             </h1>
                         {% endif %}
                     {% endif %}
-                <h2>
-                    Kid: {{ payment.kid.first_name }}
-                </h2>
-                <h2>
-                    Type: {{ payment.model_name }}
-                </h2>
-                <h2>
-                    Tax: {{ payment.tax_per_kid }} lv.
-                </h2>
-                {% if payment.paid %}
-                    <h2>
-                        Generated: {{ payment.generated_date }}
-                    </h2>
-                    <h2>
-                        Status:
-                        {% if payment.paid %}
-                            Paid
-                        {% else %}
-                            Pending
-                        {% endif %}
-                    </h2>
-                    <h2>
-                        Confirmed at:
-                        {% if payment.paid %}
-                            {{ payment.confirmed_by_staff }}
-                        {% else %}
-                            Not confirmed
-                        {% endif %}
-                    </h2>
-                {% endif %}
-                <h2>
-                    Payment details:
-                    Pomarina Scouts PNO
-                </h2>
-                <h2>
-                    IBAN: BG1000PSBN80009000100
-                </h2>
+{#                <h2>#}
+{#                    Kid: {{ payment.kid.first_name }}#}
+{#                </h2>#}
+{#                <h2>#}
+{#                    Type: {{ payment.model_name }}#}
+{#                </h2>#}
+{#                <h2>#}
+{#                    Tax: {{ payment.tax_per_kid }} lv.#}
+{#                </h2>#}
+{#                {% if payment.paid %}#}
+{#                    <h2>#}
+{#                        Generated: {{ payment.generated_date }}#}
+{#                    </h2>#}
+{#                    <h2>#}
+{#                        Status:#}
+{#                        {% if payment.paid %}#}
+{#                            Paid#}
+{#                        {% else %}#}
+{#                            Pending#}
+{#                        {% endif %}#}
+{#                    </h2>#}
+{#                    <h2>#}
+{#                        Confirmed at:#}
+{#                        {% if payment.paid %}#}
+{#                            {{ payment.confirmed_by_staff }}#}
+{#                        {% else %}#}
+{#                            Not confirmed#}
+{#                        {% endif %}#}
+{#                    </h2>#}
+{#                {% endif %}#}
+{#                <h2>#}
+{#                    Payment details:#}
+{#                    Pomarina Scouts PNO#}
+{#                </h2>#}
+{#                <h2>#}
+{#                    IBAN: BG1000PSBN80009000100#}
+{#                </h2>#}
+                {% include "payments/invoice.html" %}
+
+
                 <div class="edit-delete-shop-btns">
                     {% if not payment.confirmed_by_user %}
                         {% if request.user|has_group:"accountant" or request.user.is_superuser %}
@@ -100,6 +103,9 @@
                                      alt="edit button" width="40px" title="Return to profile">
                         </a>
                     {% endif %}
+                    <a class="btn submit" href="javascript:history.back()" type="submit">
+                        Go Back
+                    </a>
                 </div>
             </div>
         </form>
