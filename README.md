@@ -71,7 +71,7 @@ Kids have their details page with kids details
 Pending Payments are displayed on top of Profile Page
 ![image](https://user-images.githubusercontent.com/101798668/208167483-6dc2d34d-ed9f-4dd4-818e-70f0bd778232.png)
  When payment is made by bank and user and staff confirm payment
- ![image](https://user-images.githubusercontent.com/101798668/208167615-437ad885-a23a-4b19-b488-9370c77f6a87.png)
+ ![image](https://user-images.githubusercontent.com/101798668/208915065-cc3210a9-d5c3-4f72-a5bb-b6a1d2b71706.png)
  
  There is archive on payments made on the bottom pf the Profile Page
  ![image](https://user-images.githubusercontent.com/101798668/208168046-1a19d68d-f10c-492d-acdd-5cd8c4d675e3.png)
