@@ -81,6 +81,10 @@
                                 <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
                                      alt="bin button" width="40px" title="Delete Payment">
                             </a>
+                            <a href="{% url 'confirm payment manually' payment.pk %}">
+                                <img class="bin-img" src="{% static 'images/hand.png' %}"
+                                     alt="bin button" width="40px" title="Confirm Payment Manually">
+                            </a>
                         {% else %}
                             {%  if is_owner %}
                                 <a href="{% url 'confirm payment' payment.pk %}">
@@ -103,8 +107,10 @@
                                      alt="edit button" width="40px" title="Return to profile">
                         </a>
                     {% endif %}
-                    <a class="btn submit" href="javascript:history.back()" type="submit">
-                        Go Back
+
+                    <a href="javascript:history.back()">
+                        <img class="edit-img" src="{% static 'images/back.png' %}"
+                                     alt="back button" width="35px" title="Go Back">
                     </a>
                 </div>
             </div>

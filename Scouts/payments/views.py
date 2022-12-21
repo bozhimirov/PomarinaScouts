@@ -5,7 +5,7 @@ from django.utils import timezone
 
 from Scouts.account_profile.models import Profile
 from Scouts.core.utils import kids_info, calculate_month, calculate_year
-from Scouts.payments.forms import PaymentCreateForm, PaymentEditForm, PaymentConfirmForm
+from Scouts.payments.forms import PaymentCreateForm, PaymentEditForm, PaymentConfirmForm, PaymentConfirmUserForm
 from Scouts.payments.models import Payment
 from django.contrib.auth.decorators import permission_required
 
@@ -113,6 +113,7 @@ def edit_payment(request, pk):
 
     payment = Payment.objects.filter(pk=pk).get()
     user = UserModel.objects.get(pk=payment.parent_id)
+    profile = Profile.objects.get(pk=payment.parent_id)
 
     if request.method == 'GET':
         form = PaymentEditForm(instance=payment)
@@ -128,6 +129,7 @@ def edit_payment(request, pk):
         'form': form,
         'pk': pk,
         'user': user,
+        'profile': profile,
         'payment': payment,
         'is_owner': payment.staff_member == request.user,
     }
@@ -144,6 +146,7 @@ def confirm_payment(request, pk):
 
     payment = Payment.objects.filter(pk=pk).get()
     user = UserModel.objects.get(pk=payment.parent_id)
+    profile = Profile.objects.get(pk=payment.parent_id)
 
     if request.method == 'GET':
         form = PaymentConfirmForm(instance=payment)
@@ -162,6 +165,7 @@ def confirm_payment(request, pk):
         'form': form,
         'pk': pk,
         'user': user,
+        'profile': profile,
         'payment': payment,
         'is_owner': payment.parent == request.user,
     }
@@ -179,6 +183,7 @@ def confirm_payment_by_staff(request, pk):
 
     payment = Payment.objects.filter(pk=pk).get()
     staff_user = UserModel.objects.get(pk=request.user.pk)
+    profile = Profile.objects.get(pk=payment.parent_id)
 
     if request.method == 'GET':
         form = PaymentConfirmForm(instance=payment)
@@ -199,12 +204,50 @@ def confirm_payment_by_staff(request, pk):
         'pk': pk,
         'staff_user': staff_user,
         'payment': payment,
+        'profile': profile,
         'is_owner': payment.staff_member == request.user,
     }
 
     return render(
         request,
         'payments/payment-confirm-staff.html',
+        context,
+    )
+
+
+@permission_required('payments.add_payment')
+@login_required
+def confirm_payment_manually(request, pk):
+
+    payment = Payment.objects.filter(pk=pk).get()
+    user = UserModel.objects.get(pk=payment.parent_id)
+    profile = Profile.objects.get(pk=payment.parent_id)
+
+    if request.method == 'GET':
+        form = PaymentConfirmUserForm(instance=payment)
+    else:
+        form = PaymentConfirmUserForm(request.POST, request.FILES, instance=payment)
+
+        if form.is_valid():
+            payment = form.save(commit=False)
+            payment.confirmed_by_user = timezone.now()
+            payment.save()
+            form.save()
+
+            return redirect('add payment')
+
+    context = {
+        'form': form,
+        'pk': pk,
+        'user': user,
+        'payment': payment,
+        'profile': profile,
+        'is_owner': payment.parent == request.user,
+    }
+
+    return render(
+        request,
+        'payments/payment-confirm.html',
         context,
     )
 

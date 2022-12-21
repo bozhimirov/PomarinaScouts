@@ -3,23 +3,13 @@
 {% block content %}
 
     <!-- edit car form -->
-    <section id="create-page" class="auth">
+    <section id="invoice-page" class="auth">
         <form id="create" method="post" >
             <div class="container">
                 <h1>
                     Confirm Payment
                 </h1>
-                <h2>
-                    Name:{{ payment.kid.first_name }} <br>
-                    Period: {{ payment.period_billed }}<br>
-                    Total sum: {{ payment.tax_per_kid|floatformat:2 }} lv.<br>
-                    <div>
-                    </div>
-                    Money send to:<br>
-                    Pomarina Scouts PNO <br>
-                    IBAN:<br>
-                    BG1000PSBN80009000100
-                </h2>
+                {% include "payments/invoice.html" %}
                 {% if form.errors %}
                     {{ value|escape }}
                     {{form.non_field_errors}}

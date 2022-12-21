@@ -5,6 +5,26 @@
 
     <div id="car-details">
         {% if is_owner %}
+{#            {% if request.user.is_authenticated %}#}
+{#                {% if request.user.is_superuser or request.user|has_group:"marketplace"  %}#}
+{#                    {% if for_sending %}#}
+{#                        <h1>#}
+{#                            <div style="color: red">You have ORDERS to pack!!!</div>#}
+{#                        </h1>#}
+{#                    {% endif %}#}
+{#                {% endif %}#}
+{#            {% endif %}#}
+{##}
+{#            {% if request.user.is_authenticated %}#}
+{#                {% if request.user.is_superuser or request.user|has_group:"accountant"  %}#}
+{#                    {% if for_payment %}#}
+{#                        <h1>#}
+{#                            <div style="color: red">You have PAYMENTS to check!!!</div>#}
+{#                        </h1>#}
+{#                    {% endif %}#}
+{#                {% endif %}#}
+{#            {% endif %}#}
+
             {%  for payment in object.user.payment_parent.all %}
                 {% if not payment.paid %}
                     <h3>
