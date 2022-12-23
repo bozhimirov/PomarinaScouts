@@ -13,10 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 
 from django.urls import path, include
 
+from Scouts import settings
 from Scouts.core.exception_handler import custom_handler500, page_not_found_handler
 
 urlpatterns = [
@@ -28,8 +30,8 @@ urlpatterns = [
     path('marketplace/', include('Scouts.items.urls')),
     path('orders/', include('Scouts.orders.urls')),
     path('payments/', include('Scouts.payments.urls')),
-]
-# ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# ]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = page_not_found_handler
 handler500 = custom_handler500

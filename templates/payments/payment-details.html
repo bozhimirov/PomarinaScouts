@@ -112,6 +112,17 @@
                         <img class="edit-img" src="{% static 'images/back.png' %}"
                                      alt="back button" width="35px" title="Go Back">
                     </a>
+
+                    <a href="{% url 'generate pdf' payment.pk %}">
+                        <img class="edit-img" src="{% static 'images/pdf.png' %}"
+                                     alt="export pdf" width="35px" title="Generate PDF">
+                    </a>
+
+                    <a href="{% url 'preview pdf' payment.pk %}">
+                        <img class="edit-img" src="{% static 'images/file.png' %}"
+                                     alt="export pdf" width="35px" title="Preview PDF">
+                    </a>
+
                 </div>
             </div>
         </form>

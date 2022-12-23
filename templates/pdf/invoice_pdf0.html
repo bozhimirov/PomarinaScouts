@@ -1,10 +1,11 @@
 {% load static %}
 
 
-{#<!DOCTYPE html>#}
-{#<html>#}
+<!DOCTYPE html>
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
+        <link rel="stylesheet" href="{% static '/style/style.css' %}"/>
 		<title>Invoice</title>
 
 		<style>
@@ -97,7 +98,7 @@
 			}
 
 			.invoice-box.rtl table tr td:nth-child(2) {
-				text-align: left;
+				text-align: right;
 			}
 		</style>
 	</head>
@@ -110,7 +111,7 @@
 						<table>
 							<tr>
 								<td class="title">
-									<img src="{% static '/images/orel.jpg' %}" style="width: 20%; max-width: 300px"  alt="pomarina logo"/>
+									<img src="{{img}}" style="width: 150px; max-width: 300px"  alt="logo"/>
 								</td>
 
 								<td>
@@ -146,32 +147,55 @@
 				</tr>
 
 				<tr class="heading">
-					<td>Payment Method</td>
-
-					<td>Bank Payment</td>
+                    <td colspan="2">
+						<table>
+							<tr>
+                                <td>Payment Method</td>
+                                <td>Bank Payment</td>
+                            </tr>
+                        </table>
+					</td>
 				</tr>
 
 				<tr class="details">
+                    <td colspan="2">
+						<table>
+							<tr>
 					<td>Pomarina Bank LTD<br>
                     Shumen street 1000, Shumen, Bulgaria<br>
                     IBAN: BG00PSCB00998877665544332211<br>
                     BIC: PSBG</td>
 
 {#					<td>1000</td>#}
+                            </tr>
+                        </table>
+					</td>
 				</tr>
 
 				<tr class="heading">
-					<td>Item</td>
+                    <td colspan="2">
+						<table>
+							<tr>
+                                <td>Item</td>
 
-					<td>Price</td>
+                                <td>Price</td>
+				            </tr>
+                        </table>
+					</td>
 				</tr>
 {#                {%  for invoice in invoices %}#}
 
 				<tr class="item">
+                    <td colspan="2">
+						<table>
+							<tr>
 					<td>{{ payment.model_name}} for {{ payment.kid.first_name }} for {{ payment.period_billed }}</td>
 {#					<td>Monthly Tax</td> #}
 
 					<td>{{payment.tax_per_kid}} lv.</td>
+				</tr>
+                        </table>
+					</td>
 				</tr>
 {#                {% endfor %}#}
 {#				<tr class="item">#}
@@ -187,13 +211,17 @@
 {#				</tr>#}
 
 				<tr class="total">
-					<td></td>
+                    <td colspan="2">
+						<table>
+							<tr>
+					            <td> </td>
 
-					<td>Total: {{payment.tax_per_kid}} lv.</td>
+					            <td>Total: {{payment.tax_per_kid}} lv.</td>
+				            </tr>
+                        </table>
+					</td>
 				</tr>
 			</table>
 		</div>
 	</body>
-{#</html>#}
-
-{#{% endblock %}#}
+</html>
