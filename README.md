@@ -75,6 +75,8 @@ Pending Payments are displayed on top of Profile Page
  
  There is archive on payments made on the bottom pf the Profile Page
  ![image](https://user-images.githubusercontent.com/101798668/208168046-1a19d68d-f10c-492d-acdd-5cd8c4d675e3.png)
+Users can preview or download pdf invoice of the payment.
+![image](https://user-images.githubusercontent.com/101798668/209343876-ea7976ed-e93e-40c4-850d-0cef869f0925.png)
 
 Also The website has Customized Admin Panel
 ![image](https://user-images.githubusercontent.com/101798668/208757934-1d5f4e4e-3782-47cb-9a9e-424f2f2ffdef.png)
