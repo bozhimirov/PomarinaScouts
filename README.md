@@ -71,10 +71,12 @@ Kids have their details page with kids details
 Pending Payments are displayed on top of Profile Page
 ![image](https://user-images.githubusercontent.com/101798668/208167483-6dc2d34d-ed9f-4dd4-818e-70f0bd778232.png)
  When payment is made by bank and user and staff confirm payment
- ![image](https://user-images.githubusercontent.com/101798668/208915065-cc3210a9-d5c3-4f72-a5bb-b6a1d2b71706.png)
+ ![image](https://user-images.githubusercontent.com/101798668/209344292-4a86276c-1c45-4e23-bb78-f9877c0058da.png)
  
  There is archive on payments made on the bottom pf the Profile Page
  ![image](https://user-images.githubusercontent.com/101798668/208168046-1a19d68d-f10c-492d-acdd-5cd8c4d675e3.png)
+Users can preview or download pdf invoice of the payment.
+![image](https://user-images.githubusercontent.com/101798668/209343876-ea7976ed-e93e-40c4-850d-0cef869f0925.png)
 
 Also The website has Customized Admin Panel
 ![image](https://user-images.githubusercontent.com/101798668/208757934-1d5f4e4e-3782-47cb-9a9e-424f2f2ffdef.png)
